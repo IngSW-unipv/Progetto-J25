@@ -1,5 +1,4 @@
 package modello.creazionePanel;
-
 import modello.Panelista;
 
 import java.time.LocalDate;
