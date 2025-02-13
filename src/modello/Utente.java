@@ -1,13 +1,21 @@
 package modello;
 
-import modello.prenotazionePanel.IObserver;
+import modello.email.IObserver;
+import static modello.email.EmailSender.sendEmail;
 
 public class Utente implements IObserver {
+	private String email;
+
+	public Utente(String email) {
+		this.email = email;
+	}
 
 	@Override
-	public void aggiorna(String message) {
-		System.out.println(message);
-		
+	public void aggiorna(String subject, String body) {
+		sendEmail(email,subject, body);
 	}
+
+
+
 
 }
