@@ -1,10 +1,7 @@
 package modello;
 
-public class Panelista {
+public class Panelista extends Utente {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 }

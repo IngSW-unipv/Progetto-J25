@@ -1,4 +1,4 @@
-package modello.pubblicazionePanel;
+package modello.prenotazionePanel;
 
 public class SystemPrenotazione {
 

@@ -1,5 +1,7 @@
-package modello.pubblicazionePanel;
+package modello.prenotazionePanel;
 import java.util.HashSet;
+
+import modello.Utente;
 
 
 public class NotificaMessage implements INotifica {
@@ -34,9 +36,5 @@ public class NotificaMessage implements INotifica {
 		
 	}
 
-	
-	public static void main(String[] args) {
-		
 
-	}
 }

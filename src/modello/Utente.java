@@ -1,4 +1,6 @@
-package modello.pubblicazionePanel;
+package modello;
+
+import modello.prenotazionePanel.IObserver;
 
 public class Utente implements IObserver {
 
