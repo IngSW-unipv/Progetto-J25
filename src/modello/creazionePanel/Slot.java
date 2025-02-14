@@ -17,7 +17,10 @@ public class Slot {
         prenotati = new ArrayList<>();
     }
     public ArrayList<Panelista> getPrenotati() {
-        return prenotati;
+        
+    	return prenotati;
+    	
+   
     }
 
     public LocalDate getData() {
@@ -26,6 +29,8 @@ public class Slot {
     public LocalTime getTime() {
         return orarioInizio;
     }
+
+    
 
 
 }
