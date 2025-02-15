@@ -18,16 +18,4 @@ public class FactoryUtente {
 		
 	}
 
-	public static void main(String[] args) {
-		
-	Utente u1 = FactoryUtente.CreaUtente(TipoUtente.PANELISTA, "tommaso.ghisolfi003@gmail.com", "Tommaso");
-	Utente u2 = FactoryUtente.CreaUtente(TipoUtente.PANELLEADER, "tommaso.ghisolfi003@gmail.com", "Tommaso");
-	Utente u3 = FactoryUtente.CreaUtente(TipoUtente.INSACCATORE, "tommaso.ghisolfi003@gmail.com", "Tommaso");
-	
-	System.out.println(u1.getClass());
-	System.out.println(u2.getClass());
-	System.out.println(u3.getClass());
-
-	}
-
 }
