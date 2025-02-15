@@ -14,7 +14,7 @@ public class SystemPubblicazionePanel {
     }
 
     public void creaSondaggio(int numeroCampioni, TipoCreaSondaggio tipoCreaSondaggio, int numeroMacchinari) {
-        this.sondaggio = new Sondaggio();
+        this.sondaggio = new Sondaggio(3);//3 è l'id
         numeroCampioni /= numeroMacchinari;  //tengo conto della presenza del numero di macchinari utilizzabili
 
         switch(tipoCreaSondaggio){
