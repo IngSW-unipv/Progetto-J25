@@ -1,31 +1,67 @@
 package modello.prenotazionePanel;
 
-import java.time.LocalDate;
-
-import modello.creazionePanel.Slot;
-
+import modello.Panelista;
+import modello.creazionePanel.*;
 import java.util.*;
 
-import modello.Panelista;
-
 public class SystemPrenotazione {
+	
+	ArrayList <Sondaggio> sondaggi;
 
 	public SystemPrenotazione() {
 		
+		sondaggi = new ArrayList<>();
 		
 	}
 	
 	
-	public void prenotazione(Slot s) {
-		
-		LocalDate ld = s.getData();
-		ArrayList <Panelista> prenotati= s.getPrenotati();
+	public void prenotazione(Slot s, Panelista p) {
 		
 		
-		//mi serve il nome del panelista che si è prenotato
-		//ma per far ciò ho bisogno di fare query al database
-		//oppure aggiungere un metodo in slot che permetta,
-		//per ora, di aggiungere panelisti all?attributo prenotati
+		s.aggiungiPrenotato(p);
+		
+		/*questo metodo aggiunge alla lista di slot
+		 * le persone che si sono prenotate
+		 */
+	
+	}
+	
+	public void cancellazione(Slot s, Panelista p) {
+		
+		s.rimuoviPrenotato(p);
+		
+		/*questo metodo toglie dalla lista di slot
+		 * le persone che si sono prenotate ma che
+		 * hanno disdetto 
+		 */
+		
+	}
+	
+	public void prenotati(Slot s) {
+		
+		for(Panelista p: s.getPrenotati()) {
+			
+			System.out.println(p.getNome());
+		}
+		
+		/*questo metodo restituisce il nome delle persone
+		 * che si sono prenotate, nell'app ci sarà una sezione
+		 * apposita dove si potranno visualizzare i nomi
+		 */
+		
+	}
+	
+	public int numeroPrenotati(Slot s) {
+		
+		if(s.getPrenotati().size() < 0) {
+			
+			throw new IllegalArgumentException("Errore");
+		}
+		
+		return s.getPrenotati().size();
+		/*questo metodo restituisce il numero
+		 * delle persone che si sono prenotate
+		 */
 	}
 	
 	
