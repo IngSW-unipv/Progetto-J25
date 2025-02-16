@@ -41,7 +41,7 @@ public class SystemPubblicazionePanel {
                         startTime = startTime.plusMinutes(60);
                     }
                     Slot newslot = new Slot(LocalDate.now().plusDays(1), startTime);
-                    sondaggio.aggiungiSlot(newslot);
+                    sondaggio.aggiungiSlot(startTime, newslot);
                     numeroCampioni = numeroCampioni - (10 * numeroMacchinari);
                     startTime = startTime.plusMinutes(120);
                 }
@@ -72,13 +72,13 @@ public class SystemPubblicazionePanel {
 
     public void creazionePanel(){
         int i;
-        for (Map.Entry<LocalTime, Slot> entry : sondaggio.getSlots().entrySet()){
+        /*for (Map.Entry<LocalTime, Slot> entry : sondaggio.getSlots().entrySet()){
             for(i=0; i<numeroMacchinari; i++){
                  // devo capire come gestire la situazione dei macchinari come
                 // faccio a capire quali sono attivi e quali no?
 
             }
-        }
+        }*/
     }
 
     public void pubblicazionePanel(){
