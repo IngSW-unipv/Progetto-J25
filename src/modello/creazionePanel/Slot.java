@@ -30,6 +30,15 @@ public class Slot {
         return orarioInizio;
     }
 
+    public void aggiungiPrenotato(Panelista p) {
+    	
+    	prenotati.add(p);
+    }
+    
+    public void rimuoviPrenotato(Panelista p) {
+    	
+    	prenotati.remove(p);
+    }
     
 
 

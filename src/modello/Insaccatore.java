@@ -24,4 +24,11 @@ public class Insaccatore extends Panelista {
 	//METODI UTILI: 
 	
 	
+	public Insaccatore(String email, String nome) {
+		super(email, nome);
+		
+	}
+
+	
+	
 }
