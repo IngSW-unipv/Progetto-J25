@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Sondaggio {
+	private int id;
     private ArrayList<Slot> slot;
     private boolean approvato;
     private LocalTime oraInizio; // queste due ore sono utili per capire se i
@@ -11,9 +12,10 @@ public class Sondaggio {
     // in caso contrario non sarà caricato dal database sui sondaggi visualizzabili dai panelisti.
 
 
-    public Sondaggio() {
+    public Sondaggio(int id) {
         this.slot = new ArrayList<>();
         this.approvato = false;
+        this.id = id;
     }
 
     public ArrayList<Slot> getSondaggio() {
