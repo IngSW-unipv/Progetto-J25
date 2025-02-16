@@ -46,8 +46,8 @@ public class EmailSender {
     }
 // TEST DI NOTIFICAMESSAGE
     public static void main(String[] args) {
-        Utente utente1 = new Utente("khawlaouaadou1@gmail.com");
-        Utente utente2 = new Utente("khawla.ouaadou01@universitadipavia.it");
+        Utente utente1 = new Utente("khawlaouaadou1@gmail.com", "khawla");
+        Utente utente2 = new Utente("khawla.ouaadou01@universitadipavia.it", "khawla");
         ArrayList<Utente> utentes = new ArrayList<>();
         utentes.add(utente1);
         utentes.add(utente2);
