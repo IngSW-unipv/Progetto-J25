@@ -19,7 +19,7 @@ public class Sondaggio {
         this.approvato = false;
     }
 
-    public Map<LocalTime, Slot> getSondaggio() {
+    public Map<LocalTime, Slot> getSlots() {
         return slot;
     }
      public void aggiungiSlot(LocalTime time, Slot slot ){
