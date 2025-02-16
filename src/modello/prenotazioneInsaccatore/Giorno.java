@@ -2,13 +2,16 @@ package modello.prenotazioneInsaccatore;
 import java.util.ArrayList;
 
 public class Giorno {
-	private eunum nome;
+	private GiorniSettimana tipo;
 	private ArrayList<Turno> turni;
 	
-	
-	public Giorno() {
-		
+	//COSTRUTTORI:
+	public Giorno(GiorniSettimana tipo, ArrayList<Turno> turni) {
+		this.tipo = tipo;
+		this.turni = turni;
 	}
+	
+	//SETTER GETTER
 	
 	
 }
