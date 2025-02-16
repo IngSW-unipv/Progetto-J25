@@ -41,7 +41,7 @@ public class SystemPubblicazionePanel {
                         startTime = startTime.plusMinutes(60);
                     }
                     Slot newslot = new Slot(LocalDate.now().plusDays(1), startTime);
-                    sondaggio.aggiungiSlot(startTime, newslot);
+                    sondaggio.aggiungiSlot(newslot);
                     numeroCampioni = numeroCampioni - (10 * numeroMacchinari);
                     startTime = startTime.plusMinutes(120);
                 }
