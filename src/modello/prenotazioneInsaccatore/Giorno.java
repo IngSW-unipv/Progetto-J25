@@ -10,8 +10,24 @@ public class Giorno {
 		this.tipo = tipo;
 		this.turni = turni;
 	}
-	
+
+
 	//SETTER GETTER
+	public GiorniSettimana getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(GiorniSettimana tipo) {
+		this.tipo = tipo;
+	}
+
+	public ArrayList<Turno> getTurni() {
+		return turni;
+	}
+
+	public void setTurni(ArrayList<Turno> turni) {
+		this.turni = turni;
+	}
 	
 	
 }
