@@ -1,5 +1,7 @@
 package modello.creazionePanel;
 import modello.Panelista;
+import modello.Utente;
+import modello.email.NotificaMessage;
 
 import java.lang.foreign.MemorySegment;
 import java.time.LocalDate;
@@ -12,11 +14,12 @@ import java.util.concurrent.TimeUnit;
 
 public class SystemPubblicazionePanel {
     private ArrayList<Panelista> panelisti;
+    private ArrayList<Macchinario> macchinariAttvi;
+    private ArrayList<Panel> panel;
     private Sondaggio sondaggio;
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private int durataSondaggio = 300;
     private int numeroMacchinari;
-    private ArrayList<Macchinario> macchinari;
 
 
     public SystemPubblicazionePanel() {
@@ -25,7 +28,7 @@ public class SystemPubblicazionePanel {
 
     public void setMacchinari(ArrayList<Macchinario> macchinari) {
         //metodo che verra utilizzato da panelista per settare i macchinari attivi attraverso l'id
-        this.macchinari = macchinari;
+        this.macchinariAttvi = macchinari;
         numeroMacchinari = macchinari.size();
     }
 
@@ -58,7 +61,10 @@ public class SystemPubblicazionePanel {
     }
 
     public Sondaggio pubblicazioneSondaggio(){
-        //il controllore una volta che il panelista clicca su conferma
+        NotificaMessage notifica = new NotificaMessage("Sondaggio", "Il nuovo sondaggio per i prossimi" +
+                " panel è appena stato caricato, accedi alla sezione giusta per prenotarti.");
+        notifica.setListaUtenti(this.panelisti); //NON VA!!
+        notifica.notificaObserver();
         // esegue questo metodo per ottenere la reference per poter salvare in memoria i dati ed eseguire l'invio delle email
         //a tutti i panelisti
         scheduler.schedule(this::creazionePanel, durataSondaggio, TimeUnit.SECONDS); //ATTIVAZIONE TIMER DI CONTEGGIO
@@ -71,14 +77,17 @@ public class SystemPubblicazionePanel {
     }
 
     public void creazionePanel(){
-        int i;
-        /*for (Map.Entry<LocalTime, Slot> entry : sondaggio.getSlots().entrySet()){
-            for(i=0; i<numeroMacchinari; i++){
-                 // devo capire come gestire la situazione dei macchinari come
-                // faccio a capire quali sono attivi e quali no?
-
+        this.panel = new ArrayList<>();
+        for (Map.Entry<LocalTime, Slot> entry : sondaggio.getSlots().entrySet()){
+            for(Macchinario m: macchinariAttvi){
+                Panel p = new Panel(entry.getValue().getTime(), m);
+                // suppongo che i panelisti vengano inseriti gia in ordine decrescente per ore nella lista dei prenotati allo slot
+                for(int i = 0; i<entry.getValue().getPrenotati().size(); i++){
+                    p.addpanelista(entry.getValue().getPrenotati().get(i));
+                }
+                panel.add(p);
             }
-        }*/
+        }
     }
 
     public void pubblicazionePanel(){

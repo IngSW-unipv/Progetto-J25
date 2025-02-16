@@ -22,4 +22,8 @@ public class Panel {
         this.listaPanelisti.add(p);
     }
 
+    public void setMacchinario(Macchinario macchinario) {
+        this.macchinario = macchinario;
+    }
+
 }
