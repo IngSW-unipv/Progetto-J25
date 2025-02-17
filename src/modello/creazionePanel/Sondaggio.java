@@ -47,4 +47,10 @@ public class Sondaggio {
      public void setOraFine(LocalTime oraFine) {
         this.oraFine = oraFine;
      }
+     public void stampa(){
+        for( Map.Entry<LocalTime, Slot> slot : this.slot.entrySet() ){
+            System.out.println("data slot:" +slot.getValue(). getData());
+            System.out.println("orario inizio:" +slot.getValue().getTime());
+        }
+     }
 }
