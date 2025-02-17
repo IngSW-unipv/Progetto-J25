@@ -2,6 +2,7 @@ package modello.email;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import modello.Utente;
 
@@ -13,10 +14,14 @@ public class NotificaMessage implements INotifica {
 	private String body;
 	
 	
-	public NotificaMessage(ArrayList<Utente> listaUtenti, String subject, String body) {
-		this.listaUtenti = listaUtenti;
+	public NotificaMessage(String subject, String body) {
+		this.listaUtenti = new ArrayList<>();
 		this.subject = subject;
 		this.body = body;
+	}
+
+	public void setListaUtenti(ArrayList<Utente> listaUtenti) {
+		this.listaUtenti = listaUtenti;
 	}
 
 	@Override
