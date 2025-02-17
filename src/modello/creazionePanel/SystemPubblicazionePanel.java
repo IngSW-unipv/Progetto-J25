@@ -6,6 +6,7 @@ import modello.email.NotificaMessage;
 import java.lang.foreign.MemorySegment;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -18,7 +19,7 @@ public class SystemPubblicazionePanel {
     private ArrayList<Panel> panel;
     private Sondaggio sondaggio;
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    private int durataSondaggio = 300;
+    private int durataSondaggio = 300; // supponiamo che un sondaggio debba durare 5 min
     private int numeroMacchinari;
 
 
@@ -32,7 +33,11 @@ public class SystemPubblicazionePanel {
         numeroMacchinari = macchinari.size();
     }
 
-    public Sondaggio creaSondaggioAutomatica(int numeroCampioni) {
+    public void setPanelisti(ArrayList<Panelista> panelisti) {
+        this.panelisti = panelisti;
+    }
+
+    public Sondaggio creaSondaggioAutomatica(int numeroCampioni, LocalDate data) {
         //metodo utile per visualizzare gli slot dopo la creazione automatica
         this.sondaggio = new Sondaggio();
         this.numeroMacchinari = numeroMacchinari;
@@ -43,7 +48,7 @@ public class SystemPubblicazionePanel {
                     if ((startTime.equals(LocalTime.of(13,00)))) {
                         startTime = startTime.plusMinutes(60);
                     }
-                    Slot newslot = new Slot(LocalDate.now().plusDays(1), startTime);
+                    Slot newslot = new Slot(data, startTime);
                     sondaggio.aggiungiSlot(startTime, newslot);
                     numeroCampioni = numeroCampioni - (10 * numeroMacchinari);
                     startTime = startTime.plusMinutes(120);
@@ -63,13 +68,13 @@ public class SystemPubblicazionePanel {
     public Sondaggio pubblicazioneSondaggio(){
         NotificaMessage notifica = new NotificaMessage("Sondaggio", "Il nuovo sondaggio per i prossimi" +
                 " panel è appena stato caricato, accedi alla sezione giusta per prenotarti.");
-        notifica.setListaUtenti(this.panelisti); //NON VA!!
+        notifica.setListaUtenti(panelisti);
         notifica.notificaObserver();
-        // esegue questo metodo per ottenere la reference per poter salvare in memoria i dati ed eseguire l'invio delle email
-        //a tutti i panelisti
-        scheduler.schedule(this::creazionePanel, durataSondaggio, TimeUnit.SECONDS); //ATTIVAZIONE TIMER DI CONTEGGIO
-        //UNA VOLTA CHE IL TIMER SARà FINITO  VERRà ESEGUITO IN AUTOMATICO IL METODO CREAZIONE DEL PANEL
+        //scheduler.schedule(this::creazionePanel, durataSondaggio, TimeUnit.SECONDS); //ATTIVAZIONE TIMER DI CONTEGGIO
        return sondaggio;
+        // esegue questo metodo per ottenere la reference per poter salvare in
+        // memoria i dati ed eseguire l'invio delle email a tutti i panelisti
+        //UNA VOLTA CHE IL TIMER SARà FINITO  VERRà ESEGUITO IN AUTOMATICO IL METODO CREAZIONE DEL PANEL
     }
 
     public ArrayList<Panelista> getPanelisti() {
@@ -80,16 +85,49 @@ public class SystemPubblicazionePanel {
         this.panel = new ArrayList<>();
         for (Map.Entry<LocalTime, Slot> entry : sondaggio.getSlots().entrySet()){
             for(Macchinario m: macchinariAttvi){
-                Panel p = new Panel(entry.getValue().getTime(), m);
+                Panel p = new Panel(entry.getValue().getTime(), m, entry.getValue().getData());
                 // suppongo che i panelisti vengano inseriti gia in ordine decrescente per ore nella lista dei prenotati allo slot
                 for(int i = 0; i<entry.getValue().getPrenotati().size(); i++){
                     p.addpanelista(entry.getValue().getPrenotati().get(i));
                 }
                 panel.add(p);
             }
+            pubblicazioneSondaggio();
         }
     }
 
-    public void pubblicazionePanel(){
+    public ArrayList<Panel> pubblicazionePanel(){
+        NotificaMessage notifica  = new NotificaMessage("Formazioni definitive", "Sono appena stati pubblicati le formazione definitive per " +
+                "i prossimi panel, acceddi all'area riservata per vedere se sei stato scelto.");
+        notifica.setListaUtenti(panelisti);
+        notifica.notificaObserver();
+        return panel;
     }
+
+    public static void main(String[] args) {
+        Panelista utente1 = new Panelista("khawlaouaadou1@gmail.com", "khawla", 15);
+        Panelista utente2 = new Panelista("khawla.ouaadou01@universitadipavia.it", "khawla", 40);
+        Panelista utente3 = new Panelista("araldimaxim01@gmail.com", "maxim", 50);
+        Panelista utente4 = new Panelista("araldi.maxim01@universitadipavia", "maxim", 60);
+        ArrayList<Panelista> utentes = new ArrayList<>();
+        utentes.add(utente1);
+        utentes.add(utente2);
+        utentes.add(utente3);
+        utentes.add(utente4);
+
+        ArrayList<Macchinario> macchinari = new ArrayList<>();
+        Macchinario m1 = new Macchinario(01, 4);
+        macchinari.add(m1);
+
+        SystemPubblicazionePanel systemPubblicazionePanel = new SystemPubblicazionePanel();
+        systemPubblicazionePanel.setMacchinari(macchinari);
+        systemPubblicazionePanel.setPanelisti(utentes);
+        Sondaggio s1 = systemPubblicazionePanel.creaSondaggioAutomatica(10, LocalDate.of(2025, 2, 18));
+        systemPubblicazionePanel.pubblicazioneSondaggio();
+        s1.stampa();
+
+    }
+
 }
+
+
