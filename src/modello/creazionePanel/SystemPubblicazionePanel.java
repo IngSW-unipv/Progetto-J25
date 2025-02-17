@@ -2,6 +2,7 @@ package modello.creazionePanel;
 import modello.Panelista;
 import modello.Utente;
 import modello.email.NotificaMessage;
+import modello.prenotazionePanel.SystemPrenotazione;
 
 import java.lang.foreign.MemorySegment;
 import java.time.LocalDate;
@@ -19,7 +20,7 @@ public class SystemPubblicazionePanel {
     private ArrayList<Panel> panel;
     private Sondaggio sondaggio;
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    private int durataSondaggio = 300; // supponiamo che un sondaggio debba durare 5 min
+    private int durataSondaggio = 60; // supponiamo che un sondaggio debba durare 5 min
     private int numeroMacchinari;
 
 
@@ -70,7 +71,10 @@ public class SystemPubblicazionePanel {
                 " panel è appena stato caricato, accedi alla sezione giusta per prenotarti.");
         notifica.setListaUtenti(panelisti);
         notifica.notificaObserver();
-        //scheduler.schedule(this::creazionePanel, durataSondaggio, TimeUnit.SECONDS); //ATTIVAZIONE TIMER DI CONTEGGIO
+        scheduler.schedule(() -> {
+            creazionePanel();  // Esegue il metodo
+            scheduler.shutdown();  // Arresta il thread pool
+        }, durataSondaggio, TimeUnit.SECONDS);//ATTIVAZIONE TIMER DI CONTEGGIO
        return sondaggio;
         // esegue questo metodo per ottenere la reference per poter salvare in
         // memoria i dati ed eseguire l'invio delle email a tutti i panelisti
@@ -92,16 +96,20 @@ public class SystemPubblicazionePanel {
                 }
                 panel.add(p);
             }
-            pubblicazioneSondaggio();
         }
+        pubblicazionePanel();
+
+       /* for(Panel p: panel){
+            p.stampa();
+        } UTILE PER IL TEST
+            */
     }
 
-    public ArrayList<Panel> pubblicazionePanel(){
+    public void pubblicazionePanel(){
         NotificaMessage notifica  = new NotificaMessage("Formazioni definitive", "Sono appena stati pubblicati le formazione definitive per " +
                 "i prossimi panel, acceddi all'area riservata per vedere se sei stato scelto.");
         notifica.setListaUtenti(panelisti);
         notifica.notificaObserver();
-        return panel;
     }
 
     public static void main(String[] args) {
@@ -124,7 +132,21 @@ public class SystemPubblicazionePanel {
         systemPubblicazionePanel.setPanelisti(utentes);
         Sondaggio s1 = systemPubblicazionePanel.creaSondaggioAutomatica(10, LocalDate.of(2025, 2, 18));
         systemPubblicazionePanel.pubblicazioneSondaggio();
+
+        s1.setId(03);
+        ArrayList<Sondaggio> sondaggi = new ArrayList<>();
+        sondaggi.add(s1);
+
+        SystemPrenotazione prenotazione = new SystemPrenotazione();
+        prenotazione.setSondaggi(sondaggi);
+
+        prenotazione.prenotazione(03, LocalTime.of(9,00), utente1);
+        prenotazione.prenotazione(03, LocalTime.of(9,00), utente2);
+        prenotazione.prenotazione(03, LocalTime.of(9,00), utente3);
+        prenotazione.prenotazione(03, LocalTime.of(9,00), utente4);
+
         s1.stampa();
+
 
     }
 

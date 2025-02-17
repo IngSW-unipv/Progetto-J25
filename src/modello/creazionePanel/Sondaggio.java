@@ -53,4 +53,11 @@ public class Sondaggio {
             System.out.println("orario inizio:" +slot.getValue().getTime());
         }
      }
+     public int getId() {
+        return id;
+     }
+
+     public void setId(int id) {
+        this.id = id;
+     }
 }
