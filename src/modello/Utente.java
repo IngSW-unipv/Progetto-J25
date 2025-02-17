@@ -33,7 +33,7 @@ public class Utente implements IObserver {
 		this.nome = nome;
 	}
 
-	
+
 
 
 

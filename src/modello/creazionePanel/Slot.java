@@ -17,16 +17,18 @@ public class Slot {
         prenotati = new ArrayList<>();
     }
     public ArrayList<Panelista> getPrenotati() {
-        
     	return prenotati;
-    	
-   
+    }
+    public void addPrenotati(Panelista prenotati) {
+        this.prenotati.add(prenotati);
     }
 
     public LocalDate getData() {
+
         return data;
     }
     public LocalTime getTime() {
+
         return orarioInizio;
     }
 
