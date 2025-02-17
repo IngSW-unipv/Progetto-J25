@@ -18,6 +18,9 @@ public class Panelista extends Utente {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	public double getOreLavoro() {
+		return oreLavoro;
+	}
     
     
 

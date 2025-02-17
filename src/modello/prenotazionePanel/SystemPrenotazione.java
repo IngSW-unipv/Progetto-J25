@@ -2,6 +2,8 @@ package modello.prenotazionePanel;
 
 import modello.Panelista;
 import modello.creazionePanel.*;
+
+import java.time.LocalTime;
 import java.util.*;
 
 public class SystemPrenotazione {
@@ -9,16 +11,30 @@ public class SystemPrenotazione {
 	ArrayList <Sondaggio> sondaggi;
 
 	public SystemPrenotazione() {
-		
 		sondaggi = new ArrayList<>();
-		
 	}
-	
-	
-	public void prenotazione(Slot s, Panelista p) {
-		
-		
-		s.aggiungiPrenotato(p);
+
+	public void setSondaggi(ArrayList<Sondaggio> sondaggi) {
+		this.sondaggi = sondaggi;
+	}
+
+	public Sondaggio trovaSondaggioPerId(int id) {
+		for (Sondaggio s : sondaggi) {
+			if (s.getId() == id) {
+				return s; // Ritorna il sondaggio trovato
+			}
+		}
+		return null; // Nessun sondaggio trovato
+	}
+
+
+	public void prenotazione(int id, LocalTime orarioSlot, Panelista p) {
+		Sondaggio s = trovaSondaggioPerId(id);
+		Slot slot = s.getSlots().get(orarioSlot);
+		slot.addPrenotato(p);
+
+
+		//s.aggiungiPrenotato(p);
 		
 		/*questo metodo aggiunge alla lista di slot
 		 * le persone che si sono prenotate

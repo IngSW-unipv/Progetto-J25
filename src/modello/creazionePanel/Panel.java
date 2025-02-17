@@ -29,4 +29,13 @@ public class Panel {
         this.macchinario = macchinario;
     }
 
+    public void stampa(){
+        System.out.println("data:" + this.data.toString());
+        System.out.println("orarioInizio:" + this.orarioInizio);
+        System.out.println("Macchinario: " + this.macchinario.getId());
+        for(Panelista p : this.listaPanelisti){
+            System.out.println(p.getEmail());
+        }
+    }
+
 }
