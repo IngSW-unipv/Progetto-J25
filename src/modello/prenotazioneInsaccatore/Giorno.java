@@ -10,6 +10,10 @@ public class Giorno {
 		this.tipo = tipo;
 		this.turni = turni;
 	}
+	public Giorno(GiorniSettimana tipo) {
+		this.tipo = tipo;
+		
+	}
 
 
 	//SETTER GETTER

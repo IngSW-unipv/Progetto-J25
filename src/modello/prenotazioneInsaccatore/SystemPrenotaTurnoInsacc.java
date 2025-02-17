@@ -1,12 +1,11 @@
 package modello.prenotazioneInsaccatore;
 
 import modello.Insaccatore;
-
+import java.util.ArrayList;
 
 public class SystemPrenotaTurnoInsacc {
-	private Giorno[] giorni; 
-	private enum GiorniSettimana{LUN, MART, MERC, GIOV, VEN};
-
+	private Giorno[] settimana; 
+	
 	
 	public SystemPrenotaTurnoInsacc() {
 	}
@@ -30,17 +29,28 @@ public class SystemPrenotaTurnoInsacc {
 		}
 	}
 	
+	//metodo che restituisce una nuova settimana, ovvero un vettore di giorni con l'attributo enum definito e quello dei turni non ancora
+	public Giorno[] generaSettimana() {
+		Giorno[] settimana = new Giorno[5];
+		for(int i=0;i<settimana.length;i++) {
+			settimana[i]= new Giorno(GiorniSettimana.ricavaEnum(i));
+		}
+		return settimana;
+	}
 	
-	//metodo che permette al panel leader di generare in modo automatico i turni per ogni giorno
-	public void generaTurniAuto(int oramin,int oramax, int tempturno) {
+	//metodo che permette al panel leader di generare in modo automatico i turni per il giorno selezionato
+	public void generaTurniGiornoAuto(int numturni, int tempturno) {
 		
 	}
 	
-	public void generaTurniMan() {
+	public void generaTurniGiornoMan() {
 		
 	}
 	
-	
-	
-	
+	public static void main(String[] args) {
+		
+	}
+
 }
+
+
