@@ -3,10 +3,12 @@ package modello;
 public class Panelista extends Utente {
 	
 	String nome;
+	double oreLavoro;
+	String email;
 
-    public Panelista(String email, String nome) {
-        super(email);
-        this.nome = nome;
+    public Panelista(String email, String nome, double oreLavoro) {
+        super(email, nome);
+		this.oreLavoro = oreLavoro;
     }
 
 	public String getNome() {
@@ -15,6 +17,9 @@ public class Panelista extends Utente {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	public double getOreLavoro() {
+		return oreLavoro;
 	}
     
     
