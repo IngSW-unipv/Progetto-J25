@@ -1,7 +1,6 @@
 package modello.email;
 
 import modello.Utente;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Properties;
