@@ -5,7 +5,10 @@ import java.time.LocalDate;
 public class FactoryUtente {
 	
 
-	public static Utente CreaUtente(TipoUtente u, String nome, String email, double oreLavoro, String cognome, String luogoNascita, LocalDate dataNascita, String codiceFiscale, String residenza) {
+	public static Utente CreaUtente(TipoUtente u, String nome, String email,
+									double oreLavoro, String cognome, String luogoNascita,
+									LocalDate dataNascita, String codiceFiscale, String residenza, int oreLimite,
+									int limiteCanc) {
 	
 		switch(u) {
 		
@@ -16,7 +19,7 @@ public class FactoryUtente {
 				return new Panelista(email, nome, cognome, luogoNascita, dataNascita, codiceFiscale, residenza, oreLavoro);
 
 			case INSACCATORE:
-				return new Insaccatore(email, nome, oreLavoro);
+				return new Insaccatore(email, nome, cognome, luogoNascita, dataNascita, codiceFiscale, residenza, oreLavoro, oreLimite, limiteCanc );
 			default: throw new IllegalArgumentException("Utente non riconosciuto");
 		}
 		
