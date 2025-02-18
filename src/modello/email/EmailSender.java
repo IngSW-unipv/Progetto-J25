@@ -51,6 +51,7 @@ public class EmailSender {
         ArrayList<Utente> utentes = new ArrayList<>();
         utentes.add(utente1);
         utentes.add(utente2);
+        System.out.println(utentes.size());
         NotificaMessage notifica = new NotificaMessage( "Test Email", "Questa è un'email di prova.");
         notifica.notificaObserver();
     }
