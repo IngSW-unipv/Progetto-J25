@@ -1,5 +1,5 @@
 package modello.documento;
-import modello.Utente;
+
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,12 +13,19 @@ public class DocumentoRiepilogo {
 	private Panelista panelista;
 	private LocalDate localDate;
 	private String mese;
+	private double stipendioLordo;
+	private double stipendioNetto;
+	private double trattenute;
 	
-	public DocumentoRiepilogo(Panelista panelista, LocalDate localDate, String mese) {
+	public DocumentoRiepilogo(Panelista panelista, LocalDate localDate, String mese, double stipendioLordo,
+								double stipendioNetto, double trattenute) {
 		
 		this.panelista = panelista;
 		this.localDate = localDate;
 		this.mese = mese;
+		this.stipendioLordo = stipendioLordo;
+		this.stipendioNetto = stipendioNetto;
+		this.trattenute = trattenute;
 	}
 	
 	public void riepilogoUtente() {
@@ -45,11 +52,11 @@ public class DocumentoRiepilogo {
 			    
 			    writer.println("\ndichiara di ricevere per prestazione occasionale relativa al mese di " + this.mese);
 			    
-			    writer.println("\nCompenso lordo                                " + panelista.getOreLavoro() * 10);
+			    writer.println("\nCompenso lordo                                " + this.stipendioLordo);
 			    
-			    writer.println("Ritenuta d'acconto 20%                        " + (panelista.getOreLavoro() *10)*0.2);
+			    writer.println("Ritenuta d'acconto 20%                        " + this.trattenute);
 
-			    writer.println("Compenso netto                                " + stipendio());
+			    writer.println("Compenso netto                                " + this.stipendioNetto);
 			    
 			   
 
@@ -62,27 +69,7 @@ public class DocumentoRiepilogo {
 		
 	}
 	
-	public double stipendio() {
-		
-		double stipendioLordo = panelista.getOreLavoro() *10;
-		double trattenute = panelista.getOreLavoro() *10 * 0.2;
-		
-		return stipendioLordo - trattenute;
-	}
-	
-	
-	public static void main(String[] args) {
-		
-		LocalDate localDate = LocalDate.of(2003, 02, 16); 
-		LocalDate dataEmissione = LocalDate.of(2025, 02, 17); 
-		Panelista p = new Panelista("tommaso.ghisolfi003@gmail.com", "Tommaso", "Ghisolfi", "Broni", localDate, "GHSTMS3B16B201L", "Via Paolo Borsellino 28 Bressana Bottarone", 16);
-		DocumentoRiepilogo dr = new DocumentoRiepilogo(p, dataEmissione, "FEBBRAIO");
-		
-		dr.riepilogoUtente();
-	
-		
-	}
-	
+
 	
 }
 

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class FactoryUtente {
 	
 
-	public static Utente CreaUtente(TipoUtente u, String nome, String email, double oreLavoro, String cognome, String luogoNascita, LocalDate dataNascita, String codiceFiscale, String residenza) {
+	public static Utente CreaUtente(TipoUtente u, String email, String nome, String cognome, String luogoNascita, LocalDate dataNascita, String codiceFiscale, String residenza, double oreLavoro) {
 	
 		switch(u) {
 		
