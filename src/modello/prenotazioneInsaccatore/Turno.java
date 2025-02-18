@@ -1,19 +1,17 @@
 package modello.prenotazioneInsaccatore;
 
 import modello.Insaccatore;
-
+import java.time.LocalTime;
 public class Turno {
-	private String data;
 	private Insaccatore ins;
 	private boolean stato;
-	private int durata;
+	private int durata; //in minuti
+	private LocalTime orainizio;
 	
 	//COSTRUTTORI:
-	public Turno(String data, int durata) {
-		this.data = data;
-		this.ins = null;
-		this.stato = false;
+	public Turno(int durata, LocalTime orainizio) {
 		this.durata = durata;
+		this.orainizio = orainizio;
 	}
 	
 	//METODI SET GET:
@@ -23,11 +21,12 @@ public class Turno {
 	public void setDurata(int durata) {
 		this.durata = durata;
 	}
-	public String getData() {
-		return data;
+	
+	public LocalTime getOrainizio() {
+		return orainizio;
 	}
-	public void setData(String data) {
-		this.data = data;
+	public void setOrainizio(LocalTime orainizio) {
+		this.orainizio = orainizio;
 	}
 	public Insaccatore getIns() {
 		return ins;
