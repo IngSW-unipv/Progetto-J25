@@ -10,6 +10,8 @@ public class Slot {
     private List<Panelista> prenotati;
     private LocalDate data;
     private LocalTime orarioInizio;
+    private int idSlot;
+    private int idSondaggio;
 
     public Slot(LocalDate data, LocalTime time) {
         prenotati = new ArrayList<>();
