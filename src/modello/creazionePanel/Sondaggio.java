@@ -1,14 +1,13 @@
 package modello.creazionePanel;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Sondaggio {
     private int id;
     private Map<LocalTime, Slot> slot;
-    private boolean approvato;
+    private boolean stato;
     private LocalTime oraInizio; // queste due ore sono utili per capire se i
     private LocalTime oraFine; // panelisti potranno acnora visualizzare il sondaggio o no,
     // in caso contrario non sarà caricato dal database sui sondaggi visualizzabili dai panelisti.
@@ -16,7 +15,7 @@ public class Sondaggio {
 
     public Sondaggio() {
         this.slot = new HashMap<>();
-        this.approvato = false;
+        this.stato = false;
     }
 
     public Map<LocalTime, Slot> getSlots() {
@@ -26,12 +25,12 @@ public class Sondaggio {
         this.slot.put(time, slot);
      }
 
-     public boolean getApprovato() {
-        return approvato;
+     public boolean getStato() {
+        return stato;
      }
 
-     public void setApprovato(boolean approvato) {
-        this.approvato = approvato;
+     public void setStato(boolean stato) {
+        this.stato = stato;
      }
 
      public LocalTime getOraInizio() {
