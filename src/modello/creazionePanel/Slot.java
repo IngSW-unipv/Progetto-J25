@@ -4,9 +4,10 @@ import modello.Panelista;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Slot {
-    private ArrayList<Panelista> prenotati;
+    private List<Panelista> prenotati;
     private LocalDate data;
     private LocalTime orarioInizio;
 
@@ -14,13 +15,13 @@ public class Slot {
         prenotati = new ArrayList<>();
         this.data = data;
         this.orarioInizio = time;
-        prenotati = new ArrayList<>();
     }
-    public ArrayList<Panelista> getPrenotati() {
+    public List<Panelista> getPrenotati() {
     	return prenotati;
     }
-    public void addPrenotati(Panelista prenotati) {
-        this.prenotati.add(prenotati);
+    public void addPrenotato(Panelista prenotato) {
+        this.prenotati.add(prenotato);
+        prenotati.sort((p1, p2) -> Double.compare(p2.getOreLavoro(), p1.getOreLavoro()));
     }
 
     public LocalDate getData() {
@@ -30,11 +31,6 @@ public class Slot {
     public LocalTime getTime() {
 
         return orarioInizio;
-    }
-
-    public void aggiungiPrenotato(Panelista p) {
-    	
-    	prenotati.add(p);
     }
     
     public void rimuoviPrenotato(Panelista p) {

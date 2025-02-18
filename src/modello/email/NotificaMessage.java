@@ -9,7 +9,7 @@ import modello.Utente;
 
 public class NotificaMessage implements INotifica {
 	
-	private ArrayList<Utente> listaUtenti;
+	private ArrayList<? extends Utente> listaUtenti;
 	private String subject;
 	private String body;
 	
@@ -20,7 +20,7 @@ public class NotificaMessage implements INotifica {
 		this.body = body;
 	}
 
-	public void setListaUtenti(ArrayList<Utente> listaUtenti) {
+	public void setListaUtenti(ArrayList< ? extends Utente> listaUtenti) {
 		this.listaUtenti = listaUtenti;
 	}
 
