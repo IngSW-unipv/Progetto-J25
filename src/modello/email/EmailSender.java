@@ -2,6 +2,7 @@ package modello.email;
 
 import modello.Utente;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Properties;
@@ -46,13 +47,16 @@ public class EmailSender {
     }
 // TEST DI NOTIFICAMESSAGE
     public static void main(String[] args) {
-        /*Utente utente1 = new Utente("khawlaouaadou1@gmail.com", "khawla");
+        Utente utente1 = new Utente("khawlaouaadou1@gmail.com", "khawla");
         Utente utente2 = new Utente("khawla.ouaadou01@universitadipavia.it", "khawla");
+
         ArrayList<Utente> utentes = new ArrayList<>();
         utentes.add(utente1);
         utentes.add(utente2);
         System.out.println(utentes.size());
         NotificaMessage notifica = new NotificaMessage( "Test Email", "Questa è un'email di prova.");
-        notifica.notificaObserver();*/
+
+        notifica.notificaObserver();
+
     }
 }
