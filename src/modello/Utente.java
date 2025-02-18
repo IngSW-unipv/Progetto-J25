@@ -24,6 +24,7 @@ public class Utente implements IObserver {
 		this.residenza = residenza;
 	}
 
+
 	public String getCognome() {
 		return cognome;
 	}
