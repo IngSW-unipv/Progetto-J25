@@ -1,18 +1,22 @@
-package jdbc;
+package jdbc.dao;
 
+import jdbc.ConnessioneDB;
 import modello.creazionePanel.Macchinario;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
+/* Script della tabella che sto usando
+   CREATE TABLE MACCHINARIO(
+    ID_MACCHINARIO INT AUTO_INCREMENT PRIMARY KEY,
+    N_POSTI INT NOT NULL
+); */
 
-public class MacchinarioDao implements IMacchinarioDAO{
-    Connection conn;
 
-    public MacchinarioDao() {
+public class MacchinarioDAO implements IMacchinarioDAO {
+    private Connection conn;
+
+    public MacchinarioDAO() {
         super();
     }
 
@@ -63,7 +67,27 @@ public class MacchinarioDao implements IMacchinarioDAO{
     }
 
     public boolean addMacchinario(Macchinario macchinario) {
-        return false; //da sistemare<3
+        conn = ConnessioneDB.startConnection(conn, "osmotech");
+        PreparedStatement pstmt = null;
+        String query = "INSERT INTO MACCHINARIO (N_POSTI) VALUES (?)";
+
+        try {
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, macchinario.getNumPanelisti());
+
+            int rowsAffected = pstmt.executeUpdate();
+            return rowsAffected > 0; // Ritorna true se almeno una riga è stata inserita
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Ritorna false in caso di errore
+        } finally {
+            try {
+                if (pstmt != null) pstmt.close();
+                ConnessioneDB.closeConnection(conn);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 }
