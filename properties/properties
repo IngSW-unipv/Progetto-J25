@@ -1,0 +1,4 @@
+DBDRIVER=com.mysql.cj.jdbc.Driver
+DBURL=jdbc:mysql://db-debugandchill.chcagigmw0j1.eu-north-1.rds.amazonaws.com:3306/%s?useSSL=false&allowPublicKeyRetrieval=true
+db_usn=admin
+db_psw=Gigibotta123!
