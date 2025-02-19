@@ -124,7 +124,7 @@ public class PanelDAO implements IPanelDAO {
     public boolean chiudiPanel(int panelId, LocalTime orarioFine){
         conn = ConnessioneDB.startConnection(conn, "osmotech");
         PreparedStatement pstmt = null;
-        String query = "UPDATE PANEL SET ORARIO_FINE = ?, ATTIVO = FALSE WHERE ID_PANEL = ?";
+        String query = "UPDATE PANEL SET ORARIO_FINE = ?, STATO = FALSE WHERE ID_PANEL = ?";
 
         try {
             pstmt = conn.prepareStatement(query);
