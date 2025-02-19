@@ -113,7 +113,7 @@ public class SystemPubblicazionePanel {
     }
 
     public static void main(String[] args) {
-        Panelista utente1 = new Panelista("khawlaouaadou1@gmail.com", "khawla", 15);
+       /* Panelista utente1 = new Panelista("khawlaouaadou1@gmail.com", "khawla", 15);
         Panelista utente2 = new Panelista("khawla.ouaadou01@universitadipavia.it", "khawla", 40);
         Panelista utente3 = new Panelista("araldimaxim01@gmail.com", "maxim", 50);
         Panelista utente4 = new Panelista("araldi.maxim01@universitadipavia", "maxim", 60);
@@ -145,7 +145,7 @@ public class SystemPubblicazionePanel {
         prenotazione.prenotazione(03, LocalTime.of(9,00), utente3);
         prenotazione.prenotazione(03, LocalTime.of(9,00), utente4);
 
-        s1.stampa();
+        s1.stampa();*/
 
 
     }
