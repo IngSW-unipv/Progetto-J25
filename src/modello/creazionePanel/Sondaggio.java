@@ -8,17 +8,16 @@ import java.util.Map;
 public class Sondaggio {
     private int id;
     private Map<LocalTime, Slot> slot;
-    private boolean stato = true;
     private int slotDisponili;
     private LocalTime oraInizio; // queste due ore sono utili per capire se i
     private LocalTime oraFine;
-    private LocalDate data; // panelisti potranno acnora visualizzare il sondaggio o no,
+    private LocalDate data;
+    private boolean stato = true;// panelisti potranno acnora visualizzare il sondaggio o no,
     // in caso contrario non sarà caricato dal database sui sondaggi visualizzabili dai panelisti.
 
 
     public Sondaggio() {
         this.slot = new HashMap<>();
-        this.stato = false;
     }
 
     public Map<LocalTime, Slot> getSlots() {
@@ -57,8 +56,11 @@ public class Sondaggio {
         this.oraFine = oraFine;
      }
      public void stampa(){
+        System.out.println(this.data);
+        System.out.println(this.oraInizio);
+        System.out.println(this.id);
         for( Map.Entry<LocalTime, Slot> slot : this.slot.entrySet() ){
-            System.out.println("data slot:" +slot.getValue(). getData());
+            System.out.println("data slot:" +slot.getValue().getData());
             System.out.println("orario inizio:" +slot.getValue().getTime());
         }
      }
@@ -71,7 +73,7 @@ public class Sondaggio {
      }
 
      public int getSlotDisponili() {
-        return slotDisponili;
+        return slot.size();
      }
 
      public void setSlotDisponili(int slotDisponili) {

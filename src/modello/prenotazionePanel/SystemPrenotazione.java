@@ -12,7 +12,6 @@ import modello.Utente;
 
 
 public class SystemPrenotazione {
-	
 	ArrayList <Sondaggio> sondaggi;
 	ArrayList <Panelista> panelisti;
 
@@ -35,12 +34,10 @@ public class SystemPrenotazione {
 	}
 
 
-	public void prenotazione(int id, LocalTime orarioSlot, Panelista p) {
-		Sondaggio s = trovaSondaggioPerId(id);
+	public void prenotazione(int idSondaggio, LocalTime orarioSlot, Panelista p) {
+		Sondaggio s = trovaSondaggioPerId(idSondaggio);
 		Slot slot = s.getSlots().get(orarioSlot);
 		slot.addPrenotato(p);
-
-
 		//s.aggiungiPrenotato(p);
 		
 		/*questo metodo aggiunge alla lista di slot
