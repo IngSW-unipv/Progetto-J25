@@ -9,8 +9,9 @@ public class Giorno {
 	
 	
 	//COSTRUTTORI:
-	public Giorno(GiorniSettimana tipo, ArrayList<Turno> turni) {
+	public Giorno(GiorniSettimana tipo,LocalDate data, ArrayList<Turno> turni) {
 		this.tipo = tipo;
+		this.data = data;
 		this.turni = turni;
 	}
 	public Giorno(GiorniSettimana tipo, LocalDate data) {
@@ -36,7 +37,23 @@ public class Giorno {
 		this.turni = turni;
 		
 	}
+	
+	public LocalDate getData() {
+		return data;
+	}
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
 
+	
+	
+	
+	//METODI DI TEST, MI SERVONO PER VEDERE SE SI CREANO GLI OGGETTI:
+	public void stampaTurni() {
+		for(Turno t: turni) {
+			System.out.println("Durata: "+ t.getDurata() + "  Inizio: "+t.getOrainizio());
+		}
+	}
 	
 	
 }

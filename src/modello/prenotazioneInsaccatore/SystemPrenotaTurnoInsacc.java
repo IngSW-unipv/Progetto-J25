@@ -6,18 +6,40 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Set;
+import java.util.HashSet;
 
 
 
 public class SystemPrenotaTurnoInsacc {
 	private Giorno[] settimana; 
-	public static final int maxoremat=4;
-	public static final int maxorepom=4;
+	private static final int maxoremat=4;
+	private static final int maxorepom=4;
+	private static final Set<Integer> tempiammessi = Set.of(30,60,90,120); 
+	
 	
 	public SystemPrenotaTurnoInsacc() {
+		this.settimana = new Giorno[5];
 	}
 		
+	public SystemPrenotaTurnoInsacc(Giorno[] settimana) {
+		this.settimana = settimana;
+	}
+
+	
+	//SETTER GETTERS:
+	
+		
+	
 	//METODI UTILI:
+	public Giorno[] getSettimana() {
+		return settimana;
+	}
+
+	public void setSettimana(Giorno[] settimana) {
+		this.settimana = settimana;
+	}
+
 	
 	
 	
@@ -32,6 +54,7 @@ public class SystemPrenotaTurnoInsacc {
 		else System.out.println("non puoi prenotarti");
 	}
 	
+
 	//metodo per togliere la prenotazione di un turno all'insaccatore
 	public void cancellaTurno(Turno turno) {
 			turno.setIns(null);
@@ -46,46 +69,43 @@ public class SystemPrenotaTurnoInsacc {
 	//metodo che restituisce una nuova settimana, ovvero un vettore di giorni con l'attributo enum definito e quello dei turni non ancora
 	//il parametro "datainizio" dev'essere un lunedì:
 	public Giorno[] generaSettimana(LocalDate datainizio) {
-		Giorno[] settimana = new Giorno[5];
 		//LocalDate proxlunedì = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.MONDAY));   --> mi permette di trovare il prossimo lunedì rispetto al giorno corrente
 		//questo prevede:
 		//import java.time.DayOfWeek;
 		//import java.time.temporal.TemporalAdjusters;	
 		for(int i=0;i<settimana.length;i++) {
-			settimana[i]= new Giorno(GiorniSettimana.ricavaEnum(i),datainizio.plusDays(i));
+			settimana[i]= new Giorno(GiorniSettimana.ricavaEnum(i),datainizio.plusDays(i),new ArrayList<Turno>());
 		}
 		return settimana;
 	}
 	
 	//metodo che permette al panel leader di generare in modo automatico i turni per il giorno selezionato
 	public void generaTurniPerGiorno(Giorno giorno, int tempturno) {
-		if(tempturno != 60 || tempturno != 30 || tempturno != 90 || tempturno != 120) {
+		if(!tempiammessi.contains(tempturno)) {
 			throw new IllegalArgumentException("La durata di ogni turno indicata non è selezionabile");
 		}
 		int turnimattino=(maxoremat*60)/tempturno;
 		int turnipome=(maxorepom*60)/tempturno;
 		LocalTime oramat= LocalTime.of(9,0);
 		LocalTime orapom= LocalTime.of(14,0);
-		
-		
+
 		//organizzo i turni del mattino:
 		for(int i=0;i<turnimattino;i++) {
-			oramat.plusMinutes(tempturno*i);
+			oramat=oramat.plusMinutes(i*tempturno);
+		//	LocalTime oramatmod= oramat.plusMinutes(i*tempturno);
 			giorno.getTurni().add(new Turno(tempturno,oramat));
-			oramat.minusMinutes(tempturno*i);
 		}
 		
 		//organizzo i turni del pomeriggio:
 		for(int i=0;i<turnipome;i++) {
-			orapom.plusMinutes(tempturno);
+			orapom=orapom.plusMinutes(i*tempturno);
 			giorno.getTurni().add(new Turno(tempturno,orapom));
-			orapom.minusMinutes(tempturno*i);
 		}
 	}
 	
 	//metodo che permette di generare i turni per un giorno in base alla fascia oraria e al giorno indicato 
 	public void generaTurniPerOrario(LocalTime orainizio, LocalTime orafine, Giorno giorno, int tempturno) {
-		if(tempturno != 60 || tempturno != 30 || tempturno != 90 || tempturno != 120) {
+		if(!tempiammessi.contains(tempturno)) {
 			throw new IllegalArgumentException("La durata di ogni turno indicata non è selezionabile");
 		}
 		
@@ -109,7 +129,7 @@ public class SystemPrenotaTurnoInsacc {
 	//metodo che permette di generare una settimana in modo automatico con il solo inserimento della durata dei turni per ogni giorno desiderata:
 	public void riempiSettimana(int tempturno) {
 		
-		if(tempturno != 60 || tempturno != 30 || tempturno != 90 || tempturno != 120) {
+		if(!tempiammessi.contains(tempturno)) {
 			throw new IllegalArgumentException("La durata di ogni turno indicata non è selezionabile");
 		}
 		
@@ -117,10 +137,26 @@ public class SystemPrenotaTurnoInsacc {
 			generaTurniPerGiorno(settimana[i],tempturno);
 		}
 	}
-
-	public static void main(String[] args) {
-		
+	
+	
+	
+	//METODI DI TEST, MI SERVONO PER CAPIRE SE GLI OGGETTI VENGONO CREATI EFFETTIVAMENTE
+	public void stampaEnum() {
+		for(int i=0;i<settimana.length;i++) {
+			System.out.println(settimana[i]);
+		}
 	}
+	
+	public void stampaEnumSett() {
+		GiorniSettimana giorno;
+		for(int i=0;i<settimana.length;i++) {
+			giorno = settimana[i].getTipo();
+		System.out.println(GiorniSettimana.stampaEnum(giorno) +"  "+ settimana[i].getData());
+		}
+	}
+	
+	
+
 
 }
 
