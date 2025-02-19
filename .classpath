@@ -8,10 +8,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="librerie/javax.activation-1.2.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="librerie/javax.mail-1.6.2.jar"/>
-<<<<<<< HEAD
-	<classpathentry exported="true" kind="lib" path="C:/Users/Tommaso Ghisolfi/Downloads/mysql-connector-j-9.2.0.jar"/>
-=======
-	<classpathentry exported="true" kind="lib" path="C:/Users/Arald/OneDrive/Desktop/mysql-connector-j-9.2.0.jar"/>
->>>>>>> branch 'main' of https://github.com/IngSW-unipv/Progetto-J25.git
+<classpathentry exported="true" kind="lib" path="lib/mysql-connector-j-9.2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
