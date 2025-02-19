@@ -92,7 +92,6 @@ public class ConnessioneDB {
         }
         return conn;
     }
-    
     public static void main(String[] args) {
 			Connection conn = null;
 			try {
