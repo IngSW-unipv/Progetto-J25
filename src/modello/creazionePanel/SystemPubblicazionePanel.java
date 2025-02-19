@@ -1,4 +1,6 @@
 package modello.creazionePanel;
+import jdbc.FacedeSingletonDB;
+import jdbc.dao.PanelDAO;
 import modello.Panelista;
 import modello.Utente;
 import modello.email.NotificaMessage;
@@ -24,8 +26,10 @@ public class SystemPubblicazionePanel {
     private int numeroMacchinari;
 
 
+
     public SystemPubblicazionePanel() {
         this.panelisti = new ArrayList<>();
+        this.macchinariAttvi = new ArrayList<>();
     }
 
     public void setMacchinari(ArrayList<Macchinario> macchinari) {
@@ -110,6 +114,9 @@ public class SystemPubblicazionePanel {
                 "i prossimi panel, acceddi all'area riservata per vedere se sei stato scelto.");
         notifica.setListaUtenti(panelisti);
         notifica.notificaObserver();
+        for (Panel p : panel){
+            FacedeSingletonDB.getInstance().getPanelDAO().addPanel(p);
+        }
     }
 
     public static void main(String[] args) {

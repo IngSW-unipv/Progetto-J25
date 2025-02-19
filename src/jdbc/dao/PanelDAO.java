@@ -199,11 +199,10 @@ public class PanelDAO implements IPanelDAO {
     }
 
     public boolean aggiungiUtenteAlPanel(int panelId, String emailUtente) {
-        //VA SISTEMATA PERCHE NONTENGO CONTO DEL FATTO CHE POTREBBERO ESSERCI ALTRI USER IMPOSTATI A NULL PERCHE IL PANEL POTREBBE ESSERE DA SOLE 4 PERSONE
-        //in piu manca anche la chiusura alla connesione
         conn = ConnessioneDB.startConnection(conn, "osmotech");
-        // Query per ottenere i dati del panel specifico
-        String query = "SELECT USER1, USER2, USER3, USER4, USER5, USER6 FROM PANEL WHERE ID_PANEL = ?";
+
+        // Query per ottenere il numero massimo di utenti e le colonne USER1, USER2, ..., USER6
+        String query = "SELECT NUMERO_USER, USER1, USER2, USER3, USER4, USER5, USER6 FROM PANEL WHERE ID_PANEL = ?";
 
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, panelId);
@@ -211,33 +210,34 @@ public class PanelDAO implements IPanelDAO {
 
             // Se il panel esiste
             if (rs.next()) {
-                // Verifica in quale colonna (USER1, USER2, ..., USER6) c'è un valore NULL
-                for (int i = 1; i <= 6; i++) {
-                    String userColumn = "USER" + i;  // USER1, USER2, ..., USER6
+                int numeroUser = rs.getInt("NUMERO_USER"); // Numero massimo di utenti previsti
+
+                // Scandisci solo fino a NUMERO_USER, ignorando USER5 e USER6 se il panel ha solo 4 utenti
+                for (int i = 1; i <= numeroUser; i++) {
+                    String userColumn = "USER" + i;
                     String emailInDb = rs.getString(userColumn);
 
-                    // Se la colonna è NULL (vuota), aggiorna con l'email del Panelista
+                    // Se la colonna è NULL, assegna l'email dell'utente
                     if (emailInDb == null) {
                         String updateQuery = "UPDATE PANEL SET " + userColumn + " = ? WHERE ID_PANEL = ?";
                         try (PreparedStatement updatePstmt = conn.prepareStatement(updateQuery)) {
                             updatePstmt.setString(1, emailUtente);
                             updatePstmt.setInt(2, panelId);
                             updatePstmt.executeUpdate();
-                            //System.out.println("Utente aggiunto correttamente alla colonna " + userColumn);
-                            return true;  // Ritorna true se l'email è stata aggiunta
+                            return true;  // Utente aggiunto con successo
                         }
                     }
                 }
-                // Se tutte le colonne sono occupate
-                //System.out.println("Non ci sono posti disponibili nel panel con ID: " + panelId);
-                return false;  // Ritorna false se tutte le colonne sono già occupate
+                return false;  // Nessun posto disponibile nel panel
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            // Chiudi la connessione al database
+            ConnessioneDB.closeConnection(conn);
         }
-        return false;  // Ritorna false se il panel non è stato trovato
+        return false;  // Panel non trovato
     }
-
 
     /*public boolean removePanel(Panel panel){
      }*/

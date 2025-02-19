@@ -3,6 +3,7 @@ package jdbc.dao;
 import jdbc.ConnessioneDB;
 import modello.creazionePanel.Macchinario;
 
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -89,5 +90,11 @@ public class MacchinarioDAO implements IMacchinarioDAO {
             }
         }
 
+    }
+
+    public static void main(String[] args) {
+        Macchinario m1 = new Macchinario(1, 4);
+        MacchinarioDAO dao = new MacchinarioDAO();
+        dao.addMacchinario(m1);
     }
 }
