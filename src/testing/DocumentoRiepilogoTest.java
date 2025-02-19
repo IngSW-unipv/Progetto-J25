@@ -2,10 +2,10 @@ package testing;
 
 import java.time.LocalDate;
 
+import modello.FactoryUtente;
 import modello.Panelista;
 import modello.TipoUtente;
 import modello.documento.Azienda;
-import modello.documento.FactoryPanelista;
 
 public class DocumentoRiepilogoTest {
 
@@ -15,7 +15,9 @@ public class DocumentoRiepilogoTest {
 		
 		LocalDate dataEmissione = LocalDate.of(2025, 02, 17);
 		
-		Panelista p = FactoryPanelista.CreaUtente(TipoUtente.PANELISTA,"tommaso.ghisolfi003@gmail.com", "Tommaso", "Ghisolfi", "Broni", localDate, "GHSTMS3B16B201L", "Via Paolo Borsellino 28 Bressana Bottarone", 16);
+		Panelista p = (Panelista) FactoryUtente.CreaUtente(TipoUtente.PANELISTA,"Tommaso", "email", 
+				20, "Ghisolfi", "Broni", localDate, "GHSTMS03B16B201L", 
+				"ll", 0, 0);
 		
 		Azienda azienda = new Azienda();
 		
