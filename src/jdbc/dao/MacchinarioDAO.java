@@ -92,9 +92,4 @@ public class MacchinarioDAO implements IMacchinarioDAO {
 
     }
 
-    public static void main(String[] args) {
-        Macchinario m1 = new Macchinario(1, 4);
-        MacchinarioDAO dao = new MacchinarioDAO();
-        dao.addMacchinario(m1);
-    }
 }
