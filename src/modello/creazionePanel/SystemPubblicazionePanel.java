@@ -45,6 +45,7 @@ public class SystemPubblicazionePanel {
     public Sondaggio creaSondaggioAutomatica(int numeroCampioni, LocalDate data) {
         //metodo utile per visualizzare gli slot dopo la creazione automatica
         this.sondaggio = new Sondaggio();
+        sondaggio.setData(data);
         this.numeroMacchinari = numeroMacchinari;
         numeroCampioni /= numeroMacchinari;  //tengo conto della presenza del numero di macchinari utilizzabili
 
