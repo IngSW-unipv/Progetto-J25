@@ -17,8 +17,8 @@ public class FactoryPanelista {
 
 				return new Panelista(email, nome, cognome, luogoNascita, dataNascita, codiceFiscale, residenza, oreLavoro);
 
-			case INSACCATORE:
-				return new Insaccatore(email, nome, oreLavoro);
+			/*case INSACCATORE:
+				return new Insaccatore(email, nome, oreLavoro);*/
 			default: throw new IllegalArgumentException("Utente non riconosciuto");
 		}
 		

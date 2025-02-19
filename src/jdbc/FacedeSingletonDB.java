@@ -30,7 +30,7 @@ public class FacedeSingletonDB {
         if (systemPubblicazionePanel == null) {
             systemPubblicazionePanel = new SystemPubblicazionePanel();
             systemPubblicazionePanel.setMacchinari(macchinarioDAO.getMacchinari());
-            systemPubblicazionePanel.setPanelisti(); //va ancora creata la classe DAO che si occupa del prelievo dei dati del panelista
+            //systemPubblicazionePanel.setPanelisti(); //va ancora creata la classe DAO che si occupa del prelievo dei dati del panelista
         }
         return systemPubblicazionePanel;
     }
