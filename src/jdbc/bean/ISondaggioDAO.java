@@ -1,9 +1,8 @@
-package jdbc.dao;
+package jdbc.bean;
 
 import modello.creazionePanel.Sondaggio;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface ISondaggioDAO {
     ArrayList<Sondaggio> selectAllSondaggi();

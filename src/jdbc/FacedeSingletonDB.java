@@ -1,13 +1,12 @@
 package jdbc;
 
-import jdbc.dao.*;
+import jdbc.bean.*;
 import modello.creazionePanel.Slot;
 import modello.creazionePanel.Sondaggio;
 import modello.creazionePanel.SystemPubblicazionePanel;
 import modello.prenotazionePanel.SystemPrenotazione;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FacedeSingletonDB {
     private static FacedeSingletonDB instance;
