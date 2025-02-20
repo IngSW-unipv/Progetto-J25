@@ -1,13 +1,12 @@
 package jdbc;
 
-import jdbc.dao.*;
+import jdbc.bean.*;
 import modello.creazionePanel.Slot;
 import modello.creazionePanel.Sondaggio;
 import modello.creazionePanel.SystemPubblicazionePanel;
 import modello.prenotazionePanel.SystemPrenotazione;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FacedeSingletonDB {
     private static FacedeSingletonDB instance;
@@ -37,7 +36,6 @@ public class FacedeSingletonDB {
     public SystemPubblicazionePanel getSystemPubblicazionePanel() {
         if (systemPubblicazionePanel == null) {
             systemPubblicazionePanel = new SystemPubblicazionePanel();
-            systemPubblicazionePanel.setMacchinari(macchinarioDAO.getMacchinari());
             //systemPubblicazionePanel.setPanelisti(); //va ancora creata la classe DAO che si occupa del prelievo dei dati del panelista
         }
         return systemPubblicazionePanel;
