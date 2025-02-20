@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface ISondaggioDAO {
-    List<Sondaggio> selectAllSondaggi();
+    ArrayList<Sondaggio> selectAllSondaggi();
     Sondaggio selectSondaggioById(int id);
-    boolean insertSondaggio(Sondaggio sondaggio);
+    Integer insertSondaggio(Sondaggio sondaggio);
     boolean chiudiSondaggio(Sondaggio sondaggio);
 }
