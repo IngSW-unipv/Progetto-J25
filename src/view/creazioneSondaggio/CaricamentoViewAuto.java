@@ -1,7 +1,6 @@
 package view.creazioneSondaggio;
 
 import controller.SondaggioController;
-import controller.TipoCreaSondaggio;
 import modello.creazionePanel.Macchinario;
 import modello.creazionePanel.Sondaggio;
 
@@ -10,8 +9,8 @@ import java.awt.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class CaricamentoView extends JFrame {
-    public CaricamentoView(SondaggioController controller, int numCampioni, LocalDate data, ArrayList<Macchinario> macchinari) {
+public class CaricamentoViewAuto extends JFrame {
+    public CaricamentoViewAuto(SondaggioController controller, int numCampioni, LocalDate data, ArrayList<Macchinario> macchinari) {
         setTitle("Elaborazione...");
         setSize(200, 100);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -24,13 +23,11 @@ public class CaricamentoView extends JFrame {
         timer.addActionListener(e -> {
             System.out.println("Timer scattato: creazione sondaggio in corso...");
 
-            Sondaggio sondaggio = controller.creaSondaggio(numCampioni, data, macchinari, TipoCreaSondaggio.AUTOMATICO);
+            Sondaggio sondaggio = controller.creaSondaggioAuto(numCampioni, data, macchinari);
 
             System.out.println("Sondaggio creato con ID: " + sondaggio.getId());
 
             new PubblicazioneSondaggioView(controller, sondaggio);
-
-            System.out.println("Finestra PubblicazioneSondaggioView aperta, chiusura CaricamentoView.");
 
             timer.stop(); // 🔴 Ferma il timer dopo il primo scatto
             dispose();

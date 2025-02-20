@@ -57,11 +57,12 @@ public class ModalitaView extends JFrame {
     }
 
     private void avviaModalitaAutomatica() {
-        new CaricamentoView(controller, numCampioni, data, macchinari);
+        new CaricamentoViewAuto(controller, numCampioni, data, macchinari);
         dispose();
     }
 
     private void avviaModalitaManuale() {
-        JOptionPane.showMessageDialog(this, "Modalità manuale non ancora implementata!");
+        new CaricamentoViewManual(controller, data, macchinari, numCampioni);
+        dispose();
     }
 }
