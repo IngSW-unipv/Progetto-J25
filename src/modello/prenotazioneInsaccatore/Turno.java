@@ -7,6 +7,7 @@ public class Turno {
 	private boolean stato;
 	private int durata; //in minuti
 	private LocalTime orainizio;
+	private int id;
 	
 	//COSTRUTTORI:
 	public Turno(int durata, LocalTime orainizio) {
@@ -40,6 +41,15 @@ public class Turno {
 	public void setStato(boolean stato) {
 		this.stato = stato;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	
 	
 		

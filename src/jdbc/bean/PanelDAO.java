@@ -1,4 +1,4 @@
-package jdbc.dao;
+package jdbc.bean;
 
 import jdbc.ConnessioneDB;
 import modello.Panelista;
@@ -42,7 +42,7 @@ public class PanelDAO implements IPanelDAO {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         ArrayList<Panel> panels = new ArrayList<>();
-        String query = "SELECT * FROM PANEL WHERE ATTIVO = TRUE AND ORARIO_FINE IS NULL";
+        String query = "SELECT * FROM PANEL WHERE STATO = TRUE AND ORARIO_FINE IS NULL";
 
         try {
             pstmt = conn.prepareStatement(query);
@@ -58,7 +58,7 @@ public class PanelDAO implements IPanelDAO {
                 List<Panelista> users = new ArrayList<>();
                 for (int i = 1; i <= 6; i++) {
                     String email = rs.getString("USER" + i);
-                    if (email != null) users.add(new Panelista(0, email, null, null, null, null, null,
+                    if (email != null) users.add(new Panelista(email, null, null, null, null, null,
                             null, Double.NaN));
                 }
 

@@ -1,16 +1,10 @@
 package modello.creazionePanel;
 import jdbc.FacedeSingletonDB;
-import jdbc.dao.PanelDAO;
 import modello.Panelista;
-import modello.Utente;
 import modello.email.NotificaMessage;
-import modello.prenotazionePanel.SystemPrenotazione;
 
-import java.lang.foreign.MemorySegment;
-import java.net.Socket;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -62,8 +56,12 @@ public class SystemPubblicazionePanel {
                 return sondaggio;
     }
 
-    public Sondaggio creazioneSondaggioManuale() {
+    public Sondaggio creazioneSondaggioManuale(LocalDate data, ArrayList<Slot> slots) {
         this.sondaggio = new Sondaggio();
+        sondaggio.setData(data);
+        for (Slot slot : slots) {
+            sondaggio.aggiungiSlot(slot.getTime(), slot);
+        }
         return sondaggio;
     }
 
@@ -76,13 +74,13 @@ public class SystemPubblicazionePanel {
 
         // Inserimento del sondaggio
         sondaggio.setOraInizio(LocalTime.now());
-        int idSondaggio = FacedeSingletonDB.getInstance().getSondaggioDAO().insertSondaggio(sondaggio);
-        if (idSondaggio > 0) {  // Verifica che l'inserimento del sondaggio sia andato a buon fine
+       sondaggio.setId( FacedeSingletonDB.getInstance().getSondaggioDAO().insertSondaggio(sondaggio));
+        if (sondaggio.getId() > 0) {  // Verifica che l'inserimento del sondaggio sia andato a buon fine
             sondaggioInserito = true;
 
             // Assegna l'ID del sondaggio agli slot
             for (Map.Entry<LocalTime, Slot> entry : sondaggio.getSlots().entrySet()) {
-                entry.getValue().setIdSondaggio(idSondaggio);
+                entry.getValue().setIdSondaggio(sondaggio.getId());
             }
 
             // Inserimento degli slot
@@ -111,6 +109,7 @@ public class SystemPubblicazionePanel {
 
     public void creazionePanel(){
         this.panel = new ArrayList<>();
+        //VA INSERITO IL METODO CHE RICAVA LE PRENOTAZIONE CHE SONO STATE ESEGUITE
         for (Map.Entry<LocalTime, Slot> entry : sondaggio.getSlots().entrySet()){
             for(Macchinario m: macchinariAttvi){
                 Panel p = new Panel(entry.getValue().getTime(), m, entry.getValue().getData());
