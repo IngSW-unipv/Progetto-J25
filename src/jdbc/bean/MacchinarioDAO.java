@@ -1,9 +1,8 @@
-package jdbc.dao;
+package jdbc.bean;
 
 import jdbc.ConnessioneDB;
 import modello.creazionePanel.Macchinario;
 
-import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 

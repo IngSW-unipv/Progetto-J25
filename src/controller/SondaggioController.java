@@ -1,15 +1,12 @@
 package controller;
 
 import jdbc.FacedeSingletonDB;
-import jdbc.dao.MacchinarioDAO;
-import jdbc.dao.SondaggioDAO;
 import modello.creazionePanel.Macchinario;
 import modello.creazionePanel.SystemPubblicazionePanel;
 import modello.creazionePanel.Sondaggio;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SondaggioController {
         private SystemPubblicazionePanel systemPubblicazionePanel;

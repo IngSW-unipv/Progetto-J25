@@ -1,16 +1,10 @@
 package modello.creazionePanel;
 import jdbc.FacedeSingletonDB;
-import jdbc.dao.PanelDAO;
 import modello.Panelista;
-import modello.Utente;
 import modello.email.NotificaMessage;
-import modello.prenotazionePanel.SystemPrenotazione;
 
-import java.lang.foreign.MemorySegment;
-import java.net.Socket;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.Executors;

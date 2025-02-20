@@ -1,4 +1,4 @@
-package jdbc.dao;
+package jdbc.bean;
 
 import jdbc.ConnessioneDB;
 import modello.creazionePanel.Slot;
