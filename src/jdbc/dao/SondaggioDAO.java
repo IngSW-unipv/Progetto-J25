@@ -3,20 +3,25 @@ package jdbc.dao;
 import jdbc.ConnessioneDB;
 import modello.creazionePanel.Sondaggio;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/*CREATE TABLE SONDAGGIO (
+        ID_SONDAGGIO INT AUTO_INCREMENT PRIMARY KEY,
+        SLOT_DISPONIBILI INT NOT NULL,
+        DATA DATE NOT NULL,
+        ORARIO_FINE TIME,
+        ORARIO_INIZIO TIME,
+        STATO BOOLEAN NOT NULL
+);*/
 
 public class SondaggioDAO implements ISondaggioDAO {
 
-    public List<Sondaggio> selectAllSondaggi(){
-        List<Sondaggio> sondaggi = new ArrayList<>();
+    public ArrayList<Sondaggio> selectAllSondaggi(){
+        ArrayList<Sondaggio> sondaggi = new ArrayList<Sondaggio>();
         Connection conn = ConnessioneDB.startConnection(null, "osmotech");
 
         String query = "SELECT ID_SONDAGGIO, SLOT_DISPONIBILI, DATA, ORARIO_INIZIO " +
@@ -43,7 +48,9 @@ public class SondaggioDAO implements ISondaggioDAO {
         } finally {
             ConnessioneDB.closeConnection(conn);
         }
+        System.out.println("andato a buon fine");
         return sondaggi;
+
     }
 
     public Sondaggio selectSondaggioById(int id) {
@@ -74,25 +81,32 @@ public class SondaggioDAO implements ISondaggioDAO {
 
         return sondaggio;
     }
-    public boolean insertSondaggio(Sondaggio sondaggio) {
+    public Integer insertSondaggio(Sondaggio sondaggio) {
         Connection conn = ConnessioneDB.startConnection(null, "osmotech");
         String query = "INSERT INTO SONDAGGIO (SLOT_DISPONIBILI, DATA, ORARIO_INIZIO, STATO) VALUES (?, ?, ?, ?)";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, sondaggio.getSlotDisponili());
             pstmt.setDate(2, java.sql.Date.valueOf(sondaggio.getData()));
             pstmt.setTime(3, java.sql.Time.valueOf(sondaggio.getOraInizio()));
-            pstmt.setBoolean(4, sondaggio.getStato()); // Indica se il sondaggio è attivo
+            pstmt.setBoolean(4, sondaggio.getStato());
 
             int rowsAffected = pstmt.executeUpdate();
-            return rowsAffected > 0; // Restituisce true se l'inserimento è avvenuto con successo
+            if (rowsAffected > 0) {
+                try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        return generatedKeys.getInt(1); // Restituisce l'ID generato
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         } finally {
             ConnessioneDB.closeConnection(conn);
         }
+        return null; // Restituisce null se l'inserimento fallisce
     }
+
 
     public boolean chiudiSondaggio(Sondaggio sondaggio) {
         Connection conn = ConnessioneDB.startConnection(null, "osmotech");
@@ -110,6 +124,12 @@ public class SondaggioDAO implements ISondaggioDAO {
         } finally {
             ConnessioneDB.closeConnection(conn);
         }
+    }
+
+    public static void main(String[] args) {
+        SondaggioDAO dao = new SondaggioDAO();
+        ArrayList<Sondaggio> sondaggi = dao.selectAllSondaggi();
+        System.out.println(sondaggi.size());
     }
 
 

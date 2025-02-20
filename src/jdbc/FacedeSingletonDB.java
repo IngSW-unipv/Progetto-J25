@@ -1,8 +1,10 @@
 package jdbc;
 
 import jdbc.dao.*;
+import modello.creazionePanel.Slot;
 import modello.creazionePanel.Sondaggio;
 import modello.creazionePanel.SystemPubblicazionePanel;
+import modello.prenotazionePanel.SystemPrenotazione;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +18,13 @@ public class FacedeSingletonDB {
     private ISlotDAO slotDAO;
 
     private SystemPubblicazionePanel systemPubblicazionePanel;
+    private SystemPrenotazione systemPrenotazione;
 
     private FacedeSingletonDB() {
         this.panelDAO = new PanelDAO();
         this.macchinarioDAO = new MacchinarioDAO();
         this.sondaggioDAO = new SondaggioDAO();
+        this.slotDAO = new SlotDAO();
     }
 
     public static FacedeSingletonDB getInstance() {
@@ -38,19 +42,28 @@ public class FacedeSingletonDB {
         }
         return systemPubblicazionePanel;
     }
-    public List<Sondaggio> popolaSondaggi() {
-        List<Sondaggio> sondaggi = new ArrayList<Sondaggio>();
-        sondaggi = sondaggioDAO.selectAllSondaggi();
+    public ArrayList<Sondaggio> popolaSondaggi() {
+        ArrayList<Sondaggio> sondaggi = sondaggioDAO.selectAllSondaggi();
         for (Sondaggio s : sondaggi) {
-            for(int i = 0; i< s.getSlotDisponili(); i++){
-               /*devo crare il metodo per il prelievo degli slot di un sondaggio, faccio prima a passarli direttamente il sondaggio
-                cosi prelevo id e il numero degli slot che devo cercare, cosi da non perder tempo una volta riempiota la lista.
-                Magari sarebbe carino che quando setto un sondaggio a chiuso, posso eleminare anche gli slot
-                che gli appartenevano, per risparmiare spazio.
-                */
+           ArrayList<Slot> slots = slotDAO.getSlots(s);
+            if (slots == null || slots.isEmpty()) {
+                System.out.println("Nessun slot trovato per il sondaggio ID: " + s.getId());
+                continue;
             }
+           for(Slot slot : slots) {
+               s.aggiungiSlot(slot.getTime(), slot);
+               System.out.println("tutto ok");
+           }
         }
         return sondaggi;
+    }
+
+    public SystemPrenotazione getSystemPrenotazione() {
+        if (systemPrenotazione == null) {
+            systemPrenotazione = new SystemPrenotazione();
+            systemPrenotazione.setSondaggi(popolaSondaggi());
+        }
+        return systemPrenotazione;
     }
     public IPanelDAO getPanelDAO() {
         return panelDAO;
@@ -60,6 +73,9 @@ public class FacedeSingletonDB {
     }
     public ISondaggioDAO getSondaggioDAO() {
         return sondaggioDAO;
+    }
+    public ISlotDAO getSlotDAO() {
+        return slotDAO;
     }
 
 

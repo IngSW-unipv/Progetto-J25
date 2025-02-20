@@ -27,16 +27,39 @@ public class Slot {
     }
 
     public LocalDate getData() {
-
         return data;
     }
-    public LocalTime getTime() {
 
+    public LocalTime getOrarioInizio() {
+        return orarioInizio;
+    }
+    public int getIdSlot() {
+        return idSlot;
+    }
+    public int getIdSondaggio() {
+        return idSondaggio;
+    }
+
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+    public void setOrarioInizio(LocalTime orarioInizio) {
+        this.orarioInizio = orarioInizio;
+    }
+
+    public void setIdSlot(int idSlot) {
+        this.idSlot = idSlot;
+    }
+    public void setIdSondaggio(int idSondaggio) {
+        this.idSondaggio = idSondaggio;
+    }
+
+    public LocalTime getTime() {
         return orarioInizio;
     }
     
     public void rimuoviPrenotato(Panelista p) {
-    	
     	prenotati.remove(p);
     }
     
