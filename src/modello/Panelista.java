@@ -17,7 +17,7 @@ public class Panelista extends Utente {
 		return oreLavoro;
 	}
 
-	public void setOreLavoro(double oreLavoro) {
+	public void setOreLavoro(int oreLavoro) {
 		this.oreLavoro = oreLavoro;
 	}
 
