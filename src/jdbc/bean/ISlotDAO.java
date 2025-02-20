@@ -1,11 +1,10 @@
-package jdbc.dao;
+package jdbc.bean;
 
 import modello.creazionePanel.Slot;
 import modello.creazionePanel.Sondaggio;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Map;
 
 public interface ISlotDAO {

@@ -1,4 +1,8 @@
 package testing;
+
+import java.io.File;
+import java.sql.Connection;
+import jdbc.ConnessioneDB;
 public class Main {
     	public static void main(String[] args) {
 	        Connection conn = null;

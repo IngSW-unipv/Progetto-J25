@@ -1,4 +1,4 @@
-package jdbc.dao;
+package jdbc.bean;
 
 import jdbc.ConnessioneDB;
 import modello.creazionePanel.Sondaggio;
@@ -7,7 +7,6 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.List;
 
 /*CREATE TABLE SONDAGGIO (
         ID_SONDAGGIO INT AUTO_INCREMENT PRIMARY KEY,
