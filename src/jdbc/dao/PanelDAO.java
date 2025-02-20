@@ -58,7 +58,7 @@ public class PanelDAO implements IPanelDAO {
                 List<Panelista> users = new ArrayList<>();
                 for (int i = 1; i <= 6; i++) {
                     String email = rs.getString("USER" + i);
-                    if (email != null) users.add(new Panelista(email, null, null, null, null, null,
+                    if (email != null) users.add(new Panelista(0, email, null, null, null, null, null,
                             null, Double.NaN));
                 }
 
