@@ -42,7 +42,7 @@ public class PanelDAO implements IPanelDAO {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         ArrayList<Panel> panels = new ArrayList<>();
-        String query = "SELECT * FROM PANEL WHERE ATTIVO = TRUE AND ORARIO_FINE IS NULL";
+        String query = "SELECT * FROM PANEL WHERE STATO = TRUE AND ORARIO_FINE IS NULL";
 
         try {
             pstmt = conn.prepareStatement(query);

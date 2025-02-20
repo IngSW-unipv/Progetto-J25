@@ -56,8 +56,12 @@ public class SystemPubblicazionePanel {
                 return sondaggio;
     }
 
-    public Sondaggio creazioneSondaggioManuale() {
+    public Sondaggio creazioneSondaggioManuale(LocalDate data, ArrayList<Slot> slots) {
         this.sondaggio = new Sondaggio();
+        sondaggio.setData(data);
+        for (Slot slot : slots) {
+            sondaggio.aggiungiSlot(slot.getTime(), slot);
+        }
         return sondaggio;
     }
 

@@ -2,6 +2,7 @@ package controller;
 
 import jdbc.FacedeSingletonDB;
 import modello.creazionePanel.Macchinario;
+import modello.creazionePanel.Slot;
 import modello.creazionePanel.SystemPubblicazionePanel;
 import modello.creazionePanel.Sondaggio;
 
@@ -19,24 +20,17 @@ public class SondaggioController {
             return FacedeSingletonDB.getInstance().getMacchinarioDAO().getMacchinari();
         }
 
-    private Sondaggio sondaggioCorrente = null;
+        private Sondaggio sondaggioCorrente = null;
 
-    public Sondaggio creaSondaggio(int numCampioni, LocalDate data, ArrayList<Macchinario> macchinariSelezionati, TipoCreaSondaggio tipo) {
+        public Sondaggio creaSondaggioAuto(int numCampioni, LocalDate data, ArrayList<Macchinario> macchinariSelezionati) {
             this.systemPubblicazionePanel.setMacchinari(macchinariSelezionati);
-
             Sondaggio sondaggio;
-            switch (tipo) {
-                case MANUALE:
-                    sondaggio = this.systemPubblicazionePanel.creazioneSondaggioManuale();
-                    System.out.println("Manuale"); // da vedere
-                    break;
-                case AUTOMATICO:
-                    sondaggio = this.systemPubblicazionePanel.creaSondaggioAutomatica(numCampioni, data);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Tipo di sondaggio non valido: " + tipo);
-            }
+            return sondaggio = this.systemPubblicazionePanel.creaSondaggioAutomatica(numCampioni, data);
+        }
 
+        public Sondaggio creaSondaggioManual(LocalDate data, ArrayList<Macchinario> macchinariSelezionati, ArrayList<Slot> slotSelezionati) {
+            this.systemPubblicazionePanel.setMacchinari(macchinariSelezionati);
+            Sondaggio sondaggio = systemPubblicazionePanel.creazioneSondaggioManuale(data, slotSelezionati);
             return sondaggio;
         }
 
