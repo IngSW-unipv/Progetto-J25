@@ -3,15 +3,21 @@ package modello.prenotazionePanel;
 import modello.Panelista;
 import modello.creazionePanel.*;
 
+
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+import modello.email.NotificaMessage;
+import modello.Utente;
+
 
 public class SystemPrenotazione {
-	
 	ArrayList <Sondaggio> sondaggi;
+	ArrayList <Panelista> panelisti;
 
 	public SystemPrenotazione() {
 		sondaggi = new ArrayList<>();
+		panelisti = new ArrayList<>();
 	}
 
 	public void setSondaggi(ArrayList<Sondaggio> sondaggi) {
@@ -28,12 +34,10 @@ public class SystemPrenotazione {
 	}
 
 
-	public void prenotazione(int id, LocalTime orarioSlot, Panelista p) {
-		Sondaggio s = trovaSondaggioPerId(id);
+	public void prenotazione(int idSondaggio, LocalTime orarioSlot, Panelista p) {
+		Sondaggio s = trovaSondaggioPerId(idSondaggio);
 		Slot slot = s.getSlots().get(orarioSlot);
 		slot.addPrenotato(p);
-
-
 		//s.aggiungiPrenotato(p);
 		
 		/*questo metodo aggiunge alla lista di slot
@@ -45,6 +49,12 @@ public class SystemPrenotazione {
 	public void cancellazione(Slot s, Panelista p) {
 		
 		s.rimuoviPrenotato(p);
+		
+		String text = "Si è liberato un posto al panel il seguente giorno: " +s.getData()+" alla seguente ora: " +s.getTime();
+		NotificaMessage notifica = new NotificaMessage( "Cancellazione panel", text);
+		
+		notifica.setListaUtenti(panelisti);
+        notifica.notificaObserver();
 		
 		/*questo metodo toglie dalla lista di slot
 		 * le persone che si sono prenotate ma che
@@ -78,6 +88,37 @@ public class SystemPrenotazione {
 		/*questo metodo restituisce il numero
 		 * delle persone che si sono prenotate
 		 */
+	}
+	
+	
+	
+	public ArrayList<Panelista> getPanelisti() {
+		return panelisti;
+	}
+
+	public void setPanelisti(ArrayList<Panelista> panelisti) {
+		this.panelisti = panelisti;
+	}
+
+	public static void main (String[] args) {
+		
+		LocalDate ld = LocalDate.of(2025, 02, 19);
+		LocalTime lt = LocalTime.of(14, 0);
+		
+		Slot s = new Slot(ld, lt);
+		Panelista p = new Panelista("tommaso.ghisolfi003@gmail.com", "Tommaso", "Ghisolfi", "Broni", ld, "GG", "gg", 10);
+		Panelista k = new Panelista("khawlaouaadou1@gmail.com", "Tommaso", "Ghisolfi", "Broni", ld, "GG", "gg", 10);
+		
+		ArrayList <Panelista> panelisti = new ArrayList<>();
+		panelisti.add(p);
+		panelisti.add(k);
+		
+       
+		SystemPrenotazione sys = new SystemPrenotazione();
+		sys.setPanelisti(panelisti);
+		
+		sys.cancellazione(s, p);
+		
 	}
 	
 	

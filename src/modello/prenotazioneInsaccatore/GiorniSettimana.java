@@ -34,7 +34,18 @@ public enum GiorniSettimana{
 		throw new IllegalArgumentException("Questo valore non è valido: " + i );
 	}
 	
+	public static String stampaEnum(GiorniSettimana giorno) {
+	    switch(giorno) {
+	        case LUN:  return "LUNEDÌ";
+	        case MART: return "MARTEDÌ";
+	        case MERC: return "MERCOLEDÌ";
+	        case GIOV: return "GIOVEDÌ";
+	        case VEN:  return "VENERDÌ";
+	        default:   throw new IllegalArgumentException("Giorno non valido: " + giorno);
+	    }
+	}
+	
 	
 
-
+	
 }

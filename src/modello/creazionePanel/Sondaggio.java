@@ -1,22 +1,23 @@
 package modello.creazionePanel;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Sondaggio {
     private int id;
     private Map<LocalTime, Slot> slot;
-    private boolean approvato;
+    private int slotDisponili;
     private LocalTime oraInizio; // queste due ore sono utili per capire se i
-    private LocalTime oraFine; // panelisti potranno acnora visualizzare il sondaggio o no,
+    private LocalTime oraFine;
+    private LocalDate data;
+    private boolean stato = true;// panelisti potranno acnora visualizzare il sondaggio o no,
     // in caso contrario non sarà caricato dal database sui sondaggi visualizzabili dai panelisti.
 
 
     public Sondaggio() {
         this.slot = new HashMap<>();
-        this.approvato = false;
     }
 
     public Map<LocalTime, Slot> getSlots() {
@@ -26,12 +27,19 @@ public class Sondaggio {
         this.slot.put(time, slot);
      }
 
-     public boolean getApprovato() {
-        return approvato;
+     public LocalDate getData(){
+        return data;
+     }
+     public void setData(LocalDate data){
+        this.data = data;
      }
 
-     public void setApprovato(boolean approvato) {
-        this.approvato = approvato;
+     public boolean getStato() {
+        return stato;
+     }
+
+     public void setStato(boolean stato) {
+        this.stato = stato;
      }
 
      public LocalTime getOraInizio() {
@@ -48,8 +56,11 @@ public class Sondaggio {
         this.oraFine = oraFine;
      }
      public void stampa(){
+        System.out.println(this.data);
+        System.out.println(this.oraInizio);
+        System.out.println(this.id);
         for( Map.Entry<LocalTime, Slot> slot : this.slot.entrySet() ){
-            System.out.println("data slot:" +slot.getValue(). getData());
+            System.out.println("data slot:" +slot.getValue().getData());
             System.out.println("orario inizio:" +slot.getValue().getTime());
         }
      }
@@ -59,5 +70,13 @@ public class Sondaggio {
 
      public void setId(int id) {
         this.id = id;
+     }
+
+     public int getSlotDisponili() {
+        return slot.size();
+     }
+
+     public void setSlotDisponili(int slotDisponili) {
+        this.slotDisponili = slotDisponili;
      }
 }
