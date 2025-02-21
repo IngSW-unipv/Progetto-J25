@@ -1,8 +1,7 @@
-package jdbc.dao.autenticazione;
+package jdbc.bean;
 import jdbc.ConnessioneDB;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class UserDAO {
     private Connection connection;

@@ -1,4 +1,5 @@
-package jdbc.dao.autenticazione;
+package modello.autenticazione;
+import jdbc.bean.UserDAO;
 import modello.Utente;
 import modello.email.NotificaAttivazione;
 

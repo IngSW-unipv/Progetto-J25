@@ -4,24 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8866b5e4-0e07-4928-8a4a-6304eab79994" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/src/jdbc/dao/autenticazione/SystemAutenticazione.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jdbc/dao/autenticazione/UserDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modello/email/NotificaAttivazione.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/testing/CodiceTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/testing/ControlloMailTest.java" afterDir="false" />
+    <list default="true" id="8866b5e4-0e07-4928-8a4a-6304eab79994" name="Changes" comment="autenticazione">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/bean/PanelDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/bean/PanelDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/dao/PanelDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modello/FactoryUtente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/FactoryUtente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modello/Insaccatore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/Insaccatore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modello/PanelLeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/PanelLeader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modello/Panelista.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/Panelista.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modello/Utente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/Utente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modello/email/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/email/EmailSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modello/prenotazionePanel/SystemPrenotazione.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/prenotazionePanel/SystemPrenotazione.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testing/DocumentoRiepilogoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/DocumentoRiepilogoTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testing/GestoreStipendiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/GestoreStipendiTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Progetto-J25.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Progetto-J25.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/dao/PanelDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/testing/CodiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src.it.unipv.ingsfw/testing/CodiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/testing/ControlloMailTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src.it.unipv.ingsfw/testing/ControlloMailTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/dao/autenticazione/SystemAutenticazione.java" beforeDir="false" afterPath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/autenticazione/SystemAutenticazione.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/dao/autenticazione/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/bean/UserDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +134,7 @@
       <workItem from="1739470132122" duration="3621000" />
       <workItem from="1739804806399" duration="1399000" />
       <workItem from="1739806238823" duration="3589000" />
-      <workItem from="1740123049815" duration="30509000" />
+      <workItem from="1740123049815" duration="31700000" />
     </task>
     <task id="LOCAL-00001" summary="librerie">
       <option name="closed" value="true" />
@@ -178,7 +168,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740136651564</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="autenticazione">
+      <option name="closed" value="true" />
+      <created>1740165849653</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1740165849653</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,6 +186,7 @@
     <MESSAGE value="Creazione SystemPrenotazione" />
     <MESSAGE value="librerie" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="autenticazione" />
+    <option name="LAST_COMMIT_MESSAGE" value="autenticazione" />
   </component>
 </project>

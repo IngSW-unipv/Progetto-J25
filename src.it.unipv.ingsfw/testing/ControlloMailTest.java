@@ -1,5 +1,5 @@
 package testing;
-import jdbc.dao.autenticazione.UserDAO;
+import jdbc.bean.UserDAO;
 
 import java.sql.SQLException;
 
