@@ -1,11 +1,9 @@
 package testing;
-import jdbc.dao.autenticazione.SystemAutenticazione;
-import jdbc.dao.autenticazione.UserDAO;
+import modello.autenticazione.SystemAutenticazione;
+import jdbc.bean.UserDAO;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-
-import static jdbc.dao.autenticazione.SystemAutenticazione.*;
 
 public class CodiceTest {
     public static void main(String[] args) throws SQLException {
