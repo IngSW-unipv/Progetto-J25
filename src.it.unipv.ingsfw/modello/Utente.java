@@ -6,6 +6,8 @@ import static modello.email.EmailSender.sendEmail;
 import java.time.LocalDate;
 
 public class Utente implements IObserver {
+	
+	private int id;
 	private String email;
 	private String nome;
 	private String cognome;
@@ -14,7 +16,11 @@ public class Utente implements IObserver {
 	private String codiceFiscale;
 	private String residenza;
 
-	public Utente(String email, String nome, String cognome, String luogoNascita, LocalDate dataNascita, String codiceFiscale, String residenza) {
+
+	public Utente(int id, String email, String nome, String cognome, String luogoNascita, LocalDate dataNascita,
+			String codiceFiscale, String residenza) {
+		
+		this.id = id;
 		this.email = email;
 		this.nome = nome;
 		this.cognome = cognome;
@@ -24,6 +30,15 @@ public class Utente implements IObserver {
 		this.residenza = residenza;
 	}
 
+	
+		
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getCognome() {
 		return cognome;
@@ -85,9 +100,6 @@ public class Utente implements IObserver {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-
-
 
 
 }
