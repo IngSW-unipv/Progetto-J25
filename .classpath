@@ -5,9 +5,10 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src.it.unipv.ingsfw"/>
 	<classpathentry exported="true" kind="lib" path="librerie/javax.activation-1.2.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="librerie/javax.mail-1.6.2.jar"/>
 	<classpathentry kind="lib" path="librerie/mysql-connector-j-9.2.0.jar"/>
+	<classpathentry kind="src" path="src.it.unipv.ingsfw/jdbc"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
