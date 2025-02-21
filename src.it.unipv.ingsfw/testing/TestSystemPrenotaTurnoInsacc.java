@@ -7,6 +7,7 @@ import modello.prenotazioneInsaccatore.*;
 
 public class TestSystemPrenotaTurnoInsacc {
 	public static void main(String[] argvs) {
+		
 		//CREAZIONE:
 		LocalDate luneprox = LocalDate.of(2025, 02, 24);
 		SystemPrenotaTurnoInsacc s1 = new SystemPrenotaTurnoInsacc();
@@ -15,7 +16,7 @@ public class TestSystemPrenotaTurnoInsacc {
 		//genero i tuni per tutta la settimana:
 		s1.riempiSettimana(120);
 		
-
+		
 		
 		//TEST: 
 		System.out.println("SETTIMANA GENERATA:");
