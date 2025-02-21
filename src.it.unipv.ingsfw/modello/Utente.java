@@ -6,7 +6,7 @@ import static modello.email.EmailSender.sendEmail;
 import java.time.LocalDate;
 
 public class Utente implements IObserver {
-	
+
 	private int id;
 	private String email;
 	private String nome;
@@ -15,11 +15,17 @@ public class Utente implements IObserver {
 	private LocalDate dataNascita;
 	private String codiceFiscale;
 	private String residenza;
+	private String nickname;
+	private String password;
+	private String ruolo;
+	//panelista o operatore, il panel leader potrà cambiare il ruolo da panelista a insaccatore nel caso
+	// il panelista sia anche un insaccatore
+
 
 
 	public Utente(int id, String email, String nome, String cognome, String luogoNascita, LocalDate dataNascita,
-			String codiceFiscale, String residenza) {
-		
+			String codiceFiscale, String residenza, String nickname, String password, String ruolo) {
+
 		this.id = id;
 		this.email = email;
 		this.nome = nome;
@@ -28,10 +34,18 @@ public class Utente implements IObserver {
 		this.dataNascita = dataNascita;
 		this.codiceFiscale = codiceFiscale;
 		this.residenza = residenza;
+		this.nickname = nickname;
+		this.password = password;
+		this.ruolo = ruolo;
 	}
 
-	
-		
+	/*public Utente(int id, String email){
+		this.id = id;
+		this.email = email;
+	} */
+
+
+
 	public int getId() {
 		return id;
 	}
@@ -101,5 +115,27 @@ public class Utente implements IObserver {
 		this.nome = nome;
 	}
 
+	public String getRuolo() {
+		return ruolo;
+	}
 
+	public void setRuolo(String ruolo) {
+		this.ruolo = ruolo;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 }

@@ -8,11 +8,12 @@ public class Insaccatore extends Panelista {
 
 	
 	public Insaccatore(int id,String email, String nome, String cognome, String luogoNascita, LocalDate dataNascita,
-			String codiceFiscale, String residenza, double oreLavoro, int oreLimite,int limiteCanc) {
-		super(id,email, nome, cognome, luogoNascita, dataNascita, codiceFiscale, residenza, oreLavoro);
+			String codiceFiscale, String residenza, double oreLavoro, String password, String nickname, String ruolo, int oreLimite,int limiteCanc) {
+		super(id,email, nome, cognome, luogoNascita, dataNascita, codiceFiscale, residenza, nickname,password,ruolo,oreLavoro);
 		this.limiteCanc=0;
 		this.oreLimite=oreLimite;
 		this.limiteCanc=0;
+
 	}
 
 
