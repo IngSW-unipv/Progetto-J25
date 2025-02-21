@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Map;
 
 /*CREATE TABLE SLOT (
@@ -63,25 +64,34 @@ public class SlotDAO implements ISlotDAO {
     }
 
 
-
-
     public boolean insertSlots(Map<LocalTime, Slot> slots) {
         Connection conn = ConnessioneDB.startConnection(null, "osmotech");
         String query = "INSERT INTO SLOT (ID_SONDAGGIO, ORARIO) VALUES (?, ?)";
 
-        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             for (Map.Entry<LocalTime, Slot> entry : slots.entrySet()) {
                 Slot slot = entry.getValue();
 
-                pstmt.setInt(1, slot.getIdSondaggio()); // Associa lo slot al sondaggio
+                pstmt.setInt(1, slot.getIdSondaggio()); // Inserisce ID_SONDAGGIO
                 pstmt.setTimestamp(2, Timestamp.valueOf(
                         LocalDateTime.of(slot.getData(), slot.getOrarioInizio()) // Converte data + orario in DATETIME
                 ));
 
-                pstmt.addBatch(); // Aggiunge la query al batch
+                pstmt.addBatch(); // Aggiunge al batch per eseguire tutto insieme
             }
 
-            int[] rowsAffected = pstmt.executeBatch(); // Esegue tutte le query insieme
+            int[] rowsAffected = pstmt.executeBatch(); // Esegue tutti gli INSERT
+
+            // Recupera gli ID generati per gli slot
+            try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
+                Iterator<Slot> slotIterator = slots.values().iterator();
+                while (generatedKeys.next() && slotIterator.hasNext()) {
+                    int generatedId = generatedKeys.getInt(1); // Ottiene l'ID generato
+                    Slot slot = slotIterator.next();
+                    slot.setIdSlot(generatedId); // Assegna l'ID allo Slot
+                }
+            }
+
             return Arrays.stream(rowsAffected).anyMatch(rows -> rows > 0); // True se almeno uno slot è stato inserito
         } catch (SQLException e) {
             e.printStackTrace();
