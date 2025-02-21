@@ -1,34 +1,46 @@
 package modello;
 
+import java.time.LocalDate;
+
 public class Insaccatore extends Panelista {
-	private int orelimite;
-	private int limitecanc;
+	private int oreLimite;
+	private int limiteCanc;
+
 	
-	public Insaccatore(String email, String nome,  double orelavorate) {
-		super(email, nome, orelavorate);
-
-		limitecanc=0;
+	public Insaccatore(int id,String email, String nome, String cognome, String luogoNascita, LocalDate dataNascita,
+			String codiceFiscale, String residenza, double oreLavoro, int oreLimite,int limiteCanc) {
+		super(id,email, nome, cognome, luogoNascita, dataNascita, codiceFiscale, residenza, oreLavoro);
+		this.limiteCanc=0;
+		this.oreLimite=oreLimite;
+		this.limiteCanc=0;
 	}
 
-	public int getOrelimite() {
-		return orelimite;
+
+	public int getOreLimite() {
+		return oreLimite;
 	}
 
-	public void setOrelimite(int orelimite) {
-		this.orelimite = orelimite;
+
+	public void setOreLimite(int oreLimite) {
+		this.oreLimite = oreLimite;
 	}
-	
+
+
+	public int getLimiteCanc() {
+		return limiteCanc;
+	}
+
+
+	public void setLimiteCanc(int limiteCanc) {
+		this.limiteCanc = limiteCanc;
+	}
+
+
 	
 	
 	
 	//METODI UTILI: 
 	
-	
-	public Insaccatore(String email, String nome, int orelavorate) {
-		super(email, nome, orelavorate);
-		
-	}
-
 	
 	
 }
