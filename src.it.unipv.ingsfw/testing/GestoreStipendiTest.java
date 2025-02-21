@@ -10,7 +10,7 @@ import modello.documento.GestoreStipendi;
 
 public class GestoreStipendiTest {
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		
 		LocalDate localDate = LocalDate.of(2003, 02, 16);
 		Panelista p = (Panelista) FactoryUtente.CreaUtente(TipoUtente.PANELISTA,"Tommaso", "email", 
@@ -22,6 +22,6 @@ public class GestoreStipendiTest {
 		System.out.println(gs.stipendioNetto(p));
 		System.out.println(gs.trattenute(p));
 
-	}
+	} */
 
 }
