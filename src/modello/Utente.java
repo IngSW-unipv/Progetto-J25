@@ -7,6 +7,7 @@ public class Utente implements IObserver {
 	private String email;
 	private String nome;
 
+
 	public Utente(String email, String nome) {
 		this.email = email;
 		this.nome = nome;
