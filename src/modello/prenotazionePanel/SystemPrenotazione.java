@@ -100,7 +100,7 @@ public class SystemPrenotazione {
 		this.panelisti = panelisti;
 	}
 
-	public static void main (String[] args) {
+	/*public static void main (String[] args) {
 		
 		LocalDate ld = LocalDate.of(2025, 02, 19);
 		LocalTime lt = LocalTime.of(14, 0);
@@ -119,7 +119,7 @@ public class SystemPrenotazione {
 		
 		sys.cancellazione(s, p);
 		
-	}
+	} */
 	
 	
 }

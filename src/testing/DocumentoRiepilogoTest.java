@@ -9,7 +9,7 @@ import modello.documento.Azienda;
 
 public class DocumentoRiepilogoTest {
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		
 		LocalDate localDate = LocalDate.of(2003, 02, 16); 
 		
@@ -23,6 +23,6 @@ public class DocumentoRiepilogoTest {
 		
 		azienda.generaDocumento(p, dataEmissione, "FEBBRAIO");
 
-	}
+	} */
 
 }
