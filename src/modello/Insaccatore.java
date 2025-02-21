@@ -41,7 +41,6 @@ public class Insaccatore extends Panelista {
 	
 	//METODI UTILI: 
 	
-
 	
 	
 }
