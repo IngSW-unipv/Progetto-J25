@@ -2,15 +2,25 @@ package modello.documento;
 import modello.Panelista;
 import java.time.LocalDate;
 
+import jdbc.bean.IUserDAO;
+import jdbc.bean.UserDAO;
+
 public class Azienda {
 	private IGestoreStipendi gestore;
+	private SystemDocumento systemDocumento;
 	
-	public Azienda() {
+	public Azienda(IGestoreStipendi gestore, SystemDocumento systemDocumento) {
 			
-		gestore = new GestoreStipendi();
+		this.gestore = gestore;
+		this.systemDocumento = systemDocumento;
+		
 		}
 	
-	public void generaDocumento(Panelista p, LocalDate ld, String mese) {
+	public void generaDocumento(int id, LocalDate ld, String mese) {
+		
+		Panelista p = systemDocumento.restituisciPanelista(id);
+		
+		p.setOreLavoro(systemDocumento.oreLavoroPanelista(id, mese));
 		
 		double lordo = gestore.stipendioLordo(p);
 		double netto = gestore.stipendioNetto(p);
@@ -20,6 +30,8 @@ public class Azienda {
 		dr.riepilogoUtente();
 		
 		}
+	
+	
 	
 	
 }
