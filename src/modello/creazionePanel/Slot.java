@@ -4,6 +4,7 @@ import modello.Panelista;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Slot {
@@ -21,9 +22,14 @@ public class Slot {
     public List<Panelista> getPrenotati() {
     	return prenotati;
     }
-    public void addPrenotato(Panelista prenotato) {
-        this.prenotati.add(prenotato);
-        prenotati.sort((p1, p2) -> Double.compare(p2.getOreLavoro(), p1.getOreLavoro()));
+
+    public void aggiungiPrenotato(Panelista p) {
+        prenotati.add(p);
+    }
+
+    public void ordinadPrenotati() {
+        Collections.sort(prenotati, (p1, p2) -> Double.compare(p2.getOreLavoro(), p1.getOreLavoro()));
+
     }
 
     public LocalDate getData() {

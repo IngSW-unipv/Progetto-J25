@@ -4,8 +4,71 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8866b5e4-0e07-4928-8a4a-6304eab79994" name="Changes" comment="-">
-      <change beforePath="$PROJECT_DIR$/src/testing/CodiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/CodiceTest.java" afterDir="false" />
+    <list default="true" id="8866b5e4-0e07-4928-8a4a-6304eab79994" name="Changes" comment="controller e view per il sondaggio">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Progetto-J25.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Progetto-J25.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/controller/SondaggioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/SondaggioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/controller/TipoCreaSondaggio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/TipoCreaSondaggio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/ConnessioneDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/ConnessioneDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/FacedeSingletonDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/FacedeSingletonDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/bean/IMacchinarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/bean/IMacchinarioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/bean/IPanelDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/bean/IPanelDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/bean/ISlotDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/bean/ISlotDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/bean/ISondaggioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/bean/ISondaggioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/bean/MacchinarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/bean/MacchinarioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/bean/PanelDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/bean/PanelDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/bean/SlotDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/bean/SlotDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/bean/SondaggioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/bean/SondaggioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/bean/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/bean/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/dao/GenericoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/dao/GenericoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/dao/ITurnoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/dao/ITurnoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/dao/TurnoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/dao/TurnoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/dao/campione/CampioneDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/dao/campione/CampioneDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/dao/campione/ICampioneDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/dao/campione/ICampioneDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/FactoryUtente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/FactoryUtente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/Insaccatore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/Insaccatore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/PanelLeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/PanelLeader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/Panelista.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/Panelista.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/TipoUtente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/TipoUtente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/Utente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/Utente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/analisiCampione/AnalisiCampione.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/analisiCampione/AnalisiCampione.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/archiviazioneCampione/Campione.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/archiviazioneCampione/Campione.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/archiviazioneCampione/Magazzino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/archiviazioneCampione/Magazzino.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/archiviazioneCampione/SystemCampione.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/archiviazioneCampione/SystemCampione.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/autenticazione/SystemAutenticazione.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/autenticazione/SystemAutenticazione.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/creazionePanel/Macchinario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/creazionePanel/Macchinario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/creazionePanel/Panel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/creazionePanel/Panel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/creazionePanel/Slot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/creazionePanel/Slot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/creazionePanel/Sondaggio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/creazionePanel/Sondaggio.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/creazionePanel/SystemPubblicazionePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/creazionePanel/SystemPubblicazionePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/documento/Azienda.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/documento/Azienda.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/documento/DocumentoRiepilogo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/documento/DocumentoRiepilogo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/documento/GestoreStipendi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/documento/GestoreStipendi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/email/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/email/EmailSender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/email/EmailUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/email/EmailUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/email/INotifica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/email/INotifica.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/email/IObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/email/IObserver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/email/NotificaAttivazione.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/email/NotificaAttivazione.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/email/NotificaMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/email/NotificaMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/prenotazioneInsaccatore/DurataTurno.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/prenotazioneInsaccatore/DurataTurno.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/prenotazioneInsaccatore/GiorniSettimana.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/prenotazioneInsaccatore/GiorniSettimana.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/prenotazioneInsaccatore/Giorno.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/prenotazioneInsaccatore/Giorno.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/prenotazioneInsaccatore/SystemPrenotaTurnoInsacc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/prenotazioneInsaccatore/SystemPrenotaTurnoInsacc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/prenotazioneInsaccatore/Turno.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/prenotazioneInsaccatore/Turno.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/prenotazionePanel/SystemPrenotazione.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/prenotazionePanel/SystemPrenotazione.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/testing/CodiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/CodiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/testing/ControlloMailTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/ControlloMailTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/testing/DocumentoRiepilogoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/DocumentoRiepilogoTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/testing/GestoreStipendiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/GestoreStipendiTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/testing/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/testing/SystemCampioneTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/SystemCampioneTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/testing/TestSystemPrenotaTurnoInsacc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/TestSystemPrenotaTurnoInsacc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/testing/TestUtente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/TestUtente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/view/creazioneSondaggio/CaricamentoViewAuto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/creazioneSondaggio/CaricamentoViewAuto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/view/creazioneSondaggio/CaricamentoViewManual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/creazioneSondaggio/CaricamentoViewManual.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/view/creazioneSondaggio/ModalitaView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/creazioneSondaggio/ModalitaView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/view/creazioneSondaggio/PubblicazioneSondaggioView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/creazioneSondaggio/PubblicazioneSondaggioView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/view/creazioneSondaggio/SondaggioView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/creazioneSondaggio/SondaggioView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,29 +107,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.CodiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ControlloMailTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.EmailSender.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/aless/Downloads/mysql-connector-j-9.2.0.jar&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CodiceTest.executor": "Run",
+    "Application.ConnessioneDB.executor": "Run",
+    "Application.ControlloMailTest.executor": "Run",
+    "Application.EmailSender.executor": "Run",
+    "Application.SondaggioView.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/aless/Downloads/mysql-connector-j-9.2.0.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Application.CodiceTest">
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/librerie" />
+      <recent name="$PROJECT_DIR$/lib" />
+    </key>
+  </component>
+  <component name="RunManager">
     <configuration name="CodiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="testing.CodiceTest" />
       <module name="Progetto-J25" />
@@ -170,45 +241,18 @@
       <option name="project" value="LOCAL" />
       <updated>1740165849653</updated>
     </task>
-    <task id="LOCAL-00006" summary="-">
-      <option name="closed" value="true" />
-      <created>1740217304176</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1740217304176</updated>
-    </task>
-    <task id="LOCAL-00007" summary="-">
-      <option name="closed" value="true" />
-      <created>1740225603445</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1740225603445</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Creazione SystemPrenotazione" />
     <MESSAGE value="librerie" />
     <MESSAGE value="." />
     <MESSAGE value="autenticazione" />
-    <MESSAGE value="-" />
-    <option name="LAST_COMMIT_MESSAGE" value="-" />
+    <MESSAGE value="controller e view per il sondaggio" />
+    <option name="LAST_COMMIT_MESSAGE" value="controller e view per il sondaggio" />
   </component>
 </project>

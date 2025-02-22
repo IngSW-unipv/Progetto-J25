@@ -109,8 +109,10 @@ public class SystemPubblicazionePanel {
 
     public void creazionePanel(){
         this.panel = new ArrayList<>();
-        //VA INSERITO IL METODO CHE RICAVA LE PRENOTAZIONE CHE SONO STATE ESEGUITE
+        FacedeSingletonDB.getInstance().getPrenotati(sondaggio.getSlots());
+
         for (Map.Entry<LocalTime, Slot> entry : sondaggio.getSlots().entrySet()){
+            entry.getValue().ordinadPrenotati();
             for(Macchinario m: macchinariAttvi){
                 Panel p = new Panel(entry.getValue().getTime(), m, entry.getValue().getData());
                 // suppongo che i panelisti vengano inseriti gia in ordine decrescente per ore nella lista dei prenotati allo slot

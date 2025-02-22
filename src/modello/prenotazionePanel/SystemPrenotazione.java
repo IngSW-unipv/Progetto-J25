@@ -1,5 +1,6 @@
 package modello.prenotazionePanel;
 
+import jdbc.FacedeSingletonDB;
 import modello.Panelista;
 import modello.creazionePanel.*;
 
@@ -37,20 +38,15 @@ public class SystemPrenotazione {
 	public void prenotazione(int idSondaggio, LocalTime orarioSlot, Panelista p) {
 		Sondaggio s = trovaSondaggioPerId(idSondaggio);
 		Slot slot = s.getSlots().get(orarioSlot);
-		slot.addPrenotato(p);
-		//s.aggiungiPrenotato(p);
-		
-		/*questo metodo aggiunge alla lista di slot
-		 * le persone che si sono prenotate
-		 */
-	
+		FacedeSingletonDB.getInstance().getPrenotazionePanelDAO().salvaPrenotazione(slot, p);
 	}
 	
-	public void cancellazione(Slot s, Panelista p) {
+	public void cancellazione(Panel panel, Panelista p) {
+		FacedeSingletonDB.getInstance().getPanelDAO().rimuoviUtenteDaPanel(panel.getId(), p.getEmail());
 		
-		s.rimuoviPrenotato(p);
+		/*s.rimuoviPrenotato(p);*/
 		
-		String text = "Si è liberato un posto al panel il seguente giorno: " +s.getData()+" alla seguente ora: " +s.getTime();
+		String text = "Si è liberato un posto ad un panel il seguente giorno: " +panel.getData()+" alla seguente ora: " +panel.getOrarioInizio();
 		NotificaMessage notifica = new NotificaMessage( "Cancellazione panel", text);
 		
 		notifica.setListaUtenti(panelisti);

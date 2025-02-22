@@ -14,8 +14,9 @@ public class Panel {
     private List<Panelista> listaPanelisti;
     private Macchinario macchinario;
     private boolean stato = true;
+    private int id;
 
-    public Panel(LocalTime orarioInizio, Macchinario macchinario, LocalDate data) {
+    public Panel( LocalTime orarioInizio, Macchinario macchinario, LocalDate data) {
         this.orarioInizio = orarioInizio;
         this.macchinario = macchinario;
         this.data = data;
@@ -73,6 +74,13 @@ public class Panel {
         for(Panelista p : this.listaPanelisti){
             System.out.println(p.getEmail());
         }
+    }
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 
 }
