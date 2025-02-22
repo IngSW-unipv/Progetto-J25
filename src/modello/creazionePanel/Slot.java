@@ -27,7 +27,7 @@ public class Slot {
         prenotati.add(p);
     }
 
-    public void ordinadPrenotati() {
+    public void ordinaPrenotati() {
         Collections.sort(prenotati, (p1, p2) -> Double.compare(p2.getOreLavoro(), p1.getOreLavoro()));
 
     }

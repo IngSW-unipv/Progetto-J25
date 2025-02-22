@@ -60,7 +60,6 @@ public class FacedeSingletonDB {
             }
            for(Slot slot : slots) {
                s.aggiungiSlot(slot.getTime(), slot);
-               System.out.println("tutto ok");
            }
         }
         return sondaggi;

@@ -133,7 +133,7 @@ public class UserDAO implements IUserDAO{
         connection = ConnessioneDB.startConnection(connection, "osmotech");
         // Avvia la connessione
         // La query SQL per ottenere i panelisti con ruolo 'op' o 'insaccatore'
-        String query = "SELECT * FROM UTENTE WHERE RUOLO IN ('op', 'insaccatore')";
+        String query = "SELECT * FROM UTENTE WHERE RUOLO IN ('pa', 'insaccatore')";
 
         try (PreparedStatement pstmt = connection.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {

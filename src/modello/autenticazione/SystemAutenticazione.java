@@ -105,7 +105,7 @@ public class SystemAutenticazione {
     public void reindirizzaUtente(String ruolo) {
         if (ruolo.equals("pl")) {
             new HomePanelLeader(); // Apre la home del panelista
-        } else if (ruolo.equals("op")) {
+        } else if (ruolo.equals("pa")) {
             new HomeOperatore(); // Apre la home dell'operatore
         } else if (ruolo.equals("in")) {
             new HomeInsaccatore(); // Apre la home dell'insaccatore
