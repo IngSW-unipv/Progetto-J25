@@ -10,6 +10,7 @@ public class CodiceTest {
     public static void main(String[] args) throws SQLException {
         UserDAO userDAO= new UserDAO();
         SystemAutenticazione systemAutenticazione = new SystemAutenticazione(userDAO);
+        System.out.println("Inserire email:   ");
         Scanner scanner = new Scanner(System.in);
         String email = scanner.nextLine();
         systemAutenticazione.attivazioneEmail(email);
