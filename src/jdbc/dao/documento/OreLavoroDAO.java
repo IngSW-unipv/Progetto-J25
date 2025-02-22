@@ -22,7 +22,7 @@ public class OreLavoroDAO implements IOreLavoroDAO {
 	public OreLavoroDAO() {
 	}
 	@Override
-	public double selectOreLavoro(int id) {
+	public double selectOreLavoro(int id, String mese) {
 		
 		conn = ConnessioneDB.startConnection(conn, "osmotech");
 		PreparedStatement ps1;
@@ -32,10 +32,11 @@ public class OreLavoroDAO implements IOreLavoroDAO {
 		
 		try {
 			
-			String query = "SELECT ORE FROM osmotech.ORE_LAVORATE WHERE UTENTE_ID = ?";
+			String query = "SELECT ORE FROM osmotech.ORE_LAVORATE WHERE USER_ID = ? and MESE = ?";
 					
 			ps1 = conn.prepareStatement(query);
 			ps1.setInt(1, id);
+			ps1.setString(2, mese);
 			
 			rs1 = ps1.executeQuery();
 			
