@@ -63,6 +63,7 @@ public class PanelDAO implements IPanelDAO {
 
                 // Il panel è attivo perché lo stiamo filtrando nella query
                 Panel panel = new Panel(orarioInizio, new Macchinario(macchinario, users.size()), data);
+                panel.setId(idPanel);
                 panel.setListaPanelisti(users);
                 panels.add(panel);
             }
