@@ -11,8 +11,9 @@ public class UserDAO {
         super();
     }
 
-    public UserDAO(Connection conn) {
+    public UserDAO(Connection connection) {
         this.connection = connection;
+
 
 
     }
@@ -82,6 +83,35 @@ public class UserDAO {
 
 
         }
+  }
+
+  public String controlloLogin(String usernameOrEmailInput, String passwordInput) throws SQLException {
+        connection = ConnessioneDB.startConnection(connection, "osmotech");
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        String ruolo = null;
+        try{
+            String query = "SELECT RUOLO FROM osmotech.UTENTE WHERE (EMAIL = ? OR NICKNAME = ?) AND PASSWORD = ?";
+            pst = connection.prepareStatement(query);
+            pst.setString(1, usernameOrEmailInput);
+            pst.setString(2, usernameOrEmailInput);
+            pst.setString(3, passwordInput);
+            rs = pst.executeQuery();
+
+            if(rs.next()) {
+                ruolo = rs.getString("RUOLO");
+            } else {
+                System.out.println("Credenziali non valide.");
+            }
+
+        } catch(SQLException e){
+            e.printStackTrace();
+        } finally {
+            if(pst != null) pst.close();
+            if(rs != null) rs.close();
+            ConnessioneDB.closeConnection(connection);
+        }
+        return ruolo;
   }
 
     }
