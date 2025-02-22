@@ -18,7 +18,7 @@ public class CodiceTest {
         System.out.println("Inserire codice attivazione ");
 
         String input = sc.nextLine();
-        sc.close();
+
         systemAutenticazione.inizioRegistrazione(input);
         System.out.println("Inserire password:   ");
         String input2 = sc.nextLine();
@@ -33,6 +33,7 @@ public class CodiceTest {
         System.out.println("Inserire nickname:    ");
         String input7 = sc.nextLine();
         systemAutenticazione.registrazioneUtente(input, email, input2, input3, input4, input5, input6, input7);
+        sc.close();
     }
 }
 
