@@ -4,6 +4,7 @@ import modello.Utente;
 import modello.email.NotificaAttivazione;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Random;
 
 public class SystemAutenticazione {
@@ -12,6 +13,7 @@ public class SystemAutenticazione {
     private String codiceAttivazione;
 
     public SystemAutenticazione(UserDAO userDAO) {
+
         this.userDAO = userDAO;
     }
 
@@ -31,7 +33,7 @@ public class SystemAutenticazione {
        System.out.println("Email inviata a " + email);
    }
 
-    public void AttivazioneEmail (String emailInput) throws SQLException {
+    public void attivazioneEmail(String emailInput) throws SQLException {
            if(userDAO.controlloEmail(emailInput)){
                codiceAttivazione = generaCodiceAttivazione();
                inviaEmailAttivazione(emailInput, codiceAttivazione);
@@ -39,14 +41,26 @@ public class SystemAutenticazione {
                System.out.println("Email non trovata");
            } }
 
-           public void InizioRegistrazione(String codiceInput){
+           public boolean inizioRegistrazione(String codiceInput){
              if(codiceAttivazione.equals(codiceInput)){
                  System.out.println("La registrazione può iniziare");
+                 return true;
              } else {
                  System.out.println("Codice di attivazione errato");
              }
+            return false;
         }
 
+        public void registrazioneUtente(String codiceInput,String emailInput, String passwordInput, String luogoNascitaInput, LocalDate dataNascitaInput,String codiceFiscaleInput,
+                                        String residenzaInput, String nicknameInput) throws SQLException {
+        if(inizioRegistrazione(codiceInput)){
+            userDAO.registraUtente(emailInput,passwordInput,luogoNascitaInput, dataNascitaInput, codiceFiscaleInput, residenzaInput, nicknameInput);
+
+        } }
 
 
-}
+    }
+
+
+
+
