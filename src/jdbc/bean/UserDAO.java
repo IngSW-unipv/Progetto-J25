@@ -1,12 +1,15 @@
 package jdbc.bean;
 import jdbc.ConnessioneDB;
+import modello.Panelista;
 import modello.Utente;
 
 import java.sql.*;
 import java.time.LocalDate;
 
-public class UserDAO {
+public class UserDAO implements IUserDAO{
+	
     private Connection connection;
+    
     public UserDAO() {
         super();
     }
@@ -17,6 +20,7 @@ public class UserDAO {
 
     }
 
+  @Override  
     public boolean controlloEmail(String emailInput) throws SQLException {
         connection = ConnessioneDB.startConnection(connection, "osmotech");
         PreparedStatement pst = null; //crei oggetto dentro il quale mettere la query
@@ -45,7 +49,9 @@ public class UserDAO {
         }
         return emailTrovata;
     }
-
+  
+  
+@Override
   public void registraUtente(String emailInput, String passwordInput, String luogoNascitaInput, LocalDate dataNascitaInput,String codiceFiscaleInput,
                              String residenzaInput, String nicknameInput) throws SQLException {
         String[] emailParts = emailInput.split("@")[0].split("\\.");
@@ -83,6 +89,43 @@ public class UserDAO {
 
         }
   }
+  
+  		public Panelista selectPanelista(int id) {
+  			
+  			connection = ConnessioneDB.startConnection(connection, "osmotech");
+  			Panelista p = null;
+  			
+  			PreparedStatement ps1;
+  			ResultSet rs1;
+  			
+  			try {
+  				
+  				String query = "SELECT * FROM osmotech.UTENTE WHERE ID = ?";
+  				ps1 = connection.prepareStatement(query);
+  				
+  				ps1.setInt(1, id);
+  				rs1 = ps1.executeQuery();
+  				
+  				while(rs1.next()) {
+  					
+  					java.sql.Date sqlDate = rs1.getDate("DATANASCITA");  
+  					java.time.LocalDate localDate = sqlDate.toLocalDate();
+  					p = new Panelista(rs1.getInt("ID"), rs1.getString("EMAIL"),rs1.getString("NOME"), rs1.getString("COGNOME"),
+  							rs1.getString("LUOGONASCITA"), localDate, rs1.getString("CODICEFISCALE"), rs1.getString("NICKNAME"),
+  							rs1.getString("PASSWORD"), rs1.getString("RUOLO"), rs1.getString("RESIDENZA"), rs1.getDouble("ORELAVORO"));
+  				}
+  						
+  			}catch(Exception e) {
+  				
+  				e.printStackTrace();
+  			}
+  			
+  			connection = ConnessioneDB.closeConnection(connection);
+  			return p;
+  			
+  		}
+  		
+  		
 
     }
 

@@ -7,6 +7,6 @@ import java.util.Map;
 
 public interface IOreLavoroDAO {
 	
-	double selectOreLavoro(int id);
+	double selectOreLavoro(int id, String mese);
 	boolean getOreLavPrenotati(Map<LocalTime, Slot> slots);
 }
