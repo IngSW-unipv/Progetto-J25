@@ -21,6 +21,7 @@ public class FacedeSingletonDB {
     private ISlotDAO slotDAO;
     private IPrenotazionePanelDAO prenotazionePanelDAO;
     private IOreLavoroDAO oreLavoroDAO;
+    private IUserDAO userDAO;
 
     private SystemPubblicazionePanel systemPubblicazionePanel;
     private SystemPrenotazione systemPrenotazione;
@@ -32,6 +33,7 @@ public class FacedeSingletonDB {
         this.slotDAO = new SlotDAO();
         this.prenotazionePanelDAO = new PrenotazionePanelDAO();
         this.oreLavoroDAO = new OreLavoroDAO();
+        this.userDAO = new UserDAO();
     }
 
     public static FacedeSingletonDB getInstance() {
@@ -44,7 +46,7 @@ public class FacedeSingletonDB {
     public SystemPubblicazionePanel getSystemPubblicazionePanel() {
         if (systemPubblicazionePanel == null) {
             systemPubblicazionePanel = new SystemPubblicazionePanel();
-            //systemPubblicazionePanel.setPanelisti(); //va ancora creata la classe DAO che si occupa del prelievo dei dati del panelista
+            systemPubblicazionePanel.setPanelisti(userDAO.getPanelistas());
         }
         return systemPubblicazionePanel;
     }

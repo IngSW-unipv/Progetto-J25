@@ -5,6 +5,7 @@ import modello.Utente;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class UserDAO implements IUserDAO{
 	
@@ -16,6 +17,7 @@ public class UserDAO implements IUserDAO{
 
     public UserDAO(Connection conn) {
         this.connection = connection;
+
 
 
     }
@@ -124,10 +126,82 @@ public class UserDAO implements IUserDAO{
   			return p;
   			
   		}
-  		
-  		
+
+    public ArrayList<Panelista> getPanelistas() {
+
+        ArrayList<Panelista> panelisti = new ArrayList<>();
+        connection = ConnessioneDB.startConnection(connection, "osmotech");
+        // Avvia la connessione
+        // La query SQL per ottenere i panelisti con ruolo 'op' o 'insaccatore'
+        String query = "SELECT * FROM UTENTE WHERE RUOLO IN ('op', 'insaccatore')";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            // Itera sui risultati della query e crea gli oggetti Panelista
+            while (rs.next()) {
+                int id = rs.getInt("ID");
+                String email = rs.getString("EMAIL");
+                String nome = rs.getString("NOME");
+                String cognome = rs.getString("COGNOME");
+                String luogoNascita = rs.getString("LUOGONASCITA");
+                LocalDate dataNascita = rs.getDate("DATANASCITA").toLocalDate(); // Convertiamo la data
+                String codiceFiscale = rs.getString("CODICEFISCALE");
+                String nickname = rs.getString("NICKNAME");
+                String password = rs.getString("PASSWORD");
+                String ruolo = rs.getString("RUOLO");
+                String residenza = rs.getString("RESIDENZA");
+                double oreLavoro = rs.getDouble("ORELAVORO");
+
+                // Crea un oggetto Panelista e aggiungilo alla lista
+                Panelista panelista = new Panelista(id, email, nome, cognome, luogoNascita, dataNascita,
+                        codiceFiscale, nickname, password, ruolo, residenza, oreLavoro);
+                panelisti.add(panelista);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Chiudi la connessione al database
+            ConnessioneDB.closeConnection(connection);
+        }
+
+        return panelisti;  // Restituisce la lista di panelisti
+    }
+
+
+
+    public String controlloLogin(String usernameOrEmailInput, String passwordInput) throws SQLException {
+        connection = ConnessioneDB.startConnection(connection, "osmotech");
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        String ruolo = null;
+        try{
+            String query = "SELECT RUOLO FROM osmotech.UTENTE WHERE (EMAIL = ? OR NICKNAME = ?) AND PASSWORD = ?";
+            pst = connection.prepareStatement(query);
+            pst.setString(1, usernameOrEmailInput);
+            pst.setString(2, usernameOrEmailInput);
+            pst.setString(3, passwordInput);
+            rs = pst.executeQuery();
+
+            if(rs.next()) {
+                ruolo = rs.getString("RUOLO");
+            } else {
+                System.out.println("Credenziali non valide.");
+            }
+
+        } catch(SQLException e){
+            e.printStackTrace();
+        } finally {
+            if(pst != null) pst.close();
+            if(rs != null) rs.close();
+            ConnessioneDB.closeConnection(connection);
+        }
+        return ruolo;
+  }
 
     }
+
 
 
 
