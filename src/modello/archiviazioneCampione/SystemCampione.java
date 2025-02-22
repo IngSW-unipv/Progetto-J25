@@ -1,15 +1,18 @@
 package modello.archiviazioneCampione;
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 
 import jdbc.dao.campione.CampioneDAO;
+import jdbc.dao.campione.ICampioneDAO;
 import modello.archiviazioneCampione.*;
+
 public class SystemCampione {
 	
-	CampioneDAO campioneDAO;
+	ICampioneDAO campioneDAO;
 	
 	
-	public SystemCampione(CampioneDAO campioneDAO) {
+	public SystemCampione(ICampioneDAO campioneDAO) {
 		
 		this.campioneDAO = campioneDAO;
 		
