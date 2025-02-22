@@ -3,7 +3,7 @@ import modello.Panelista;
 import java.time.LocalDate;
 
 public class Azienda {
-	private GestoreStipendi gestore;
+	private IGestoreStipendi gestore;
 	
 	public Azienda() {
 			
