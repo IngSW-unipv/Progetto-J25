@@ -6,6 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="8866b5e4-0e07-4928-8a4a-6304eab79994" name="Changes" comment="autenticazione">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Progetto-J25.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Progetto-J25.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/dao/PanelDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/testing/CodiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src.it.unipv.ingsfw/testing/CodiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src.it.unipv.ingsfw/testing/ControlloMailTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src.it.unipv.ingsfw/testing/ControlloMailTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/dao/autenticazione/SystemAutenticazione.java" beforeDir="false" afterPath="$PROJECT_DIR$/src.it.unipv.ingsfw/modello/autenticazione/SystemAutenticazione.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/dao/autenticazione/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src.it.unipv.ingsfw/jdbc/bean/UserDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,28 +50,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.CodiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ControlloMailTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.EmailSender.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/aless/Downloads/mysql-connector-j-9.2.0.jar&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CodiceTest.executor": "Run",
+    "Application.ControlloMailTest.executor": "Run",
+    "Application.EmailSender.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/aless/Downloads/mysql-connector-j-9.2.0.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Application.CodiceTest">
     <configuration name="CodiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="testing.CodiceTest" />
