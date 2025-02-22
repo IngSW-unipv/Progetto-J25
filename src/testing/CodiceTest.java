@@ -10,14 +10,14 @@ public class CodiceTest {
     public static void main(String[] args) throws SQLException {
         UserDAO userDAO= new UserDAO();
         SystemAutenticazione systemAutenticazione = new SystemAutenticazione(userDAO);
-        /*System.out.println("Inserire email:   ");
+        System.out.println("Inserire email:   ");
         Scanner scanner = new Scanner(System.in);
         String email = scanner.nextLine();
-        systemAutenticazione.attivazioneEmail(email); */
+        systemAutenticazione.attivazioneEmail(email);
         Scanner sc = new Scanner(System.in);
-       // System.out.println("Inserire codice attivazione ");
+       System.out.println("Inserire codice attivazione ");
 
-       /* String input = sc.nextLine();
+       String input = sc.nextLine();
 
         systemAutenticazione.inizioRegistrazione(input);
         System.out.println("Inserire password:   ");
@@ -43,14 +43,14 @@ public class CodiceTest {
         System.out.println("Inserire nickname:    ");
         String input7 = sc.nextLine();
         systemAutenticazione.registrazioneUtente(input, email, input2, input3, input4, input5, input6, input7);
-         */
 
-        System.out.println("Inserire nickname o emaill:  ");
+
+        /*System.out.println("Inserire nickname o emaill:  ");
         String input8 = sc.nextLine();
         System.out.println("Inserire password:    ");
         String input9 = sc.nextLine();
         systemAutenticazione.login(input8,input9);
-        sc.close();
+        sc.close();*/
 }}
 
 

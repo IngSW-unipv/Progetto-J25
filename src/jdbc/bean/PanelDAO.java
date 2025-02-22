@@ -95,9 +95,11 @@ public class PanelDAO implements IPanelDAO {
 
             // Inserisce gli utenti (se ci sono)
             List<Panelista> users = panel.getListaPanelisti();
+            int count = 0;
             for (int i = 0; i < 6; i++) {
                 if (i < users.size()) {
                     pstmt.setString(4 + i, users.get(i).getEmail());
+                    count ++;
                 } else {
                     pstmt.setNull(4 + i, java.sql.Types.VARCHAR);
                 }
@@ -105,7 +107,7 @@ public class PanelDAO implements IPanelDAO {
 
             pstmt.setBoolean(10, panel.getStato()); // Inserisce lo stato attivo
             // Inserisce il numero di utenti (NUMERO_USER)
-            pstmt.setInt(11, users.size()); // Aggiungi il numero di utenti associati al panel
+            pstmt.setInt(11, count); // Aggiungi il numero di utenti associati al panel
 
             int rowsAffected = pstmt.executeUpdate();
             return rowsAffected > 0;
