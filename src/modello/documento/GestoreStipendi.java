@@ -1,7 +1,7 @@
 package modello.documento;
 import modello.Panelista;
 
-public class GestoreStipendi {
+public class GestoreStipendi implements IGestoreStipendi {
 	
 	
 	private final double STIPENDIOPANELISTA = 10;
@@ -13,12 +13,15 @@ public class GestoreStipendi {
 		
 	}
 	
+	@Override
 	public double stipendioLordo(Panelista panelista) {
 		
 		return  panelista.getOreLavoro() * STIPENDIOPANELISTA; 
 		
 	}
 	
+	
+	@Override
 	public double trattenute(Panelista panelista) {
 		
 		
@@ -26,6 +29,7 @@ public class GestoreStipendi {
 		
 	}
 	
+	@Override
 	public double stipendioNetto(Panelista panelista) {
 		
 		return (panelista.getOreLavoro() * STIPENDIOPANELISTA) -(panelista.getOreLavoro() * STIPENDIOPANELISTA * TRATTENUTA);
