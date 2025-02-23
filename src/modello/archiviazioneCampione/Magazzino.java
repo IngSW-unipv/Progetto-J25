@@ -2,6 +2,11 @@ package modello.archiviazioneCampione;
 
 public class Magazzino {
 	
+	/*QUESTA CLASSE HA PIU SENSO
+	 * CHE SI CHIAMI GESTOREMAGAZZINO
+	 * DATO CHE NON è IL MAGAZZINO A DECREMENTARE
+	 * LE SACCHE
+	 */
 	private int numeroSacche;
 
 	public Magazzino(int numeroSacche) {
