@@ -46,8 +46,6 @@ public class Giorno {
 	}
 
 	
-	
-	
 	//METODI DI TEST, MI SERVONO PER VEDERE SE SI CREANO GLI OGGETTI:
 	public void stampaTurni() {
 		for(Turno t: turni) {

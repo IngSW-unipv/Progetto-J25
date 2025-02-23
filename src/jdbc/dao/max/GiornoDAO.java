@@ -1,4 +1,11 @@
 package jdbc.dao.max;
+
+import java.sql.*;
+import jdbc.ConnessioneDB;
+import modello.prenotazioneInsaccatore.*;
+import java.time.*;
+import java.util.ArrayList;
+
 /* TABELLA DI RIFERIMENTO:
  * 
    CREATE TABLE `GIORNO` (
@@ -11,7 +18,10 @@ package jdbc.dao.max;
  */
 public class GiornoDAO implements IGiornoDAO {
 	
-	 public void aggiungi(Giorno giorno) {
+	private static final String DB = "osmotech";
+	private Connection connessione;
+	
+	   public void aggiungi(Giorno giorno) {
 	        connessione = ConnessioneDB.startConnection(connessione, DB);
 	        String sql = "INSERT INTO GIORNO (tipo, data) VALUES (?, ?)";
 
@@ -31,17 +41,16 @@ public class GiornoDAO implements IGiornoDAO {
 	    public Giorno trova(int id) {
 	        connessione = ConnessioneDB.startConnection(connessione, DB);
 	        Giorno giorno = null;
-	        String sql = "SELECT id, tipo, data FROM GIORNO WHERE id = ?";
+	        String sql = "SELECT tipo, data FROM GIORNO WHERE id = ?";
 
 	        try (PreparedStatement stmt = connessione.prepareStatement(sql)) {
 	            stmt.setInt(1, id);
 	            try (ResultSet rs = stmt.executeQuery()) {
 	                if (rs.next()) {
-	                    int idGiorno = rs.getInt("id");
 	                    GiorniSettimana tipo = GiorniSettimana.valueOf(rs.getString("tipo"));
 	                    LocalDate data = rs.getDate("data").toLocalDate();
 
-	                    giorno = new Giorno(idGiorno, tipo, data);
+	                    giorno = new Giorno(tipo, data);
 	                }
 	            }
 	        } catch (SQLException e) {
@@ -57,17 +66,16 @@ public class GiornoDAO implements IGiornoDAO {
 	    public ArrayList<Giorno> trovaTutti() {
 	        connessione = ConnessioneDB.startConnection(connessione, DB);
 	        ArrayList<Giorno> giorni = new ArrayList<>();
-	        String sql = "SELECT id, tipo, data FROM GIORNO";
+	        String sql = "SELECT tipo, data FROM GIORNO";
 
 	        try (PreparedStatement stmt = connessione.prepareStatement(sql);
 	             ResultSet rs = stmt.executeQuery()) {
 
 	            while (rs.next()) {
-	                int id = rs.getInt("id");
 	                GiorniSettimana tipo = GiorniSettimana.valueOf(rs.getString("tipo"));
 	                LocalDate data = rs.getDate("data").toLocalDate();
 
-	                Giorno giorno = new Giorno(id, tipo, data);
+	                Giorno giorno = new Giorno(tipo, data);
 	                giorni.add(giorno);
 	            }
 	        } catch (SQLException e) {
@@ -82,12 +90,13 @@ public class GiornoDAO implements IGiornoDAO {
 	    @Override
 	    public void aggiorna(Giorno giorno) {
 	        connessione = ConnessioneDB.startConnection(connessione, DB);
-	        String sql = "UPDATE GIORNO SET tipo = ?, data = ? WHERE id = ?";
+	        String sql = "UPDATE GIORNO SET tipo = ?, data = ? WHERE tipo = ? AND data = ?";
 
 	        try (PreparedStatement stmt = connessione.prepareStatement(sql)) {
 	            stmt.setString(1, giorno.getTipo().name());
 	            stmt.setDate(2, java.sql.Date.valueOf(giorno.getData()));
-	            stmt.setInt(3, giorno.getId());
+	            stmt.setString(3, giorno.getTipo().name());  // per identificare il giorno da aggiornare
+	            stmt.setDate(4, java.sql.Date.valueOf(giorno.getData()));
 
 	            stmt.executeUpdate();
 	        } catch (SQLException e) {
@@ -100,10 +109,12 @@ public class GiornoDAO implements IGiornoDAO {
 	    @Override
 	    public void rimuovi(Giorno giorno) {
 	        connessione = ConnessioneDB.startConnection(connessione, DB);
-	        String sql = "DELETE FROM GIORNO WHERE id = ?";
+	        String sql = "DELETE FROM GIORNO WHERE tipo = ? AND data = ?";
 
 	        try (PreparedStatement stmt = connessione.prepareStatement(sql)) {
-	            stmt.setInt(1, giorno.getId());
+	            stmt.setString(1, giorno.getTipo().name());
+	            stmt.setDate(2, java.sql.Date.valueOf(giorno.getData()));
+
 	            stmt.executeUpdate();
 	        } catch (SQLException e) {
 	            throw new RuntimeException("Errore nel rimuovere il giorno.", e);
@@ -111,5 +122,5 @@ public class GiornoDAO implements IGiornoDAO {
 	            ConnessioneDB.closeConnection(connessione);
 	        }
 	    }
-	
+
 }

@@ -183,7 +183,7 @@ public class TurnoDAO implements ITurnoDAO{
 	//METODI UTILI: 
 	
 	//METODO CHE RECUPERA I TURNI PER GIORNO:
-	    public ArrayList<Turno> recuperaTurniPerGiorno(Giorno giorno) {
+	    public ArrayList<Turno> recuperaTurniGiorno(Giorno giorno) {
 	        // Creo la connessione:
 	        connessione = ConnessioneDB.startConnection(connessione, DB);
 

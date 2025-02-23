@@ -4,6 +4,8 @@ package view.prenotazioneInsaccatore;
 import jdbc.dao.max.*;
 import modello.prenotazioneInsaccatore.*;
 import testing.TestSystemPrenotaTurnoInsacc;
+import java.util.ArrayList;
+import jdbc.*;
 
 
 public class TestFacadeSingletonMax {
@@ -39,9 +41,9 @@ public class TestFacadeSingletonMax {
 	public SystemPrenotaTurnoInsacc getSystemPrenotaTurnoInsacc(){
 		if(systeminsac==null) {
 			systeminsac = new SystemPrenotaTurnoInsacc();
-			systeminsac.);
 		}
 	}
+	
 	
 	//GETTER DAO:
 	
@@ -51,7 +53,16 @@ public class TestFacadeSingletonMax {
 	
 	//METODI UTILI:
 	
-	
+	  public void caricaSettimana() {
+	        // Recupero tutti i giorni della settimana
+	        ArrayList<Giorno> giorniSettimana = giornoDAO.trovaTutti();
+	        
+	        // Recupero i turni per ogni giorno
+	        for (Giorno giorno : giorniSettimana) {
+	            ArrayList<Turno> turniPerGiorno = turnoDAO.recuperaTurniGiorno(giorno);
+	            giorno.setTurni(turniPerGiorno);
+	        }
+	  }
 	
 	
 	
