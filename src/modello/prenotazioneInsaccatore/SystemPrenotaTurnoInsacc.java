@@ -60,8 +60,6 @@ public class SystemPrenotaTurnoInsacc {
 			turno.setIns(null);
 			turno.setStato(false);
 	}
-	
-	
 
 	
 	//LATO PANEL LEADER:

@@ -1,11 +1,17 @@
 package view.prenotazioneInsaccatore;
 import modello.prenotazioneInsaccatore.*;
 import javax.swing.*;
+
+import controller.PrenotaInsacController;
+
 import java.awt.*;
 import java.time.LocalTime;
 
 public class ViewInsaccatore extends JFrame {
 	
+	private PrenotaInsacController controller;
+	
+
 	//Costruttore:
 	public ViewInsaccatore(){
 		//Titolo interfaccia:
@@ -35,16 +41,27 @@ public class ViewInsaccatore extends JFrame {
 			}
 		}
 		
-		setVisible(true);
-		
-		
-		
+		setVisible(true);		
 	}
 	
 	
-	public static void main(String[] args) {
-		new ViewInsaccatore();
+	//SETTER GETTER:
+	public PrenotaInsacController getController() {
+		return controller;
 	}
-	
 
+	public void setController(PrenotaInsacController controller) {
+		this.controller = controller;
+	}
+	
+	
+	//METODI UTILI:
+	
+	// metodo di aggiornamento della view, utile per avere l'interfaccia aggiornata seguendo i cambiamenti eseguiti:
+	public void aggiornaInterfaccia() {
+		
+	}
+
+	
+	
 }
