@@ -9,5 +9,5 @@ public interface GenericoDAO<T>{
 	ArrayList<T> trovaTutti(); //uso List per flessibilità
 	void aggiorna(T t);
 	void rimuovi(T t);
-
+	
 }
