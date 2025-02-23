@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8866b5e4-0e07-4928-8a4a-6304eab79994" name="Changes" comment="controller e view per il sondaggio">
-      <change afterPath="$PROJECT_DIR$/src/controller/AutenticazioneController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/autenticazione/HomeInsaccatore.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/autenticazione/HomeOperatore.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/view/autenticazione/HomePanelLeader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/bean/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/bean/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modello/autenticazione/SystemAutenticazione.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/autenticazione/SystemAutenticazione.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testing/CodiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/CodiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/prenotazioneInsaccatore/TestFacadeSingletonMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/prenotazioneInsaccatore/TestFacadeSingletonMax.java" afterDir="false" />
-    </list>
+    <list default="true" id="8866b5e4-0e07-4928-8a4a-6304eab79994" name="Changes" comment="controller e view per il sondaggio" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
