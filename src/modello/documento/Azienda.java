@@ -1,9 +1,8 @@
 package modello.documento;
 import modello.Panelista;
+
 import java.time.LocalDate;
 
-import jdbc.bean.IUserDAO;
-import jdbc.bean.UserDAO;
 
 public class Azienda {
 	private IGestoreStipendi gestore;

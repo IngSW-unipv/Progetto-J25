@@ -1,11 +1,15 @@
 package jdbc;
 
 import jdbc.bean.*;
+import jdbc.dao.campione.CampioneDAO;
+import jdbc.dao.campione.ICampioneDAO;
 import jdbc.dao.documento.IOreLavoroDAO;
 import jdbc.dao.documento.OreLavoroDAO;
+import modello.archiviazioneCampione.SystemCampione;
 import modello.creazionePanel.Slot;
 import modello.creazionePanel.Sondaggio;
 import modello.creazionePanel.SystemPubblicazionePanel;
+import modello.documento.SystemDocumento;
 import modello.prenotazionePanel.SystemPrenotazione;
 
 import java.time.LocalTime;
@@ -22,9 +26,13 @@ public class FacedeSingletonDB {
     private IPrenotazionePanelDAO prenotazionePanelDAO;
     private IOreLavoroDAO oreLavoroDAO;
     private IUserDAO userDAO;
+    private ICampioneDAO campioneDAO;
+    private IOreLavoroDAO lavoroDAO;
 
     private SystemPubblicazionePanel systemPubblicazionePanel;
     private SystemPrenotazione systemPrenotazione;
+    private SystemCampione systemCampione;
+    private SystemDocumento systemDocumento;
 
     private FacedeSingletonDB() {
         this.panelDAO = new PanelDAO();
@@ -34,6 +42,8 @@ public class FacedeSingletonDB {
         this.prenotazionePanelDAO = new PrenotazionePanelDAO();
         this.oreLavoroDAO = new OreLavoroDAO();
         this.userDAO = new UserDAO();
+        this.campioneDAO = new CampioneDAO();
+        this.oreLavoroDAO = new OreLavoroDAO();
     }
 
     public static FacedeSingletonDB getInstance() {
@@ -50,6 +60,29 @@ public class FacedeSingletonDB {
         }
         return systemPubblicazionePanel;
     }
+    
+    public SystemCampione getSystemCampione() {
+    	
+    	if(systemCampione == null) {
+    		
+    		systemCampione = new SystemCampione();
+    		systemCampione.setCampioniNonAnalizzati(campioneDAO.trovaCampioneNonAnalizzato());
+    	}
+    	
+    	return systemCampione;
+    }
+    
+    public SystemDocumento getSystemDocumento() {
+    	
+    	if(systemDocumento == null) {
+    		
+    		systemDocumento = new SystemDocumento();
+    	}
+    	
+    	return systemDocumento;
+    }
+    
+    
     public ArrayList<Sondaggio> popolaSondaggi() {
         ArrayList<Sondaggio> sondaggi = sondaggioDAO.selectAllSondaggi();
         for (Sondaggio s : sondaggi) {
@@ -78,7 +111,27 @@ public class FacedeSingletonDB {
         oreLavoroDAO.getOreLavPrenotati(slots);
         //prelevo i prenoati e poi setto le loro ore
     }
-    public IPanelDAO getPanelDAO() {
+    
+    
+    
+    
+    public IOreLavoroDAO getLavoroDAO() {
+		return lavoroDAO;
+	}
+
+	public IUserDAO getUserDAO() {
+		return userDAO;
+	}
+
+	public void setUserDAO(IUserDAO userDAO) {
+		this.userDAO = userDAO;
+	}
+
+	public ICampioneDAO getCampioneDAO() {
+		return campioneDAO;
+	}
+
+	public IPanelDAO getPanelDAO() {
         return panelDAO;
     }
     public IMacchinarioDAO getMacchinarioDAO() {

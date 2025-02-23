@@ -3,53 +3,61 @@ import java.time.LocalDate;
 
 import java.util.ArrayList;
 
-import jdbc.dao.campione.CampioneDAO;
-import jdbc.dao.campione.ICampioneDAO;
-import modello.archiviazioneCampione.*;
+import jdbc.FacedeSingletonDB;
 
 public class SystemCampione {
 	
-	ICampioneDAO campioneDAO;
+	ArrayList<Integer> campioniNonAnalizzati; //come argomento ha gli integer perchè prendo solo gli id
+
 	
-	
-	public SystemCampione(ICampioneDAO campioneDAO) {
+	public SystemCampione() {
 		
-		this.campioneDAO = campioneDAO;
+		this.campioniNonAnalizzati = new ArrayList<>();
 		
 	}
 	
 	
+	public ArrayList<Integer> getCampioniNonAnalizzati() {
+		return campioniNonAnalizzati; //è utile questo metodo?
+	}
+
+
+	public void setCampioniNonAnalizzati(ArrayList<Integer> campioniNonAnalizzati) {
+		this.campioniNonAnalizzati = campioniNonAnalizzati;
+	}
+
+
 	public boolean registraCampione(int id, String stato, LocalDate ld) {
 		
 		
-		return campioneDAO.insertCampione(id, stato, ld);
+		return FacedeSingletonDB.getInstance().getCampioneDAO().insertCampione(id, stato, ld);
 		
 	}
 	
 	public Campione trovaCampione(int id) {
 		
-		return campioneDAO.trovaCampionePerId(id);
+		return FacedeSingletonDB.getInstance().getCampioneDAO().trovaCampionePerId(id);
 	}
 	
 	
 	public ArrayList<Campione> selezionaCampioni(){
 		
-		return campioneDAO.selectAllCampioni();
+		return FacedeSingletonDB.getInstance().getCampioneDAO().selectAllCampioni();
 	}
 	
 	public boolean aggiornaCampione(int id, String stato) {
 		
-		return campioneDAO.updateCampione(id, stato);
+		return FacedeSingletonDB.getInstance().getCampioneDAO().updateCampione(id, stato);
 	}
 	
 	public boolean deleteCampione(int id) {
 		
-		return campioneDAO.eliminaCampione(id);
+		return FacedeSingletonDB.getInstance().getCampioneDAO().eliminaCampione(id);
 	}
 	
 	public ArrayList<Integer> campioniNonAnalizzati(){
 		
-		return campioneDAO.trovaCampioneNonAnalizzato();
+		return FacedeSingletonDB.getInstance().getCampioneDAO().trovaCampioneNonAnalizzato(); //serve ancora?
 	}
 	
 	
