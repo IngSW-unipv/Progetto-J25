@@ -1,12 +1,16 @@
 package jdbc;
 
 import jdbc.bean.*;
+import jdbc.dao.documento.IOreLavoroDAO;
+import jdbc.dao.documento.OreLavoroDAO;
 import modello.creazionePanel.Slot;
 import modello.creazionePanel.Sondaggio;
 import modello.creazionePanel.SystemPubblicazionePanel;
 import modello.prenotazionePanel.SystemPrenotazione;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class FacedeSingletonDB {
     private static FacedeSingletonDB instance;
@@ -15,6 +19,9 @@ public class FacedeSingletonDB {
     private IMacchinarioDAO macchinarioDAO;
     private ISondaggioDAO sondaggioDAO;
     private ISlotDAO slotDAO;
+    private IPrenotazionePanelDAO prenotazionePanelDAO;
+    private IOreLavoroDAO oreLavoroDAO;
+    private IUserDAO userDAO;
 
     private SystemPubblicazionePanel systemPubblicazionePanel;
     private SystemPrenotazione systemPrenotazione;
@@ -24,6 +31,9 @@ public class FacedeSingletonDB {
         this.macchinarioDAO = new MacchinarioDAO();
         this.sondaggioDAO = new SondaggioDAO();
         this.slotDAO = new SlotDAO();
+        this.prenotazionePanelDAO = new PrenotazionePanelDAO();
+        this.oreLavoroDAO = new OreLavoroDAO();
+        this.userDAO = new UserDAO();
     }
 
     public static FacedeSingletonDB getInstance() {
@@ -36,7 +46,7 @@ public class FacedeSingletonDB {
     public SystemPubblicazionePanel getSystemPubblicazionePanel() {
         if (systemPubblicazionePanel == null) {
             systemPubblicazionePanel = new SystemPubblicazionePanel();
-            //systemPubblicazionePanel.setPanelisti(); //va ancora creata la classe DAO che si occupa del prelievo dei dati del panelista
+            systemPubblicazionePanel.setPanelisti(userDAO.getPanelistas());
         }
         return systemPubblicazionePanel;
     }
@@ -50,7 +60,6 @@ public class FacedeSingletonDB {
             }
            for(Slot slot : slots) {
                s.aggiungiSlot(slot.getTime(), slot);
-               System.out.println("tutto ok");
            }
         }
         return sondaggi;
@@ -63,6 +72,12 @@ public class FacedeSingletonDB {
         }
         return systemPrenotazione;
     }
+
+    public void getPrenotati(Map<LocalTime, Slot> slots){
+        prenotazionePanelDAO.getPrenotazioni(slots);
+        oreLavoroDAO.getOreLavPrenotati(slots);
+        //prelevo i prenoati e poi setto le loro ore
+    }
     public IPanelDAO getPanelDAO() {
         return panelDAO;
     }
@@ -74,6 +89,12 @@ public class FacedeSingletonDB {
     }
     public ISlotDAO getSlotDAO() {
         return slotDAO;
+    }
+    public IPrenotazionePanelDAO getPrenotazionePanelDAO() {
+        return prenotazionePanelDAO;
+    }
+    public IOreLavoroDAO getOreLavoroDAO() {
+        return oreLavoroDAO;
     }
 
 

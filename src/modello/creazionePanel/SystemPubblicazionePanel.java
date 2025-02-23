@@ -2,6 +2,7 @@ package modello.creazionePanel;
 import jdbc.FacedeSingletonDB;
 import modello.Panelista;
 import modello.email.NotificaMessage;
+import modello.prenotazionePanel.SystemPrenotazione;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -109,8 +110,10 @@ public class SystemPubblicazionePanel {
 
     public void creazionePanel(){
         this.panel = new ArrayList<>();
-        //VA INSERITO IL METODO CHE RICAVA LE PRENOTAZIONE CHE SONO STATE ESEGUITE
+        FacedeSingletonDB.getInstance().getPrenotati(sondaggio.getSlots());
+
         for (Map.Entry<LocalTime, Slot> entry : sondaggio.getSlots().entrySet()){
+            entry.getValue().ordinaPrenotati();
             for(Macchinario m: macchinariAttvi){
                 Panel p = new Panel(entry.getValue().getTime(), m, entry.getValue().getData());
                 // suppongo che i panelisti vengano inseriti gia in ordine decrescente per ore nella lista dei prenotati allo slot
@@ -149,49 +152,21 @@ public class SystemPubblicazionePanel {
         utentes.add(utente3);
         utentes.add(utente4);
 
-        ArrayList<Macchinario> macchinari = new ArrayList<>();
+
         Macchinario m1 = new Macchinario(01, 4);
-        macchinari.add(m1);
+        macchinari.add(m1);*/
 
-        SystemPubblicazionePanel systemPubblicazionePanel = new SystemPubblicazionePanel();
-        systemPubblicazionePanel.setMacchinari(macchinari);
-        systemPubblicazionePanel.setPanelisti(utentes);
-        Sondaggio s1 = systemPubblicazionePanel.creaSondaggioAutomatica(10, LocalDate.of(2025, 2, 18));
-        systemPubblicazionePanel.pubblicazioneSondaggio();
+        ArrayList<Macchinario> macchinari = new ArrayList<>();
 
-        s1.setId(03);
-        ArrayList<Sondaggio> sondaggi = new ArrayList<>();
-        sondaggi.add(s1);
+        SystemPubblicazionePanel systemPubblicazionePanel = FacedeSingletonDB.getInstance().getSystemPubblicazionePanel();
+        systemPubblicazionePanel.setMacchinari(FacedeSingletonDB.getInstance().getMacchinarioDAO().getMacchinari());
 
-        SystemPrenotazione prenotazione = new SystemPrenotazione();
-        prenotazione.setSondaggi(sondaggi);
+        Sondaggio s1 = systemPubblicazionePanel.creaSondaggioAutomatica(10, LocalDate.of(2025, 5, 27));
+        systemPubblicazionePanel.pubblicazioneSondaggio(s1);
 
-        prenotazione.prenotazione(03, LocalTime.of(9,00), utente1);
-        prenotazione.prenotazione(03, LocalTime.of(9,00), utente2);
-        prenotazione.prenotazione(03, LocalTime.of(9,00), utente3);
-        prenotazione.prenotazione(03, LocalTime.of(9,00), utente4);
-
-        s1.stampa();*/
-
-        /*SystemPubblicazionePanel sp = FacedeSingletonDB.getInstance().getSystemPubblicazionePanel();
-        ArrayList<Panelista> panelistas = sp.getPanelisti();
-        Panelista p = new Panelista("khawlaouaadou1@gmail.com", "khawla", "ouaadou",
-                "marocco", LocalDate.of(2003,04,14), "jfjhfhf", "via cefaly", 50);
-        panelistas.add(p);
-        Sondaggio sondaggio1 = sp.creaSondaggioAutomatica(20, LocalDate.now().plusDays(3));
-        sp.pubblicazioneSondaggio(sondaggio1);
-
-        /*FacedeSingletonDB.getInstance().getPanelDAO().chiudiPanel(1, LocalTime.of(11, 00));
-        FacedeSingletonDB.getInstance().getPanelDAO().chiudiPanel(2, LocalTime.of(12, 00)); */
-
-        //Test per la visualizzazione dei sondaggi attivi
-       ArrayList<Sondaggio> sondaggi = FacedeSingletonDB.getInstance().popolaSondaggi();
-        for (Sondaggio s : sondaggi) {
-            s.stampa();
-        }
-
-
-
+        SystemPrenotazione systemPrenotazione = FacedeSingletonDB.getInstance().getSystemPrenotazione();
+        Panelista p = new Panelista(10, "khawla.ouaadoupa@gmail.com", null, null, null, null, null, null, null, "pa", null, 0);
+        systemPrenotazione.prenotazione(s1.getId(), LocalTime.of(9, 0), p);
 
     }
 
