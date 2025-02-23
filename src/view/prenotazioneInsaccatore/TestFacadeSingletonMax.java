@@ -1,17 +1,33 @@
 package view.prenotazioneInsaccatore;
 
-import jdbc.dao.max.ITurnoDAO;
-import jdbc.dao.max.TurnoDAO;
+
+import jdbc.dao.max.*;
+import modello.prenotazioneInsaccatore.*;
 import testing.TestSystemPrenotaTurnoInsacc;
 
 
 public class TestFacadeSingletonMax {
 	//ATTRIBUTI:
 	private static TestFacadeSingletonMax istanza;
+	//attributi DAO:
+	private ITurnoDAO turnoDAO;
+	private IGiornoDAO giornoDAO;
+	
+	//attributi system:
+	private SystemPrenotaTurnoInsacc systeminsac;
+	
+	
+	//COSTRUTTORE
 
-	private  TestFacadeSingletonMax() {
+
+
+	public TestFacadeSingletonMax() {
+		//inizializzo i dao:
+		this.turnoDAO = new TurnoDAO();
+		this.giornoDAO = new GiornoDAO();
 	}
-
+	
+	//METODI GETTER:
 	public static TestFacadeSingletonMax getIstanza() {
 		if(istanza==null) {
 			istanza = new TestFacadeSingletonMax();
@@ -19,16 +35,21 @@ public class TestFacadeSingletonMax {
 		return istanza;
 	}
 	
-	
-	//METODI LAZY:
-	private ITurnoDAO getTurnoDAO() {
-		if(turnoDAO==null) {
-			turnoDAO = new TurnoDAO();
+	//lazy initialization dei system:
+	public SystemPrenotaTurnoInsacc getSystemPrenotaTurnoInsacc(){
+		if(systeminsac==null) {
+			systeminsac = new SystemPrenotaTurnoInsacc();
+			systeminsac.);
 		}
-		return turnoDAO;
 	}
 	
-	//METODI DEI DAO:
+	//GETTER DAO:
+	
+	
+	
+	
+	
+	//METODI UTILI:
 	
 	
 	
@@ -39,4 +60,4 @@ public class TestFacadeSingletonMax {
 	
 	
 	
-}*/
+}

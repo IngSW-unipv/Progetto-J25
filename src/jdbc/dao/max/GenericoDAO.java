@@ -11,3 +11,5 @@ public interface GenericoDAO<T>{
 	void rimuovi(T t);
 	
 }
+
+

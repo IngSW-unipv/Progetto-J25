@@ -8,18 +8,23 @@ import modello.prenotazioneInsaccatore.*;
 import jdbc.ConnessioneDB;
 import java.sql.Connection;
 import java.time.LocalTime;
+import java.time.LocalDate;
 
 
 
 
 //QUESTA E' LA TABLE DI RIFERIMENTO:
-/*CREATE TABLE `TURNO` (
+/*
+   CREATE TABLE `TURNO` (
   `idTURNO` int NOT NULL AUTO_INCREMENT,
   `INSACCATORE` int DEFAULT NULL,
   `ORA_INIZIO` time DEFAULT NULL,
   `DURATA` int DEFAULT NULL,
   `STATO` tinyint DEFAULT NULL,
-  PRIMARY KEY (`idTURNO`)
+  `idGIORNO` int NOT NULL,
+  PRIMARY KEY (`idTURNO`),
+  KEY `fk_giorno` (`idGIORNO`),
+  CONSTRAINT `fk_giorno` FOREIGN KEY (`idGIORNO`) REFERENCES `GIORNO` (`id`) ON DELETE CASCADE
 )
 */
 
@@ -99,7 +104,7 @@ public class TurnoDAO implements ITurnoDAO{
 	//METODO OTTIENI UNA LISTA DI TURNI DA UNA QUERY
 	public ArrayList<Turno> trovaTutti(){
 		//creo la connessione:
-		connessione = ConnessioneDB.startConnection(connessione, "osmotech");
+		connessione = ConnessioneDB.startConnection(connessione, DB);
 
 		 ArrayList<Turno> turni = new ArrayList<>();
 		 //prepaor la query:
@@ -173,5 +178,50 @@ public class TurnoDAO implements ITurnoDAO{
 		 System.out.println("Rimozione avvenuta!");
 	}	
 	
+	
+	
+	//METODI UTILI: 
+	
+	//METODO CHE RECUPERA I TURNI PER GIORNO:
+	    public ArrayList<Turno> recuperaTurniPerGiorno(Giorno giorno) {
+	        // Creo la connessione:
+	        connessione = ConnessioneDB.startConnection(connessione, DB);
+
+	        ArrayList<Turno> turni = new ArrayList<>();
+	        // Preparo la query:
+	        String sql = "SELECT idTURNO, INSACCATORE, ORA_INIZIO, DURATA, STATO FROM TURNO WHERE idGIORNO = (SELECT id FROM GIORNO WHERE data = ? AND tipo = ?)";
+
+	        try (PreparedStatement stmt = connessione.prepareStatement(sql)) {
+	            stmt.setDate(1, java.sql.Date.valueOf(giorno.getData()));
+	            stmt.setString(2, giorno.getTipo().name());
+	            
+	            try (ResultSet rs = stmt.executeQuery()) {
+	                while (rs.next()) {
+	                    int idTurno = rs.getInt("idTURNO");
+	                    LocalTime orainizio = rs.getTime("ORA_INIZIO") != null ? rs.getTime("ORA_INIZIO").toLocalTime() : null;
+	                    int durata = rs.getInt("DURATA");
+	                    boolean stato = rs.getBoolean("STATO");
+
+	                    // Creiamo un oggetto Turno con i dati recuperati
+	                    Turno turno = new Turno(durata, orainizio);
+	                    turno.setId(idTurno);
+	                    turno.setStato(stato);
+
+	                    // Aggiungiamo il turno alla lista
+	                    turni.add(turno);
+	                }
+	            }
+	        } catch (SQLException e) {
+	            throw new RuntimeException("Errore nel recuperare i turni per il giorno.", e);
+	        }
+
+	        // Chiudo la connessione:
+	        ConnessioneDB.closeConnection(connessione);
+	        
+	        return turni;
+	    }
+
+
 
 }
+
