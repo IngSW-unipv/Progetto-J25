@@ -11,7 +11,7 @@ import modello.archiviazioneCampione.*;
 public class SystemCampione {
 	
 	ArrayList<Integer> campioniNonAnalizzati; //come argomento ha gli integer perchè prendo solo gli id
-	
+
 	
 	public SystemCampione() {
 		
@@ -60,7 +60,7 @@ public class SystemCampione {
 	
 	public ArrayList<Integer> campioniNonAnalizzati(){
 		
-		return FacedeSingletonDB.getInstance().getCampioneDAO().trovaCampioneNonAnalizzato();
+		return FacedeSingletonDB.getInstance().getCampioneDAO().trovaCampioneNonAnalizzato(); //serve ancora?
 	}
 	
 	

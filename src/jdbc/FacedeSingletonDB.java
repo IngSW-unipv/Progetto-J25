@@ -9,6 +9,7 @@ import modello.archiviazioneCampione.SystemCampione;
 import modello.creazionePanel.Slot;
 import modello.creazionePanel.Sondaggio;
 import modello.creazionePanel.SystemPubblicazionePanel;
+import modello.documento.SystemDocumento;
 import modello.prenotazionePanel.SystemPrenotazione;
 
 import java.time.LocalTime;
@@ -26,10 +27,12 @@ public class FacedeSingletonDB {
     private IOreLavoroDAO oreLavoroDAO;
     private IUserDAO userDAO;
     private ICampioneDAO campioneDAO;
+    private IOreLavoroDAO lavoroDAO;
 
     private SystemPubblicazionePanel systemPubblicazionePanel;
     private SystemPrenotazione systemPrenotazione;
     private SystemCampione systemCampione;
+    private SystemDocumento systemDocumento;
 
     private FacedeSingletonDB() {
         this.panelDAO = new PanelDAO();
@@ -40,6 +43,7 @@ public class FacedeSingletonDB {
         this.oreLavoroDAO = new OreLavoroDAO();
         this.userDAO = new UserDAO();
         this.campioneDAO = new CampioneDAO();
+        this.oreLavoroDAO = new OreLavoroDAO();
     }
 
     public static FacedeSingletonDB getInstance() {
@@ -66,6 +70,16 @@ public class FacedeSingletonDB {
     	}
     	
     	return systemCampione;
+    }
+    
+    public SystemDocumento getSystemDocumento() {
+    	
+    	if(systemDocumento == null) {
+    		
+    		systemDocumento = new SystemDocumento();
+    	}
+    	
+    	return systemDocumento;
     }
     
     
@@ -99,7 +113,21 @@ public class FacedeSingletonDB {
     }
     
     
-    public ICampioneDAO getCampioneDAO() {
+    
+    
+    public IOreLavoroDAO getLavoroDAO() {
+		return lavoroDAO;
+	}
+
+	public IUserDAO getUserDAO() {
+		return userDAO;
+	}
+
+	public void setUserDAO(IUserDAO userDAO) {
+		this.userDAO = userDAO;
+	}
+
+	public ICampioneDAO getCampioneDAO() {
 		return campioneDAO;
 	}
 

@@ -2,6 +2,7 @@ package testing;
 
 import java.time.LocalDate;
 
+import jdbc.FacedeSingletonDB;
 import jdbc.bean.UserDAO;
 import jdbc.dao.documento.OreLavoroDAO;
 import modello.FactoryUtente;
@@ -30,11 +31,8 @@ public class DocumentoRiepilogoTest {
 	} */
 	
 	public static void main(String[] args) {
-	UserDAO userDAO = new UserDAO();
 	
-	OreLavoroDAO oreLavoroDAO = new OreLavoroDAO();
-	
-	SystemDocumento sys = new SystemDocumento(userDAO, oreLavoroDAO);
+	SystemDocumento sys = FacedeSingletonDB.getInstance().getSystemDocumento();
 	
 	GestoreStipendi gs = new GestoreStipendi();
 	
