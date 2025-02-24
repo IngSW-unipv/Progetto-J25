@@ -16,6 +16,9 @@ public class SystemPrenotaTurnoInsacc {
 	private static final int maxoremat=4;
 	private static final int maxorepom=4;
 	private static final int maxgiorni =5;
+	private static final LocalTime  iniziomattino =LocalTime.of(9,0);
+	private static final LocalTime iniziopome = LocalTime.of(14, 0);
+	
 	private static final Set<Integer> tempiammessi = Set.of(30,60,90,120); 
 	
 	
@@ -72,6 +75,7 @@ public class SystemPrenotaTurnoInsacc {
 		//questo prevede:
 		//import java.time.DayOfWeek;
 		//import java.time.temporal.TemporalAdjusters;	
+		settimana = new Giorno[maxgiorni];
 		for(int i=0;i<settimana.length;i++) {
 			settimana[i]= new Giorno(GiorniSettimana.ricavaEnum(i),datainizio.plusDays(i),new ArrayList<Turno>());
 		}
@@ -85,20 +89,18 @@ public class SystemPrenotaTurnoInsacc {
 		}
 		int turnimattino=(maxoremat*60)/tempturno;
 		int turnipome=(maxorepom*60)/tempturno;
-		LocalTime oramat= LocalTime.of(9,0);
-		LocalTime orapom= LocalTime.of(14,0);
 
 		//organizzo i turni del mattino:
 		for(int i=0;i<turnimattino;i++) {
-			oramat=oramat.plusMinutes(i*tempturno);
+			LocalTime oramat=iniziomattino.plusMinutes(i*tempturno);
 		//	LocalTime oramatmod= oramat.plusMinutes(i*tempturno);
-			giorno.getTurni().add(new Turno(tempturno,oramat));
+			giorno.aggiungiTurno(new Turno(tempturno,oramat));
 		}
 		
 		//organizzo i turni del pomeriggio:
 		for(int i=0;i<turnipome;i++) {
-			orapom=orapom.plusMinutes(i*tempturno);
-			giorno.getTurni().add(new Turno(tempturno,orapom));
+			LocalTime orapom=iniziopome.plusMinutes(i*tempturno);
+			giorno.aggiungiTurno(new Turno(tempturno,orapom));
 		}
 	}
 	
@@ -135,6 +137,12 @@ public class SystemPrenotaTurnoInsacc {
 		for(int i=0;i<settimana.length;i++) {
 			generaTurniPerGiorno(settimana[i],tempturno);
 		}
+	}
+	
+	//metodo che mi genera la settimana in modo automatico partendo da 0: 
+	public void generaSettAuto(LocalDate datainizio, int tempturno) {
+		this.settimana= generaSettimana(datainizio);
+		riempiSettimana(tempturno);
 	}
 	
 	

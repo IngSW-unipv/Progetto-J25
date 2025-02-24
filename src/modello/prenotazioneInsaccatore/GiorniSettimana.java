@@ -3,11 +3,11 @@ package modello.prenotazioneInsaccatore;
 //Enumerazione per gestire i giorni lavorativi della settimana
 //questi devono essere visualizzati nel mio calendario
 public enum GiorniSettimana{
-	LUN(0),
-	MART(1),
-	MERC(2),
-	GIOV(3),
-	VEN(4);
+	LUNEDI(0),
+	MARTEDI(1),
+	MERCOLEDI(2),
+	GIOVEDI(3),
+	VENERDI(4);
 	
 	//attributi:
 	int valore;
@@ -36,11 +36,11 @@ public enum GiorniSettimana{
 	
 	public static String stampaEnum(GiorniSettimana giorno) {
 	    switch(giorno) {
-	        case LUN:  return "LUNEDÌ";
-	        case MART: return "MARTEDÌ";
-	        case MERC: return "MERCOLEDÌ";
-	        case GIOV: return "GIOVEDÌ";
-	        case VEN:  return "VENERDÌ";
+	        case LUNEDI:  return "LUNEDI";
+	        case MARTEDI: return "MARTEDI";
+	        case MERCOLEDI: return "MERCOLEDI";
+	        case GIOVEDI: return "GIOVEDI";
+	        case VENERDI:  return "VENERDI";
 	        default:   throw new IllegalArgumentException("Giorno non valido: " + giorno);
 	    }
 	}

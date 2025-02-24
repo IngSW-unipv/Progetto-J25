@@ -37,6 +37,7 @@ public class Giorno {
 		this.turni = turni;
 		
 	}
+
 	
 	public LocalDate getData() {
 		return data;
@@ -45,6 +46,12 @@ public class Giorno {
 		this.data = data;
 	}
 
+	
+	//METODI UTILI:
+	public void aggiungiTurno(Turno turno) {
+		this.turni.add(turno);
+	}
+	
 	
 	//METODI DI TEST, MI SERVONO PER VEDERE SE SI CREANO GLI OGGETTI:
 	public void stampaTurni() {
