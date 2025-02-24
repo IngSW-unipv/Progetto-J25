@@ -1,5 +1,50 @@
 package view.prenotazioneInsaccatore;
 
+<<<<<<< HEAD
+
+import jdbc.dao.max.ITurnoDAO;
+import jdbc.dao.max.TurnoDAO;
+import testing.TestSystemPrenotaTurnoInsacc;
+
+/*
+public class TestFacadeSingletonMax {
+	//ATTRIBUTI:
+	private static TestFacadeSingletonMax istanza;
+
+	private  TestFacadeSingletonMax() {
+	}
+
+	public static TestFacadeSingletonMax getIstanza() {
+		if(istanza==null) {
+			istanza = new TestFacadeSingletonMax();
+		}
+		return istanza;
+	}
+	
+	
+	//METODI LAZY:
+	private ITurnoDAO getTurnoDAO() {
+		if(turnoDAO==null) {
+			turnoDAO = new TurnoDAO();
+		}
+		return turnoDAO;
+	}
+	
+	//METODI DEI DAO:
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}*/
+=======
+=======
+>>>>>>> branch 'main' of https://github.com/IngSW-unipv/Progetto-J25.git
 
 import jdbc.dao.max.*;
 import modello.prenotazioneInsaccatore.*;
@@ -85,6 +130,18 @@ public class TestFacadeSingletonMax {
 	                return false;
 	            }
 	        }
+<<<<<<< HEAD
+	  }
+	
+	
+	
+	
+	
+	
+	
+	
+}
+=======
 	    }
 	    return true;
 	}
@@ -180,3 +237,4 @@ public class TestFacadeSingletonMax {
 	
 	
 	
+>>>>>>> branch 'main' of https://github.com/IngSW-unipv/Progetto-J25.git

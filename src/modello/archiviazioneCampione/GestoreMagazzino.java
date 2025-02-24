@@ -1,15 +1,10 @@
 package modello.archiviazioneCampione;
 
-public class Magazzino {
+public class GestoreMagazzino {
 	
-	/*QUESTA CLASSE HA PIU SENSO
-	 * CHE SI CHIAMI GESTOREMAGAZZINO
-	 * DATO CHE NON è IL MAGAZZINO A DECREMENTARE
-	 * LE SACCHE
-	 */
 	private int numeroSacche;
 
-	public Magazzino(int numeroSacche) {
+	public GestoreMagazzino(int numeroSacche) {
 		
 		if(numeroSacche < 0 ) {
 			

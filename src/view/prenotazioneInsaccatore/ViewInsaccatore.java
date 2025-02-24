@@ -22,6 +22,23 @@ public class ViewInsaccatore extends JFrame {
     public ViewInsaccatore() {
         super("INTERFACCIA INSACCATORE");
 
+<<<<<<< HEAD
+	public void setController(PrenotaInsacController controller) {
+		this.controller = controller;
+	}
+	
+	
+
+	//METODI UTILI:
+	
+	// metodo di aggiornamento della view, utile per avere l'interfaccia aggiornata seguendo i cambiamenti eseguiti:
+	public void aggiornaInterfaccia() {
+		
+	}
+
+	
+	
+=======
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -112,4 +129,5 @@ public class ViewInsaccatore extends JFrame {
         revalidate();
         repaint();
     }
+>>>>>>> branch 'main' of https://github.com/IngSW-unipv/Progetto-J25.git
 }

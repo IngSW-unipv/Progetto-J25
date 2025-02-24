@@ -15,11 +15,6 @@ public class SystemCampione {
 		this.campioniNonAnalizzati = new ArrayList<>();
 		
 	}
-	
-	
-	public ArrayList<Integer> getCampioniNonAnalizzati() {
-		return campioniNonAnalizzati; //è utile questo metodo?
-	}
 
 
 	public void setCampioniNonAnalizzati(ArrayList<Integer> campioniNonAnalizzati) {

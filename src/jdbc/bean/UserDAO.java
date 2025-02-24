@@ -22,7 +22,7 @@ public class UserDAO implements IUserDAO{
 
     }
 
-  @Override  
+ /* @Override
     public boolean controlloEmail(String emailInput) throws SQLException {
         connection = ConnessioneDB.startConnection(connection, "osmotech");
         PreparedStatement pst = null; //crei oggetto dentro il quale mettere la query
@@ -50,7 +50,7 @@ public class UserDAO implements IUserDAO{
             ConnessioneDB.closeConnection(connection);
         }
         return emailTrovata;
-    }
+    } */
   
   
 @Override
@@ -200,9 +200,115 @@ public class UserDAO implements IUserDAO{
         return ruolo;
   }
 
+
+
+  public boolean cambiaRuoloUtente(String email, String nuovoRuolo) throws SQLException {
+        connection = ConnessioneDB.startConnection(connection, "osmotech");
+        PreparedStatement pst = null;
+        boolean successo = false;
+
+        try {
+            String query = "UPDATE osmotech.UTENTE SET RUOLO = ? WHERE EMAIL = ?";
+            pst = connection.prepareStatement(query);
+            pst.setString(1, nuovoRuolo);
+            pst.setString(2, email);
+
+            int rowsUpdated = pst.executeUpdate();
+            if (rowsUpdated > 0) {
+                successo = true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (pst != null) {
+                pst.close();
+            }
+            ConnessioneDB.closeConnection(connection);
+        }
+
+        return successo;
+    }
+
+    public String getRuoloByEmail(String email) throws SQLException {
+        connection = ConnessioneDB.startConnection(connection, "osmotech");
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        String ruolo = null;
+
+        try {
+            String query = "SELECT RUOLO FROM UTENTE WHERE EMAIL = ?";
+            pst = connection.prepareStatement(query);
+            pst.setString(1, email);
+            rs = pst.executeQuery();
+
+            if (rs.next()) {
+                ruolo = rs.getString("RUOLO");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pst != null) pst.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            ConnessioneDB.closeConnection(connection);
+        }
+
+        return ruolo;
+    }
+    public ArrayList<Utente> getAllUtenti() throws SQLException {
+        ArrayList<Utente> listaUtenti = new ArrayList<>();
+        connection = ConnessioneDB.startConnection(connection, "osmotech");
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+
+        try {
+            String query = "SELECT * FROM UTENTE";
+            pst = connection.prepareStatement(query);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                java.sql.Date SQLdate = rs.getDate("DATANASCITA");
+                java.time.LocalDate localeDate = null;
+
+                if(SQLdate != null) {
+                    localeDate = SQLdate.toLocalDate();
+                }
+                Utente utente = new Utente(
+                        rs.getInt("ID"),
+                        rs.getString("EMAIL"),
+                        rs.getString("NOME"),
+                        rs.getString("COGNOME"),
+                        rs.getString("LUOGONASCITA"),
+                        localeDate,
+                        rs.getString("CODICEFISCALE"),
+                        rs.getString("RESIDENZA"),
+                        rs.getString("NICKNAME"),
+                        rs.getString("PASSWORD"),
+                        rs.getString("RUOLO")
+                );
+                listaUtenti.add(utente);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (rs != null) rs.close();
+            if (pst != null) pst.close();
+            ConnessioneDB.closeConnection(connection);
+        }
+
+        return listaUtenti;
     }
 
 
+
+
+
+}
 
 
 
