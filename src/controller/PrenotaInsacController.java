@@ -29,13 +29,15 @@ public class PrenotaInsacController {
 	}
 	
 	public void generaSettimanaTurni(LocalDate data,int durata) {
-		Giorno[] sett = facade.generaSettimanaTurni(data,durata); 
-		viewturni.aggiornaTurni(sett);
+		Giorno[] sett = facade.generaSettimanaTurni(data,durata);
 	}
 	
 	
 	//METODI APERTURA VIEW:
 	public void apriViewInsaccatore() {
+		//prima di tutto verifico la presenza di turni
+		new ViewInsaccatore();
+		viewturni.aggiornaTurni(facade.getSystemPrenotaTurnoInsacc().getSettimana());
         viewprinc.setVisible(false);  // Nasconde la vista principale
         viewturni.setVisible(true);  // Mostra la vista dei turni
     }

@@ -23,13 +23,11 @@ public class InterPrincInsaccatore extends JFrame{
 		ActionListener interazione = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new ViewInsaccatore();
+				controller.apriViewInsaccatore();;
 			}
 		};
 		botCalendario.addActionListener(interazione); //aggiungo l'interazione effettiva al bottone
-		
 		add(botCalendario);
-		
 		
 		//pulsante per generare i turni:
 		JButton botGenTurni = new JButton("Genera i turni");

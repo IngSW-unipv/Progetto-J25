@@ -18,9 +18,6 @@ public class TestSystemPrenotaTurnoInsacc {
 	
 		PrenotaInsacController controller = new PrenotaInsacController(viewturni,viewprinc);
 		facade.getSystemPrenotaTurnoInsacc();
-	
-	
-	
 		
 		
 		//simulo la chiamata per generare i turni:

@@ -87,20 +87,23 @@ public class SystemPrenotaTurnoInsacc {
 		if(!tempiammessi.contains(tempturno)) {
 			throw new IllegalArgumentException("La durata di ogni turno indicata non è selezionabile");
 		}
-		int turnimattino=(maxoremat*60)/tempturno;
-		int turnipome=(maxorepom*60)/tempturno;
+		else {
+			int turnimattino=(maxoremat*60)/tempturno;
+			int turnipome=(maxorepom*60)/tempturno;
 
-		//organizzo i turni del mattino:
-		for(int i=0;i<turnimattino;i++) {
-			LocalTime oramat=iniziomattino.plusMinutes(i*tempturno);
-		//	LocalTime oramatmod= oramat.plusMinutes(i*tempturno);
-			giorno.aggiungiTurno(new Turno(tempturno,oramat));
-		}
+			//organizzo i turni del mattino:
+			for(int i=0;i<turnimattino;i++) {
+				LocalTime oramat=iniziomattino.plusMinutes(i*tempturno);
+				giorno.aggiungiTurno(new Turno(tempturno,oramat));
+				giorno.getTurni().get(i).setTipoGiorno(giorno.getTipo());
+			}
 		
-		//organizzo i turni del pomeriggio:
-		for(int i=0;i<turnipome;i++) {
-			LocalTime orapom=iniziopome.plusMinutes(i*tempturno);
-			giorno.aggiungiTurno(new Turno(tempturno,orapom));
+			//organizzo i turni del pomeriggio:
+			for(int i=0;i<turnipome;i++) {
+				LocalTime orapom=iniziopome.plusMinutes(i*tempturno);
+				giorno.aggiungiTurno(new Turno(tempturno,orapom));
+				giorno.getTurni().get(i).setTipoGiorno(giorno.getTipo());
+			}
 		}
 	}
 	
@@ -133,7 +136,7 @@ public class SystemPrenotaTurnoInsacc {
 		if(!tempiammessi.contains(tempturno)) {
 			throw new IllegalArgumentException("La durata di ogni turno indicata non è selezionabile");
 		}
-		
+		else
 		for(int i=0;i<settimana.length;i++) {
 			generaTurniPerGiorno(settimana[i],tempturno);
 		}
