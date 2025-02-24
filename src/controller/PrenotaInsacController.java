@@ -3,6 +3,7 @@ import modello.prenotazioneInsaccatore.*;
 import view.prenotazioneInsaccatore.*;
 
 public class PrenotaInsacController {
+
 	private SystemPrenotaTurnoInsacc modello;
 	private ViewInsaccatore interf;
 	

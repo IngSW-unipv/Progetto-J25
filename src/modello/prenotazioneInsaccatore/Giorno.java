@@ -45,10 +45,6 @@ public class Giorno {
 		this.data = data;
 	}
 
-	
-	
-	
-	//METODI DI TEST, MI SERVONO PER VEDERE SE SI CREANO GLI OGGETTI:
 	public void stampaTurni() {
 		for(Turno t: turni) {
 			System.out.println("Durata: "+ t.getDurata() + "  Inizio: "+t.getOrainizio());

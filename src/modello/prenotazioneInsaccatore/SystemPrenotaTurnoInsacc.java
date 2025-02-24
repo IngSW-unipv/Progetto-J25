@@ -15,11 +15,12 @@ public class SystemPrenotaTurnoInsacc {
 	private Giorno[] settimana; 
 	private static final int maxoremat=4;
 	private static final int maxorepom=4;
+	private static final int maxgiorni =5;
 	private static final Set<Integer> tempiammessi = Set.of(30,60,90,120); 
 	
 	
 	public SystemPrenotaTurnoInsacc() {
-		this.settimana = new Giorno[5];
+		this.settimana = new Giorno[maxgiorni];
 	}
 		
 	public SystemPrenotaTurnoInsacc(Giorno[] settimana) {

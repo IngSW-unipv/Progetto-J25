@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class SondaggioController {
+	
         private SystemPubblicazionePanel systemPubblicazionePanel;
 
         public SondaggioController() {

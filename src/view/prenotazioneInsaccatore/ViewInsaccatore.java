@@ -55,6 +55,7 @@ public class ViewInsaccatore extends JFrame {
 	}
 	
 	
+
 	//METODI UTILI:
 	
 	// metodo di aggiornamento della view, utile per avere l'interfaccia aggiornata seguendo i cambiamenti eseguiti:
