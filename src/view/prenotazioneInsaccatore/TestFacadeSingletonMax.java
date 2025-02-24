@@ -4,7 +4,7 @@ import jdbc.dao.max.ITurnoDAO;
 import jdbc.dao.max.TurnoDAO;
 import testing.TestSystemPrenotaTurnoInsacc;
 
-
+/*
 public class TestFacadeSingletonMax {
 	//ATTRIBUTI:
 	private static TestFacadeSingletonMax istanza;

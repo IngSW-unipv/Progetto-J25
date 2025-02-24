@@ -82,7 +82,7 @@
       <recent name="$PROJECT_DIR$/lib" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.CodiceTest">
+  <component name="RunManager" selected="Application.TestCompleto">
     <configuration name="CodiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="testing.CodiceTest" />
       <module name="Progetto-J25" />
@@ -109,6 +109,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MainGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="modello.autenticazione.MainGUI" />
+      <module name="Progetto-J25" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="modello.autenticazione.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestCompleto" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="view.autenticazione.TestCompleto" />
+      <module name="Progetto-J25" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="view.autenticazione.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -120,6 +146,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.TestCompleto" />
+        <item itemvalue="Application.MainGUI" />
         <item itemvalue="Application.CodiceTest" />
         <item itemvalue="Application.ControlloMailTest" />
       </list>
@@ -145,6 +173,7 @@
       <workItem from="1739804806399" duration="1399000" />
       <workItem from="1739806238823" duration="3589000" />
       <workItem from="1740123049815" duration="31700000" />
+      <workItem from="1740306850901" duration="44365000" />
     </task>
     <task id="LOCAL-00001" summary="librerie">
       <option name="closed" value="true" />
@@ -188,19 +217,19 @@
     </task>
     <task id="LOCAL-00006" summary="-">
       <option name="closed" value="true" />
-      <created>1740217304176</created>
+      <created>1740249093170</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1740217304176</updated>
+      <updated>1740249093170</updated>
     </task>
     <task id="LOCAL-00007" summary="-">
       <option name="closed" value="true" />
-      <created>1740225603445</created>
+      <created>1740249121698</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1740225603445</updated>
+      <updated>1740249121698</updated>
     </task>
     <task id="LOCAL-00008" summary="-">
       <option name="closed" value="true" />
@@ -210,7 +239,7 @@
       <option name="project" value="LOCAL" />
       <updated>1740225860250</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -234,7 +263,7 @@
     <MESSAGE value="autenticazione" />
     <MESSAGE value="controller e view per il sondaggio" />
     <MESSAGE value="-" />
-    <option name="LAST_COMMIT_MESSAGE" value="controller e view per il sondaggio" />
+    <option name="LAST_COMMIT_MESSAGE" value="-" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

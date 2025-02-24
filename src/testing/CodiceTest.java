@@ -8,16 +8,16 @@ import java.util.Scanner;
 
 public class CodiceTest {
     public static void main(String[] args) throws SQLException {
-        UserDAO userDAO= new UserDAO();
+       /* UserDAO userDAO= new UserDAO();
         SystemAutenticazione systemAutenticazione = new SystemAutenticazione(userDAO);
         System.out.println("Inserire email:   ");
         Scanner scanner = new Scanner(System.in);
         String email = scanner.nextLine();
         systemAutenticazione.attivazioneEmail(email);
-        Scanner sc = new Scanner(System.in);
-       System.out.println("Inserire codice attivazione ");
+        System.out.println("Inserire codice attivazione "); */
 
-       String input = sc.nextLine();
+       Scanner sc = new Scanner(System.in);
+       /*String input = sc.nextLine();
 
         systemAutenticazione.inizioRegistrazione(input);
         System.out.println("Inserire password:   ");
@@ -50,7 +50,18 @@ public class CodiceTest {
         System.out.println("Inserire password:    ");
         String input9 = sc.nextLine();
         systemAutenticazione.login(input8,input9);
-        sc.close();*/
+        System.out.println("Inserire la propria email");
+        String input10 = sc.nextLine();
+        System.out.println("Inserire il ruolo ");
+        String input11 = sc.nextLine();
+        System.out.println("Inserire mail del panelista ");
+        String input12 = sc.nextLine();
+        systemAutenticazione.cambiaRuolo(input10, input11, input12);
+        sc.close(); */
+
+
+
+
 }}
 
 

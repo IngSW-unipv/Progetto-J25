@@ -6,12 +6,16 @@ import jdbc.dao.campione.ICampioneDAO;
 import jdbc.dao.documento.IOreLavoroDAO;
 import jdbc.dao.documento.OreLavoroDAO;
 import modello.archiviazioneCampione.SystemCampione;
+import modello.autenticazione.SystemAutenticazione;
 import modello.creazionePanel.Slot;
 import modello.creazionePanel.Sondaggio;
 import modello.creazionePanel.SystemPubblicazionePanel;
 import modello.documento.SystemDocumento;
 import modello.prenotazionePanel.SystemPrenotazione;
+import modello.Utente;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Map;
@@ -33,6 +37,7 @@ public class FacedeSingletonDB {
     private SystemPrenotazione systemPrenotazione;
     private SystemCampione systemCampione;
     private SystemDocumento systemDocumento;
+    private SystemAutenticazione systemAutenticazione;
 
     private FacedeSingletonDB() {
         this.panelDAO = new PanelDAO();
@@ -109,12 +114,18 @@ public class FacedeSingletonDB {
     public void getPrenotati(Map<LocalTime, Slot> slots){
         prenotazionePanelDAO.getPrenotazioni(slots);
         oreLavoroDAO.getOreLavPrenotati(slots);
-        //prelevo i prenoati e poi setto le loro ore
+        //prelevo i prenot89/ati e poi setto le loro ore
     }
-    
-    
-    
-    
+
+    public SystemAutenticazione getSystemAutenticazione() throws SQLException {
+        if (systemAutenticazione == null) {
+            systemAutenticazione = new SystemAutenticazione();
+            systemAutenticazione.setUtenti(userDAO.getAllUtenti());
+        }
+        return systemAutenticazione;
+    }
+
+
     public IOreLavoroDAO getLavoroDAO() {
 		return lavoroDAO;
 	}
