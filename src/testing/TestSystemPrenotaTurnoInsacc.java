@@ -1,11 +1,5 @@
 package testing;
 
-import java.time.LocalDate;
-
-import java.time.LocalTime;
-
-import controller.PrenotaInsacController;
-import modello.prenotazioneInsaccatore.*;
 import view.prenotazioneInsaccatore.*;
 
 public class TestSystemPrenotaTurnoInsacc {
