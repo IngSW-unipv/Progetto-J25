@@ -7,171 +7,165 @@ import java.util.ArrayList;
 import modello.prenotazioneInsaccatore.*;
 import jdbc.ConnessioneDB;
 import java.sql.Connection;
-import java.time.LocalTime;
 
 
 
 
 //QUESTA E' LA TABLE DI RIFERIMENTO:
-/*CREATE TABLE `TURNO` (
+/*
+CREATE TABLE `TURNO` (
   `idTURNO` int NOT NULL AUTO_INCREMENT,
   `INSACCATORE` int DEFAULT NULL,
   `ORA_INIZIO` time DEFAULT NULL,
   `DURATA` int DEFAULT NULL,
   `STATO` tinyint DEFAULT NULL,
-  PRIMARY KEY (`idTURNO`)
-)
+  `tipoGIORNO` enum('LUNEDI','MARTEDI','MERCOLEDI','GIOVEDI','VENERDI','SABATO','DOMENICA') DEFAULT NULL,
+  PRIMARY KEY (`idTURNO`),
+  KEY `fk_tipo_giorno` (`tipoGIORNO`),
+  CONSTRAINT `fk_tipo_giorno` FOREIGN KEY (`tipoGIORNO`) REFERENCES `GIORNO` (`tipo`) ON DELETE CASCADE ON UPDATE CASCADE
+) 
 */
 
-public class TurnoDAO implements ITurnoDAO{
-	private static final String DB = "osmotech";
-	private Connection connessione;
-	
-	
-	//METODI CRUD:
-	
-	//METODO AGGIUNGI QUERY DA OGGETTO:
-	public void aggiungi(Turno t) {
-	    // Mi connetto al database
-	    connessione = ConnessioneDB.startConnection(connessione, DB);
-	    
-	    // Query per l'inserimento (senza INSACCATORE e senza idTURNO)
-	    String sql = "INSERT INTO TURNO (INSACCATORE, ORA_INIZIO, DURATA, STATO) VALUES (?, ?, ?, ?)";
+public class TurnoDAO implements ITurnoDAO {
+    
+    private static final String DB = "osmotech";
+    private Connection connessione;
 
-	    try (PreparedStatement stmt = connessione.prepareStatement(sql)) {
-	        // Imposto i parametri
-	        // Non impostiamo idTURNO, perché è auto incrementato
-	        stmt.setInt(1, t.getId()); // INSACCATORE
-	        stmt.setTime(2, java.sql.Time.valueOf(t.getOrainizio())); // Converte LocalTime in SQL Time
-	        stmt.setInt(3, t.getDurata()); // Durata in minuti
-	        stmt.setInt(4, t.isStato() ? 1 : 0); // Converte boolean in tinyint (1 = true, 0 = false)
+    
+    @Override
+    public void aggiungi(Turno t) {
+        connessione = ConnessioneDB.startConnection(connessione, DB);
+        String sql = "INSERT INTO TURNO (INSACCATORE, ORA_INIZIO, DURATA, STATO, tipoGIORNO) VALUES (?, ?, ?, ?, ?)";
 
-	        // Eseguo la query
-	        stmt.executeUpdate();
-	    } catch (SQLException e) {
-	        throw new RuntimeException("Errore nell'aggiungere il turno.", e);
-	    } finally {
-	        // Chiudo la connessione
-	        ConnessioneDB.closeConnection(connessione);
-	        System.out.println("Aggiunta avvenuta!");
-	    }
-	}
+        try (PreparedStatement stmt = connessione.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setInt(1, t.getId());
+            stmt.setTime(2, java.sql.Time.valueOf(t.getOrainizio()));
+            stmt.setInt(3, t.getDurata());
+            stmt.setBoolean(4, t.isStato());
+            stmt.setString(5, t.getTipoGiorno().name());
+            stmt.executeUpdate();
 
-	
-	
-	
-	//METODO OTTIENI OGGETTO DA QUERY
-	public Turno trova(int idturno) {
-		
-		//mi connetto:
-		connessione = ConnessioneDB.startConnection(connessione, DB);
-		//preparo la query:
-	    String sql = "SELECT * FROM TURNO WHERE idTURNO = ?";
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    t.setId(generatedKeys.getInt(1));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Errore nell'aggiungere il turno.", e);
+        } finally {
+            ConnessioneDB.closeConnection(connessione);
+        }
+    }
 
-	    try (PreparedStatement stmt = connessione.prepareStatement(sql)) {
-	        // Impostiamo l'id del turno come parametro nella query
-	        stmt.setInt(1, idturno);
+    @Override
+    public Turno trova(Integer idturno) {
+        connessione = ConnessioneDB.startConnection(connessione, DB);
+        String sql = "SELECT * FROM TURNO WHERE idTURNO = ?";
 
-	        // Eseguiamo la query
-	        ResultSet rs = stmt.executeQuery();
+        try (PreparedStatement stmt = connessione.prepareStatement(sql)) {
+            stmt.setInt(1, idturno);
+            ResultSet rs = stmt.executeQuery();
 
-	        // Verifichiamo se abbiamo trovato una riga corrispondente
-	        if (rs.next()) {
-	            // Creiamo e ritorniamo un oggetto Turno con i dati recuperati dal database
-	            Turno turno = new Turno(rs.getInt("DURATA"), rs.getTime("ORA_INIZIO").toLocalTime());
-	            turno.setId(rs.getInt("idTURNO"));
-	            turno.setStato(rs.getBoolean("STATO"));
+            if (rs.next()) {
+                Turno turno = new Turno(rs.getInt("DURATA"), rs.getTime("ORA_INIZIO").toLocalTime());
+                turno.setId(rs.getInt("idTURNO"));
+                turno.setStato(rs.getBoolean("STATO"));
+                return turno;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Errore nel recuperare il turno con id " + idturno, e);
+        } finally {
+            ConnessioneDB.closeConnection(connessione);
+        }
+        return null;
+    }
 
-	            return turno;
-	        }
-	    } catch (SQLException e) {
-	        throw new RuntimeException("Errore nel recuperare il turno con id " + idturno, e);
-	    }
+    @Override
+    public ArrayList<Turno> trovaTutti() {
+        connessione = ConnessioneDB.startConnection(connessione, DB);
+        ArrayList<Turno> turni = new ArrayList<>();
+        String sql = "SELECT idTURNO, ORA_INIZIO, DURATA, STATO, tipoGIORNO FROM TURNO";
 
-	    //chiudo la connessione:
-		 ConnessioneDB.closeConnection(connessione);
+        try (PreparedStatement stmt = connessione.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
 
-	    // Se non è stato trovato alcun turno con l'id specificato, restituiamo null
-	    return null;
-	    
-	}
+            while (rs.next()) {
+                Turno turno = new Turno(rs.getInt("DURATA"), rs.getTime("ORA_INIZIO").toLocalTime());
+                turno.setId(rs.getInt("idTURNO"));
+                turno.setStato(rs.getBoolean("STATO"));
+                turni.add(turno);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Errore nel recuperare tutti i turni.", e);
+        } finally {
+            ConnessioneDB.closeConnection(connessione);
+        }
+        return turni;
+    }
 
-	//METODO OTTIENI UNA LISTA DI TURNI DA UNA QUERY
-	public ArrayList<Turno> trovaTutti(){
-		//creo la connessione:
-		connessione = ConnessioneDB.startConnection(connessione, "osmotech");
+    @Override
+    public void aggiorna(Turno t) {
+        connessione = ConnessioneDB.startConnection(connessione, DB);
+        String sql = "UPDATE TURNO SET ORA_INIZIO = ?, DURATA = ?, STATO = ?, tipoGIORNO = ? WHERE idTURNO = ?";
 
-		 ArrayList<Turno> turni = new ArrayList<>();
-		 //prepaor la query:
-		 String sql = "SELECT idTURNO, ORA_INIZIO, DURATA, STATO FROM TURNO";
+        try (PreparedStatement stmt = connessione.prepareStatement(sql)) {
+            stmt.setTime(1, java.sql.Time.valueOf(t.getOrainizio()));
+            stmt.setInt(2, t.getDurata());
+            stmt.setBoolean(3, t.isStato());
+            stmt.setString(4, t.getTipoGiorno().name());
+            stmt.setInt(5, t.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Errore nell'aggiornare il turno con id " + t.getId(), e);
+        } finally {
+            ConnessioneDB.closeConnection(connessione);
+        }
+    }
 
-		    try (PreparedStatement stmt = connessione.prepareStatement(sql);
-		         ResultSet rs = stmt.executeQuery()) {
+    @Override
+    public void rimuovi(Turno t) {
+        connessione = ConnessioneDB.startConnection(connessione, DB);
+        String sql = "DELETE FROM TURNO WHERE idTURNO = ?";
 
-		        while (rs.next()) {
-		            int idTurno = rs.getInt("idTURNO");
-		            LocalTime orainizio = rs.getTime("ORA_INIZIO") != null ? rs.getTime("ORA_INIZIO").toLocalTime() : null;
-		            int durata = rs.getInt("DURATA");
-		            boolean stato = rs.getBoolean("STATO");
+        try (PreparedStatement stmt = connessione.prepareStatement(sql)) {
+            stmt.setInt(1, t.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Errore nell'eliminare il turno con id " + t.getId(), e);
+        } finally {
+            ConnessioneDB.closeConnection(connessione);
+        }
+    }
 
-		            // Creiamo un oggetto Turno con i dati recuperati
-		            Turno turno = new Turno(durata, orainizio);
-		            turno.setId(idTurno);
-		            turno.setStato(stato);
+    @Override
+    public ArrayList<Turno> recuperaTurniGiorno(Giorno giorno) {
+        connessione = ConnessioneDB.startConnection(connessione, DB);
+        ArrayList<Turno> turni = new ArrayList<>();
+        
+        // La query recupera i turni associati al tipo di giorno
+        String sql = "SELECT idTURNO, ORA_INIZIO, DURATA, STATO, tipoGIORNO " +
+                     "FROM TURNO " +
+                     "WHERE tipoGIORNO = ?";  // La query è filtrata per tipoGIORNO
 
-		            // Aggiungiamo il turno alla lista
-		            turni.add(turno);
-		        }
-		    } catch (SQLException e) {
-		        throw new RuntimeException("Errore nel recuperare tutti i turni.", e);
-		    }
-		    
-		    //chiudo la connessione:
-			 ConnessioneDB.closeConnection(connessione);
-		    return turni;
-		
-	}
-	
-	//METODO CHE MI AGGIORNA UN TURNO PASSATO COME PARAMETRO
-	public void aggiorna(Turno t) {
-		
-		//mi connetto:
-		connessione = ConnessioneDB.startConnection(connessione, DB);
-		//preparo la query:
-	    String sql = "UPDATE TURNO SET `ORA_INIZIO` = ?, DURATA = ?, STATO = ? WHERE idTURNO = ?";
+        try (PreparedStatement stmt = connessione.prepareStatement(sql)) {
+            // Impostiamo il parametro tipoGIORNO come l'ENUM passato nell'oggetto Giorno
+            stmt.setString(1, giorno.getTipo().name());  // giorno.getTipo() restituisce LUNEDI, MARTEDI, etc.
 
-	    try (PreparedStatement stmt = connessione.prepareStatement(sql)) {
-	        // Impostiamo i valori per i parametri nella query
-	        stmt.setTime(1, java.sql.Time.valueOf(t.getOrainizio()));  // Impostiamo l'orario di inizio
-	        stmt.setInt(2, t.getDurata());  // Impostiamo la durata
-	        stmt.setBoolean(3, t.isStato());  // Impostiamo lo stato del turno
-	        stmt.setInt(4, t.getId());  // Impostiamo l'ID del turno per specificare quale record aggiornare
-
-	        // Eseguiamo l'aggiornamento
-	        stmt.executeUpdate();
-	    } catch (SQLException e) {
-	        throw new RuntimeException("Erroso nell'aggiornamento del turno con id " + t.getId(), e);
-	    }
-	    //chiudo la connessione:
-		 ConnessioneDB.closeConnection(connessione);
-	}
-	
-	public void rimuovi(Turno t) {
-		//mi connetto:
-		connessione = ConnessioneDB.startConnection(connessione, DB);
-		//preparo la query:
-		String sql = "DELETE FROM TURNO WHERE idTURNO=?";
-		try (PreparedStatement stmt = connessione.prepareStatement(sql)){
-			stmt.setInt(1, t.getId());
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			throw new RuntimeException("Errore nell'eliminare il turno con id " + t.getId(),e);
-		}
-	    //chiudo la connessione:
-		 ConnessioneDB.closeConnection(connessione);
-		 
-		 System.out.println("Rimozione avvenuta!");
-	}	
-	
-
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    // Creiamo l'oggetto Turno recuperando i dati
+                    Turno turno = new Turno(rs.getInt("DURATA"), rs.getTime("ORA_INIZIO").toLocalTime());
+                    turno.setId(rs.getInt("idTURNO"));
+                    turno.setStato(rs.getBoolean("STATO"));
+                    turni.add(turno);  // Aggiungiamo il turno alla lista
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Errore nel recuperare i turni per il giorno " + giorno.getTipo(), e);
+        } finally {
+            ConnessioneDB.closeConnection(connessione);
+        }
+        
+        return turni;
+    }
 }

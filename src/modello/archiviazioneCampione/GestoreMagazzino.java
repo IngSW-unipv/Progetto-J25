@@ -1,10 +1,10 @@
 package modello.archiviazioneCampione;
 
-public class Magazzino {
+public class GestoreMagazzino {
 	
 	private int numeroSacche;
 
-	public Magazzino(int numeroSacche) {
+	public GestoreMagazzino(int numeroSacche) {
 		
 		if(numeroSacche < 0 ) {
 			

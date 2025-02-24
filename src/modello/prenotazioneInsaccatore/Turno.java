@@ -8,7 +8,10 @@ public class Turno {
 	private int durata; //in minuti
 	private LocalTime orainizio;
 	private int id;
+	private GiorniSettimana tipoGiorno;
 	
+
+
 	//COSTRUTTORI:
 	public Turno(int durata, LocalTime orainizio) {
 		this.durata = durata;
@@ -50,6 +53,13 @@ public class Turno {
 		this.id = id;
 	}
 	
+	public GiorniSettimana getTipoGiorno() {
+		return tipoGiorno;
+	}
+
+	public void setTipoGiorno(GiorniSettimana tipoGiorno) {
+		this.tipoGiorno = tipoGiorno;
+	}
 	
 	
 		

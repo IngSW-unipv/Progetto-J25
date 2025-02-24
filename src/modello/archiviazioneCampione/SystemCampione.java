@@ -4,9 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import jdbc.FacedeSingletonDB;
-import jdbc.dao.campione.CampioneDAO;
-import jdbc.dao.campione.ICampioneDAO;
-import modello.archiviazioneCampione.*;
 
 public class SystemCampione {
 	
@@ -17,11 +14,6 @@ public class SystemCampione {
 		
 		this.campioniNonAnalizzati = new ArrayList<>();
 		
-	}
-	
-	
-	public ArrayList<Integer> getCampioniNonAnalizzati() {
-		return campioniNonAnalizzati; //è utile questo metodo?
 	}
 
 

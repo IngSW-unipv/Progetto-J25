@@ -37,6 +37,7 @@ public class Giorno {
 		this.turni = turni;
 		
 	}
+
 	
 	public LocalDate getData() {
 		return data;
@@ -45,10 +46,17 @@ public class Giorno {
 		this.data = data;
 	}
 
+<<<<<<< HEAD
+=======
 	
+	//METODI UTILI:
+	public void aggiungiTurno(Turno turno) {
+		this.turni.add(turno);
+	}
 	
 	
 	//METODI DI TEST, MI SERVONO PER VEDERE SE SI CREANO GLI OGGETTI:
+>>>>>>> branch 'main' of https://github.com/IngSW-unipv/Progetto-J25.git
 	public void stampaTurni() {
 		for(Turno t: turni) {
 			System.out.println("Durata: "+ t.getDurata() + "  Inizio: "+t.getOrainizio());
