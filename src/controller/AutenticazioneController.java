@@ -37,9 +37,21 @@ public Utente login(String emailOrNickname, String password) throws SQLException
 return utente;
 }
 
-public void interfacciaRuolo(String emailOrNickname, String password){
-    systemAutenticazione.apriInterfacciaPerRuolo(emailOrNickname, password);
+//public void interfacciaRuolo(String emailOrNickname, String password){
+  //  systemAutenticazione.apriInterfacciaPerRuolo(emailOrNickname, password);
 
+//}
+public boolean modificaPassword(String vecchiaPassword, String nuovaPassword,Utente utenteLoggato) throws SQLException{
+
+   return systemAutenticazione.modificaPassword(utenteLoggato, vecchiaPassword, nuovaPassword);
+}
+
+public boolean cambioRuolo(int idUtente, String nuovoRuolo) throws SQLException {
+        return systemAutenticazione.cambiaRuolo(idUtente, nuovoRuolo);
+
+}
+public boolean inserisciIban(String iban, Utente utenteLoggato) throws SQLException {
+       return systemAutenticazione.inserisciIban(iban, utenteLoggato);
 }
 }
 

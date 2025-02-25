@@ -304,10 +304,71 @@ public class UserDAO implements IUserDAO{
         return listaUtenti;
     }
 
+    public void cambiaPassword(Utente utente, String passwordInput ) throws SQLException {
+        connection = ConnessioneDB.startConnection(connection, "osmotech");
+        String query = "UPDATE UTENTE SET PASSWORD = ? WHERE EMAIL = ?";
+        try (
+             PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setString(1, passwordInput);
+            pst.setString(2, utente.getEmail());
+            pst.executeUpdate();
+        }
+    }
 
+    public boolean updateRuolo(int id, String ruolo) throws SQLException {
+    String query = "UPDATE UTENTE SET RUOLO = ? WHERE ID = ?";
+    connection = ConnessioneDB.startConnection(connection, "osmotech");
+    try(
+            PreparedStatement pst = connection.prepareStatement(query)){
+                pst.setString(1, ruolo);
+                pst.setInt(2, id);
+                int rowsUpdated = pst.executeUpdate();
+                return rowsUpdated > 0;
+    }
 
+    }
 
+    public boolean inserisciIban(int userId, String iban) throws SQLException {
+        String query = "INSERT INTO CONTO (id,iban) VALUES (?,?) ON DUPLICATE KEY UPDATE iban = ?";
+        connection = ConnessioneDB.startConnection(connection, "osmotech");
+        try (
+                PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setInt(1, userId);
+            pst.setString(2, iban);
+            pst.setString(3, iban);
 
+            int rowsAffected = pst.executeUpdate();
+            return rowsAffected > 0;
+        } finally {
+    if(connection != null) ConnessioneDB.closeConnection(connection);
+    }}
+
+    public String getIban(Utente utente) throws SQLException {
+        connection = ConnessioneDB.startConnection(connection, "osmotech");
+        String query = "SELECT IBAN FROM CONTO WHERE ID = ?";
+        ResultSet rs = null;
+        String iban = null;
+
+        try (
+                PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setInt(1, utente.getId());
+            rs = pst.executeQuery();
+
+            // Verifica se ci sono risultati
+            if (rs.next()) {
+                iban = rs.getString("IBAN");
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+
+        return iban;
+    }
 }
 
 

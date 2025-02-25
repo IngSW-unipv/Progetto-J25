@@ -15,4 +15,8 @@ public interface IUserDAO {
 	Panelista selectPanelista(int id);
 	ArrayList<Panelista> getPanelistas();
 	ArrayList<Utente> getAllUtenti() throws SQLException;
+	void cambiaPassword(Utente utente, String passwordInput) throws SQLException;
+	boolean updateRuolo(int id, String ruolo) throws SQLException;
+	boolean inserisciIban(int userId, String iban) throws SQLException;
+	String getIban(Utente utente) throws SQLException;
 }
