@@ -52,18 +52,27 @@ public class PrenotazionePanelDAO implements IPrenotazionePanelDAO{
 
     @Override
     public boolean salvaPrenotazione(Slot slot, Panelista panelista) {
+    	
         Connection conn = ConnessioneDB.startConnection(null, "osmotech");
-        String sql = "INSERT INTO PRENOTAZIONE_PANEL (ID_SLOT, EMAIL_UTENTE) VALUES (?, ?)";
+        PreparedStatement ps1;
+        boolean queryRiuscita = true;
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, slot.getIdSlot());
-            stmt.setString(2, panelista.getEmail());
+        try{
+        	String query = "INSERT INTO osmotech.PRENOTAZIONE_PANEL VALUES (?, ?, ?)";
+        	ps1 = conn.prepareStatement(query);
+            ps1.setInt(1, panelista.getId());
+            ps1.setInt(2, slot.getIdSlot());
+            ps1.setString(3, panelista.getEmail());
 
-            int rowsAffected = stmt.executeUpdate();
-            return rowsAffected > 0;
+           ps1.executeUpdate();
+            
         } catch (SQLException e) {
             e.printStackTrace(); // Puoi sostituire con un logger
-            return false;
+            queryRiuscita = false;
         }
+        
+        conn = ConnessioneDB.closeConnection(conn);
+        
+        return queryRiuscita;
     }
 }
