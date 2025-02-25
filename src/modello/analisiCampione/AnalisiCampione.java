@@ -13,20 +13,19 @@ public class AnalisiCampione {
     private int idCampione;
     private int idPanel;
     private LocalDate dataAnalisi;
-    private LocalTime inizio_Analisi;
-    private LocalTime fine_Analisi;
+    private LocalTime inizioAnalisi;
+    private LocalTime fineAnalisi;
     private double gradazione;
 
 
-    public AnalisiCampione(LocalTime inizio_Analisi, LocalTime fine_Analisi, double gradazione) {
-        
-        this.inizio_Analisi = inizio_Analisi;
-        this.fine_Analisi = fine_Analisi;
+    public AnalisiCampione(LocalTime inizioAnalisi, LocalTime fineAnalisi, double gradazione) {
+  
+        this.inizioAnalisi = inizioAnalisi;
+        this.fineAnalisi = fineAnalisi;
         this.gradazione = gradazione;
 
     }
 
-    
     public Campione getCampione() {
         return campione;
     }
@@ -67,20 +66,20 @@ public class AnalisiCampione {
         this.dataAnalisi = dataAnalisi;
     }
 
-    public LocalTime getInizio_Analisi() {
-        return inizio_Analisi;
+    public LocalTime getInizioAnalisi() {
+        return inizioAnalisi;
     }
 
-    public void setInizio_Analisi(LocalTime inizio_Analisi) {
-        this.inizio_Analisi = inizio_Analisi;
+    public void setInizio_Analisi(LocalTime inizioAnalisi) {
+        this.inizioAnalisi = inizioAnalisi;
     }
 
-    public LocalTime getFine_Analisi() {
-        return fine_Analisi;
+    public LocalTime getFineAnalisi() {
+        return fineAnalisi;
     }
 
-    public void setFine_Analisi(LocalTime fine_Analisi) {
-        this.fine_Analisi = fine_Analisi;
+    public void setFine_Analisi(LocalTime fineAnalisi) {
+        this.fineAnalisi = fineAnalisi;
     }
 
     public double getGradazione() {

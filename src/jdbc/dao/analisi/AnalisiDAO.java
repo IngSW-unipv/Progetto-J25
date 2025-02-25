@@ -27,8 +27,6 @@ import jdbc.ConnessioneDB;
  */
 
 
-
-
 public class AnalisiDAO implements IAnalisiDAO {
 
     private Connection conn;
@@ -36,7 +34,6 @@ public class AnalisiDAO implements IAnalisiDAO {
     public AnalisiDAO() {
         
     }
-
 
     @Override
     public boolean insertAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) {
@@ -46,15 +43,19 @@ public class AnalisiDAO implements IAnalisiDAO {
 
         boolean queryRiuscita = true;
 
+        // Recupero l'id del campione e del panel
+        int idCampione = campione.getId();
+        int idPanel = panel.getId();
+
         try {
             
             String query = "INSERT INTO osmotech.ANALISI VALUES (?,?,?,?)";
             ps1 = conn.prepareStatement(query);
             
-            ps1.setInt(1, campione.getId());
-            ps1.setInt(2, panel.getId());
-            ps1.setTime(3, java.sql.Time.valueOf(analisi.getInizio_Analisi()));
-            ps1.setTime(4, java.sql.Time.valueOf(analisi.getFine_Analisi())); 
+            ps1.setInt(1, idCampione);
+            ps1.setInt(2, idPanel);
+            ps1.setTime(3, java.sql.Time.valueOf(analisi.getInizioAnalisi()));
+            ps1.setTime(4, java.sql.Time.valueOf(analisi.getFineAnalisi())); 
             ps1.setDouble(5, analisi.getGradazione());
             
             ps1.executeUpdate();
