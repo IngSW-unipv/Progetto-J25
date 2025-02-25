@@ -2,7 +2,7 @@ package jdbc.dao.analisi;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
+import java.sql.SQLException;
 
 import modello.analisiCampione.AnalisiCampione;
 import modello.archiviazioneCampione.Campione;
@@ -30,7 +30,7 @@ public class AnalisiDAO implements IAnalisiDAO {
 
     // Metodo insertAnalisi
     @Override
-    public boolean insertAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) {
+    public boolean insertAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) throws SQLException {
         
         //Controllo dati prima di eseguire la query per evitare di interagire con il database quando i dati non sono validi
         if (campione == null || campione.getId() <= 0) {
@@ -85,7 +85,7 @@ public class AnalisiDAO implements IAnalisiDAO {
 
     // Metodo updateAnalisi
     @Override
-    public boolean updateAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) {
+    public boolean updateAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) throws SQLException {
        
      //Controllo dati prima di eseguire la query per evitare di interagire con il database quando i dati non sono validi
         if (campione == null || campione.getId() <= 0) {
@@ -134,7 +134,7 @@ public class AnalisiDAO implements IAnalisiDAO {
 
     // Metodo eliminaAnalisi
     @Override
-    public boolean eliminaAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) {
+    public boolean eliminaAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) throws SQLException {
         
         if (campione == null || campione.getId() <= 0) {
             throw new IllegalArgumentException("Campione non valido");
