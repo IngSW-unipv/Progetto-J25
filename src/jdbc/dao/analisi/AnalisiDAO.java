@@ -2,13 +2,6 @@ package jdbc.dao.analisi;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Time;
-import java.util.ArrayList;
-
-import javax.naming.spi.DirStateFactory.Result;
-
-import java.time.LocalDate;
 
 
 import modello.analisiCampione.AnalisiCampione;
@@ -164,58 +157,6 @@ public class AnalisiDAO implements IAnalisiDAO {
             return false;
 
         }
-    }
-
-
-    // Metodo selectAllAnalisi
-    @Override
-    public ArrayList<AnalisiCampione> selectAllAnalisi() {
-
-        ArrayList<AnalisiCampione> analisiLista = new ArrayList<>();
-        String query = "SELECT * FROM osmotech.ANALISI";
-
-        try (Connection conn = ConnessioneDB.startConnection(null, "osmotech");
-             PreparedStatement ps1 = conn.prepareStatement(query); 
-             ResultSet rs = ps1.executeQuery()) {
-        
-            while (rs.next()) {
-                int idCampione = rs.getInt("ID_CAMPIONE");
-                int idPanel = rs.getInt("ID_PANEL");
-                Time inizioAnalisi = rs.getTime("ORARIO_INIZIO");
-                Time fineAnalisi = rs.getTime("ORARIO_FINE");
-                double gradazione = rs.getDouble("GRADAZIONE");
-
-                
-            
-            } 
-            
-            return analisiLista;
-
-        } catch (Exception e) {
-            
-            e.printStackTrace();
-            return null;
-
-        }
-    }
-
-
-    // Metodo trovaAnalisiPerData
-    @Override
-    public ArrayList<AnalisiCampione> trovaAnalisiPerData(LocalDate data) {
-
-        return null;
-    }
-
-    
-    @Override
-    public ArrayList<AnalisiCampione> trovaAnalisiPerGradazione(double gradazione) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<AnalisiCampione> trovaAnalisiPerCampione(int idCampione) {
-        return null;
     }
 
 }
