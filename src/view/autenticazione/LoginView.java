@@ -32,25 +32,36 @@ public class LoginView extends JFrame {
         JButton btnLogin = new JButton("Login");
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String emailOrNickname = emailOrNicknameField.getText();
+                String emailOrNickname = emailOrNicknameField.getText(); // da passare al metodo
                 String password = new String(passwordField.getPassword());
-                try{
+                try {
                     Utente utente = autenticazioneController.login(emailOrNickname, password);
-                  if(utente != null) {
-                      autenticazioneController.interfacciaRuolo(emailOrNickname, password);
-                      dispose();
+                    if (utente != null) {
+                        switch (utente.getRuolo()) {
+                            case "pl":
+                                new HomePanelLeader(autenticazioneController, utente);
+                                break;
+                            case "pa":
+                                new HomePanelista(autenticazioneController, utente);
+                                break;
+                            case "in":
+                                new HomeInsaccatore(autenticazioneController, utente);
+                                break;
+                            default:
+                                JOptionPane.showMessageDialog(null, "Ruolo non valido");
+                                dispose();
 
-                  } else {
-                      JOptionPane.showMessageDialog(LoginView.this, "Credenziali errate.");
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(LoginView.this, "Credenziali errate.");
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(LoginView.this, "Errore durante il login");
 
                 }
-
             }
-        });
+            });
         panel.add(lblEmailOrNickname);
         panel.add(emailOrNicknameField);
         panel.add(lblPassword);
