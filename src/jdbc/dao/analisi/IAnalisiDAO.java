@@ -9,6 +9,9 @@ import modello.archiviazioneCampione.Campione;
 import modello.creazionePanel.Panel;
 
 
+
+
+
 public interface IAnalisiDAO {
 
 

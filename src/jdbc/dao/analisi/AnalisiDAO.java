@@ -2,22 +2,34 @@ package jdbc.dao.analisi;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import java.time.LocalDate;
-//import java.util.ArrayList;
-//import java.sql.Statement;
+
 
 import modello.analisiCampione.AnalisiCampione;
 import modello.archiviazioneCampione.Campione;
 import modello.creazionePanel.Panel;
-//import modello.creazionePanel.Panel;
 import jdbc.ConnessioneDB;
 
+/* CREATE TABLE `ANALISI` (
+  `ID_CAMPIONE` int NOT NULL,
+  `ID_PANEL` int DEFAULT NULL,
+  `ORARIO_INIZIO` time DEFAULT NULL,
+  `ORARIO_FINE` time DEFAULT NULL,
+  `GRADAZIONE` decimal(5,2) DEFAULT NULL,
+  PRIMARY KEY (`ID_CAMPIONE`),
+  KEY `ID_PANEL` (`ID_PANEL`),
+  CONSTRAINT `ANALISI_ibfk_1` 
+  FOREIGN KEY (`ID_PANEL`) 
+  REFERENCES `PANEL` (`ID_PANEL`)
+) 
+ */
 
 
-public class  AnalisiDAO implements IAnalisiDAO {
+
+
+public class AnalisiDAO implements IAnalisiDAO {
 
     private Connection conn;
 
@@ -62,12 +74,12 @@ public class  AnalisiDAO implements IAnalisiDAO {
 
     @Override
     public boolean updateAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) {
-        
-        conn = ConnessioneDB.startConnection(conn, "osmotech");
-        PreparedStatement ps1;
-
-        boolean queryRiuscita = true;
-
+       /* 
+        *   conn = ConnessioneDB.startConnection(conn, "osmotech");
+        *   PreparedStatement ps1;
+        *
+        *   boolean queryRiuscita = true;
+        */
         return false;
     }
 
