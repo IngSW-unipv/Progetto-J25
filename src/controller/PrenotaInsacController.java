@@ -5,18 +5,6 @@ import modello.prenotazioneInsaccatore.*;
 import view.prenotazioneInsaccatore.*;
 
 public class PrenotaInsacController {
-<<<<<<< HEAD
-
-	private SystemPrenotaTurnoInsacc modello;
-	private ViewInsaccatore interf;
-	
-	public PrenotaInsacController(SystemPrenotaTurnoInsacc modello, ViewInsaccatore interf) {
-		this.modello = modello;
-		this.interf = interf;
-		//collego la view al controller:
-		this.interf.setController(this);
-	}
-=======
 	private ViewInsaccatore viewturni;
 	private InterPrincInsaccatore viewprinc;
 	private TestFacadeSingletonMax facade;
@@ -41,14 +29,15 @@ public class PrenotaInsacController {
 	}
 	
 	public void generaSettimanaTurni(LocalDate data,int durata) {
-		Giorno[] sett = facade.generaSettimanaTurni(data,durata); 
-		viewturni.aggiornaTurni(sett);
+		Giorno[] sett = facade.generaSettimanaTurni(data,durata);
 	}
->>>>>>> branch 'main' of https://github.com/IngSW-unipv/Progetto-J25.git
 	
 	
 	//METODI APERTURA VIEW:
 	public void apriViewInsaccatore() {
+		//prima di tutto verifico la presenza di turni
+		new ViewInsaccatore();
+		viewturni.aggiornaTurni(facade.getSystemPrenotaTurnoInsacc().getSettimana());
         viewprinc.setVisible(false);  // Nasconde la vista principale
         viewturni.setVisible(true);  // Mostra la vista dei turni
     }

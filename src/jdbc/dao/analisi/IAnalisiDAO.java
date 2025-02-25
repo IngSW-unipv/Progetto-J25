@@ -1,20 +1,39 @@
 package jdbc.dao.analisi;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import modello.analisiCampione.*;
+import java.sql.SQLException;
 
+import modello.analisiCampione.*;
+import modello.archiviazioneCampione.Campione;
+import modello.creazionePanel.Panel;
 
 public interface IAnalisiDAO {
 
-    boolean insertAnalisi(LocalDate dataAnalisi, double gradazione, int idCampione, int idPanel);
-    boolean updateAnalisi(int id, LocalDate dataAnalisi, double gradazione, int idCampione, int idPanel);
-    boolean eliminaAnalisi(LocalDate dataAnalisi, double gradazione, int idCampione, int idPanel);
-    ArrayList <AnalisiCampione> selectAllAnalisi();
-    ArrayList <AnalisiCampione> trovaAnalisiPerData(LocalDate data);
-    ArrayList <AnalisiCampione> trovaAnalisiPerGradazione(double gradazione);
-    ArrayList <AnalisiCampione> trovaAnalisiPerCampione(int idCampione);
-    ArrayList <AnalisiCampione> trovaAnalisiPerPanel(int idPanel);
 
+    /**
+     * Inserisce una nuova analisi nel database.
+     * 
+     * @param 
+     * @return true se l'inserimento è riuscito, false altrimenti
+     * @throws possibile SQLException.
+     */
+    boolean insertAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) throws SQLException;
+   
+   /**
+    * Aggiorna i dati di un'analisi nel database.
+    * @param 
+    * @return true se l'aggiornamento è riuscito, false altrimenti
+    * @throws possibile SQLException.
+    */
+    boolean updateAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) throws SQLException;
+    
+    /**
+     * Elimina un'analisi dal database.
+     * @param 
+     * @return true se l'eliminazione è riuscita, false altrimenti
+     * @throws possibile SQLException.
+     */
+    boolean eliminaAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) throws SQLException;
+    
+    
 
 }

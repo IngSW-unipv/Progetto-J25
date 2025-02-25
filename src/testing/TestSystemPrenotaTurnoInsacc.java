@@ -1,11 +1,6 @@
 package testing;
 
-import java.time.LocalDate;
-
-import java.time.LocalTime;
-
 import controller.PrenotaInsacController;
-import modello.prenotazioneInsaccatore.*;
 import view.prenotazioneInsaccatore.*;
 
 public class TestSystemPrenotaTurnoInsacc {
@@ -18,9 +13,6 @@ public class TestSystemPrenotaTurnoInsacc {
 	
 		PrenotaInsacController controller = new PrenotaInsacController(viewturni,viewprinc);
 		facade.getSystemPrenotaTurnoInsacc();
-	
-	
-	
 		
 		
 		//simulo la chiamata per generare i turni:

@@ -3,35 +3,51 @@ package modello.analisiCampione;
 import modello.archiviazioneCampione.Campione;
 import modello.creazionePanel.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 
 public class AnalisiCampione {
 
     private Campione campione;
     private Panel panel;
+    private int idCampione;
+    private int idPanel;
     private LocalDate dataAnalisi;
-    private LocalDateTime inizio_Analisi;
-    private LocalDateTime fine_Analisi;
+    private LocalTime inizioAnalisi;
+    private LocalTime fineAnalisi;
     private double gradazione;
 
 
-    public AnalisiCampione(LocalDate dataAnalisi, LocalDateTime inizio_Analisi, LocalDateTime fine_Analisi, double gradazione) {
+    public AnalisiCampione(LocalTime inizioAnalisi, LocalTime fineAnalisi, double gradazione) {
         
-        this.dataAnalisi = dataAnalisi;
-        this.inizio_Analisi = inizio_Analisi;
-        this.fine_Analisi = fine_Analisi;
+        this.inizioAnalisi = inizioAnalisi;
+        this.fineAnalisi = fineAnalisi;
         this.gradazione = gradazione;
 
     }
 
-    
     public Campione getCampione() {
         return campione;
     }
 
     public void setCampione(Campione campione) {
         this.campione = campione;
+    }
+
+    public int getIdCampione() {
+        return idCampione;
+    }
+
+    public void setIdCampione(int idCampione) {
+        this.idCampione = idCampione;
+    }
+
+    public int getIdPanel() {
+        return idPanel;
+    }
+
+    public void setIdPanel(int idPanel) {
+        this.idPanel = idPanel;
     }
 
     public Panel getPanel() {
@@ -50,20 +66,20 @@ public class AnalisiCampione {
         this.dataAnalisi = dataAnalisi;
     }
 
-    public LocalDateTime getInizio_Analisi() {
-        return inizio_Analisi;
+    public LocalTime getInizioAnalisi() {
+        return inizioAnalisi;
     }
 
-    public void setInizio_Analisi(LocalDateTime inizio_Analisi) {
-        this.inizio_Analisi = inizio_Analisi;
+    public void setInizio_Analisi(LocalTime inizioAnalisi) {
+        this.inizioAnalisi = inizioAnalisi;
     }
 
-    public LocalDateTime getFine_Analisi() {
-        return fine_Analisi;
+    public LocalTime getFineAnalisi() {
+        return fineAnalisi;
     }
 
-    public void setFine_Analisi(LocalDateTime fine_Analisi) {
-        this.fine_Analisi = fine_Analisi;
+    public void setFine_Analisi(LocalTime fineAnalisi) {
+        this.fineAnalisi = fineAnalisi;
     }
 
     public double getGradazione() {

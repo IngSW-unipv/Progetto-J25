@@ -2,96 +2,161 @@ package jdbc.dao.analisi;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-import java.util.ArrayList;
-
-import java.time.LocalDate;
-//import java.util.ArrayList;
-//import java.sql.Statement;
+import java.sql.SQLException;
 
 import modello.analisiCampione.AnalisiCampione;
-//import modello.creazionePanel.Panel;
+import modello.archiviazioneCampione.Campione;
+import modello.creazionePanel.Panel;
 import jdbc.ConnessioneDB;
 
+/* CREATE TABLE `ANALISI` (
+  `ID_CAMPIONE` int NOT NULL,
+  `ID_PANEL` int DEFAULT NULL,
+  `ORARIO_INIZIO` time DEFAULT NULL,
+  `ORARIO_FINE` time DEFAULT NULL,
+  `GRADAZIONE` decimal(5,2) DEFAULT NULL,
+  PRIMARY KEY (`ID_CAMPIONE`),
+  KEY `ID_PANEL` (`ID_PANEL`),
+  CONSTRAINT `ANALISI_ibfk_1` 
+  FOREIGN KEY (`ID_PANEL`) 
+  REFERENCES `PANEL` (`ID_PANEL`)
+) 
+ */
 
 
-public class  AnalisiDAO implements IAnalisiDAO {
+public class AnalisiDAO implements IAnalisiDAO {
 
-    private Connection conn;
+    public AnalisiDAO() {}
 
-    public AnalisiDAO() {
-        
-    }
-
-
+    // Metodo insertAnalisi
     @Override
-    public boolean insertAnalisi(LocalDate dataAnalisi, double gradazione, int idCampione, int idPanel) {
+    public boolean insertAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) throws SQLException {
         
-        conn = ConnessioneDB.startConnection(conn, "osmotech");
-        PreparedStatement ps1;
+        //Controllo dati prima di eseguire la query per evitare di interagire con il database quando i dati non sono validi
+        if (campione == null || campione.getId() <= 0) {
+            throw new IllegalArgumentException("Campione non valido");
+        }
 
-        boolean queryRiuscita = true;
+        if (panel == null || panel.getId() <= 0) {
+            throw new IllegalArgumentException("Panel non valido");
+        }
 
-        try {
+        if (analisi.getInizioAnalisi() == null || analisi.getFineAnalisi() == null) {
+            throw new IllegalArgumentException("Orari di inizio e fine analisi non possono essere null!");
+        }
+
+        if (analisi.getFineAnalisi().isBefore(analisi.getInizioAnalisi())) {
+            throw new IllegalArgumentException("Orario di fine analisi non può essere prima dell'inizio!");
+        }
+
+        if (analisi.getGradazione() < 0) {
+            throw new IllegalArgumentException("Gradazione non può essere negativa!");
+        }
+
+        //Query SQL
+        String query = "INSERT INTO osmotech.ANALISI VALUES (?,?,?,?,?)";
+
+        // Per evitare connessioni multiple, utilizzo un'unica connessione per tutte le operazioni
+        try (Connection conn = ConnessioneDB.startConnection(null, "osmotech");
+             PreparedStatement ps1 = conn.prepareStatement(query)) {
             
-            String query = "INSERT INTO osmotech.ANALISI VALUES (?,?,?,?)";
-            ps1 = conn.prepareStatement(query);
+            // Passiamo gli id esistenti e i valori dell'analisi
+            ps1.setInt(1, campione.getId());
+            ps1.setInt(2, panel.getId());
+            ps1.setTime(3, java.sql.Time.valueOf(analisi.getInizioAnalisi()));
+            ps1.setTime(4, java.sql.Time.valueOf(analisi.getFineAnalisi())); 
+            ps1.setDouble(5, analisi.getGradazione());
             
-            ps1.setDate(1, java.sql.Date.valueOf(dataAnalisi));
-            ps1.setDouble(2, gradazione);
-            ps1.setInt(3, idCampione);
-            ps1.setInt(4, idPanel);
-            
-            ps1.executeUpdate();
+            /*Controllo per vedere se la query è stata modificata
+            * Utilizzo questo metodo per evitare di trovarci in cui la query non modifica
+            * nessuna riga del database, ma il metodo ritorna comunque true.
+            */
+            int rowsAffected = ps1.executeUpdate();
+            return (rowsAffected > 0);
         
-
         }catch (Exception e) {
             
             e.printStackTrace();
-            
-            queryRiuscita = false;
+            return false;
+
+        }
+    }
+
+
+    // Metodo updateAnalisi
+    @Override
+    public boolean updateAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) throws SQLException {
+       
+     //Controllo dati prima di eseguire la query per evitare di interagire con il database quando i dati non sono validi
+        if (campione == null || campione.getId() <= 0) {
+            throw new IllegalArgumentException("Campione non valido");
         }
 
-        conn = ConnessioneDB.closeConnection(conn);
+        if (panel == null || panel.getId() <= 0) {
+            throw new IllegalArgumentException("Panel non valido");
+        }
 
-        return queryRiuscita;
+        if (analisi.getInizioAnalisi() == null || analisi.getFineAnalisi() == null) {
+            throw new IllegalArgumentException("Orari di inizio e fine analisi non possono essere null!");
+        }
+
+        if (analisi.getFineAnalisi().isBefore(analisi.getInizioAnalisi())) {
+            throw new IllegalArgumentException("Orario di fine analisi non può essere prima dell'inizio!");
+        }
+
+        if (analisi.getGradazione() < 0) {
+            throw new IllegalArgumentException("Gradazione non può essere negativa!");
+        }
+
+        String query = "UPDATE osmotech.ANALISI SET ORARIO_INIZIO = ?, ORARIO_FINE = ?, GRADAZIONE = ? WHERE ID_CAMPIONE = ? AND ID_PANEL = ?";
+
+        try (Connection conn = ConnessioneDB.startConnection(null, "osmotech");
+             PreparedStatement ps1 = conn.prepareStatement(query)) {
+            
+            
+             ps1.setTime(1, java.sql.Time.valueOf(analisi.getInizioAnalisi()));
+             ps1.setTime(2, java.sql.Time.valueOf(analisi.getFineAnalisi())); 
+             ps1.setDouble(3, analisi.getGradazione());
+             ps1.setInt(4, campione.getId());
+             ps1.setInt(5, panel.getId());
+            
+             int rowsAffected = ps1.executeUpdate();
+             return (rowsAffected > 0);
+
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            return false;
+
+        }
     }
 
+
+    // Metodo eliminaAnalisi
     @Override
-    public boolean updateAnalisi(int id, LocalDate dataAnalisi, double gradazione, int idCampione, int idPanel) {
+    public boolean eliminaAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) throws SQLException {
         
-        return false;
-    }
+        if (campione == null || campione.getId() <= 0) {
+            throw new IllegalArgumentException("Campione non valido");
+        }
 
-    @Override
-    public boolean eliminaAnalisi(LocalDate dataAnalisi, double gradazione, int idCampione, int idPanel) {
-        return false;
-    }
+        String query = "DELETE FROM osmotech.ANALISI WHERE ID_CAMPIONE = ? AND ID_PANEL = ?";
 
-    @Override
-    public ArrayList<AnalisiCampione> selectAllAnalisi() {
-        return null;
-    }
+        try (Connection conn = ConnessioneDB.startConnection(null, "osmotech");
+             PreparedStatement ps1 = conn.prepareStatement(query)) {
+            
+            ps1.setInt(1, campione.getId());
+            ps1.setInt(2, panel.getId());
+            
+            int rowsAffected = ps1.executeUpdate();
+            return (rowsAffected > 0);
 
-    @Override
-    public ArrayList<AnalisiCampione> trovaAnalisiPerData(LocalDate data) {
-        return null;
-    }
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            return false;
 
-    @Override
-    public ArrayList<AnalisiCampione> trovaAnalisiPerGradazione(double gradazione) {
-        return null;
+        }
     }
-
-    @Override
-    public ArrayList<AnalisiCampione> trovaAnalisiPerCampione(int idCampione) {
-        return null;
-    }
-
-    @Override
-    public ArrayList<AnalisiCampione> trovaAnalisiPerPanel(int idPanel) {
-        return null;
-    }
-
 
 }

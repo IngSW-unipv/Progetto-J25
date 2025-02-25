@@ -1,50 +1,5 @@
 package view.prenotazioneInsaccatore;
 
-<<<<<<< HEAD
-
-import jdbc.dao.max.ITurnoDAO;
-import jdbc.dao.max.TurnoDAO;
-import testing.TestSystemPrenotaTurnoInsacc;
-
-/*
-public class TestFacadeSingletonMax {
-	//ATTRIBUTI:
-	private static TestFacadeSingletonMax istanza;
-
-	private  TestFacadeSingletonMax() {
-	}
-
-	public static TestFacadeSingletonMax getIstanza() {
-		if(istanza==null) {
-			istanza = new TestFacadeSingletonMax();
-		}
-		return istanza;
-	}
-	
-	
-	//METODI LAZY:
-	private ITurnoDAO getTurnoDAO() {
-		if(turnoDAO==null) {
-			turnoDAO = new TurnoDAO();
-		}
-		return turnoDAO;
-	}
-	
-	//METODI DEI DAO:
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}*/
-=======
-=======
->>>>>>> branch 'main' of https://github.com/IngSW-unipv/Progetto-J25.git
 
 import jdbc.dao.max.*;
 import modello.prenotazioneInsaccatore.*;
@@ -94,7 +49,10 @@ public class TestFacadeSingletonMax {
 		if(systeminsac==null) {
 			//istanzio un nuovo systeminsaccatori
 			systeminsac = new SystemPrenotaTurnoInsacc();
-			if(!settimanaEsistente()) generaSettimanaPredefinita();
+			if(!settimanaEsistente()) 
+				{generaSettimanaPredefinita();
+				istanza.aggiornaSettimanaNelDatabase();
+				}
 			else
 			//carico questo system con l'ultima versione della settimana presente sul db:
 			systeminsac.setSettimana(istanza.caricaSettimana());
@@ -116,7 +74,7 @@ public class TestFacadeSingletonMax {
 		systeminsac.generaSettAuto(lunprox, 60);
 	}
 	
-	//
+	//metodo che verifica se esiste almeno un elemento nel database giorni non nullo, segnala la presenza di dati quindi:
 	public boolean settimanaEsistente() {
 	    // Verifica se esistono tutti i giorni (LUN-VEN) nel database
 	    for (GiorniSettimana giornoEnum : GiorniSettimana.values()) {
@@ -127,18 +85,6 @@ public class TestFacadeSingletonMax {
 	                return false;
 	            }
 	        }
-<<<<<<< HEAD
-	  }
-	
-	
-	
-	
-	
-	
-	
-	
-}
-=======
 	    }
 	    return true;
 	}
@@ -165,12 +111,16 @@ public class TestFacadeSingletonMax {
 	            giornoDAO.aggiungi(giorno);
 	        }
 
-	        // Ora aggiorna i turni per il giorno
+	        // sempre nello stesso momento, inserisco i turni del giorno inserito secondo l'enum:
 	        for (Turno turno : giorno.getTurni()) {
 	        	if (turno.getTipoGiorno() == null) {
-	                turno.setTipoGiorno(giorno.getTipo());
+	                turno.setTipoGiorno(giorno.getTipo()); 
 	        	}
-	            turnoDAO.aggiorna(turno);  // Aggiorna ogni turno nel database
+	        	if(turno.getId()>0){
+	        		turnoDAO.aggiorna(turno);  // aggiorna il tunro nel database se è già presente
+	        	}
+	        	else
+	            turnoDAO.aggiungi(turno);  // aggiungi il turno nel database se non è presente.
 	        }
 	    }
 	}
@@ -190,14 +140,14 @@ public class TestFacadeSingletonMax {
 	    GiorniSettimana tipo;
 	    for (Giorno g : gdb) {
 	        tipo = g.getTipo();
-	        if (tipo.getValore() < 5) { // Considero solo LUN-VEN
+	        if (tipo.getValore() < 5) { // Considero solo da lun a ven
 	            ArrayList<Turno> turni = turnoDAO.recuperaTurniGiorno(g);
 	            g.setTurni(turni);
 	            mappaGiorni.put(tipo, g);
 	        }
 	    }	
 
-	    // Creazione del vettore ordinato di 5 giorni (LUN-VEN)
+	    // Creazione del vettore ordinato di 5 giorni
 	    for (int i = 0; i < 5; i++) {
 	        GiorniSettimana giornoEnum = GiorniSettimana.ricavaEnum(i);
 	        if (mappaGiorni.containsKey(giornoEnum)) {
@@ -206,7 +156,6 @@ public class TestFacadeSingletonMax {
 	            settimana[i] = new Giorno(giornoEnum, null, new ArrayList<>()); // Giorno vuoto se non presente nel DB
 	        }
 	    }
-
 	    return settimana;
 	}
 	
@@ -215,6 +164,7 @@ public class TestFacadeSingletonMax {
 	//metodo per generare una settimana in modo automatico data la durata dei turni:
 	public Giorno[] generaSettimanaTurni(LocalDate data,int durata) {
 		systeminsac.generaSettAuto(data,durata);
+		//il sistema aggiorna il database con la nuova settimana appena generata:
 		aggiornaSettimanaNelDatabase();
 		return systeminsac.getSettimana();
 	}
@@ -230,4 +180,3 @@ public class TestFacadeSingletonMax {
 	
 	
 	
->>>>>>> branch 'main' of https://github.com/IngSW-unipv/Progetto-J25.git

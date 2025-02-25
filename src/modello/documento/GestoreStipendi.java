@@ -16,6 +16,10 @@ public class GestoreStipendi implements IGestoreStipendi {
 	@Override
 	public double stipendioLordo(Panelista panelista) {
 		
+		if(panelista.getOreLavoro() < 0) {
+			
+			throw new IllegalArgumentException("Ore lavorate non valide");
+		}
 		return  panelista.getOreLavoro() * STIPENDIOPANELISTA; 
 		
 	}
@@ -24,14 +28,20 @@ public class GestoreStipendi implements IGestoreStipendi {
 	@Override
 	public double trattenute(Panelista panelista) {
 		
-		
+		if(panelista.getOreLavoro() < 0) {
+			
+			throw new IllegalArgumentException("Ore lavorate non valide");
+		}
 		return  panelista.getOreLavoro() * STIPENDIOPANELISTA * TRATTENUTA; 
 		
 	}
 	
 	@Override
 	public double stipendioNetto(Panelista panelista) {
-		
+		if(panelista.getOreLavoro() < 0) {
+			
+			throw new IllegalArgumentException("Ore lavorate non valide");
+		}
 		return (panelista.getOreLavoro() * STIPENDIOPANELISTA) -(panelista.getOreLavoro() * STIPENDIOPANELISTA * TRATTENUTA);
 	}
 	
