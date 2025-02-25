@@ -1,8 +1,5 @@
 package modello.analisiCampione;
 
-import modello.archiviazioneCampione.Campione;
-import modello.creazionePanel.Panel;
-
 import java.sql.SQLException;
 
 import jdbc.FacedeSingletonDB;
@@ -18,17 +15,17 @@ public class SystemAnalisi {
 
     
     // Aggiunta di una nuova analisi nel database
-    public boolean inserisciAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) throws SQLException {
-        return FacedeSingletonDB.getInstance().getAnalisiDAO().insertAnalisi(campione, panel, analisi);
+    public boolean inserisciAnalisi(int idCampione, int idPanel, AnalisiCampione analisi) throws SQLException {
+        return FacedeSingletonDB.getInstance().getAnalisiDAO().insertAnalisi(idCampione, idPanel, analisi);
     }
 
     // Modifica un'analisi nel database
-    public boolean modificaAnalisi(Campione campione, Panel panel, AnalisiCampione analisi)  throws SQLException {
-        return FacedeSingletonDB.getInstance().getAnalisiDAO().updateAnalisi(campione, panel, analisi);
+    public boolean modificaAnalisi(int idCampione, int idPanel, AnalisiCampione analisi)  throws SQLException {
+        return FacedeSingletonDB.getInstance().getAnalisiDAO().updateAnalisi(idCampione, idPanel, analisi);
     }
 
     // Elimina un'analisi dal database
-    public boolean eliminaAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) throws SQLException {
-        return FacedeSingletonDB.getInstance().getAnalisiDAO().eliminaAnalisi(campione, panel, analisi); 
+    public boolean eliminaAnalisi(int idCampione, int idPanel, AnalisiCampione analisi) throws SQLException {
+        return FacedeSingletonDB.getInstance().getAnalisiDAO().eliminaAnalisi(idCampione, idPanel, analisi); 
     }
 }

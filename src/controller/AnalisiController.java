@@ -2,8 +2,6 @@ package controller;
 
 import modello.analisiCampione.SystemAnalisi;
 import modello.analisiCampione.AnalisiCampione;
-import modello.archiviazioneCampione.Campione;
-import modello.creazionePanel.Panel;
 
 import java.sql.SQLException;
 
@@ -16,31 +14,34 @@ public class AnalisiController {
     }
 
     // Metodo per l'inserimento di un'analisi
-    public boolean inserisciAnalisi(Campione campione, Panel panel, AnalisiCampione analisi){
+    public boolean inserisciAnalisi(int idCampione, int idPanel, AnalisiCampione analisi){
         try {
-            return systemAnalisi.inserisciAnalisi(campione, panel, analisi);
+            return systemAnalisi.inserisciAnalisi(idCampione, idPanel, analisi);
         } catch (SQLException e) {
             System.err.println("Errore durante l'inserimento dell'analisi" + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
 
     // Metodo per la modifica di un'analisi
-    public boolean modificaAnalisi(Campione campione, Panel panel, AnalisiCampione analisi){
+    public boolean modificaAnalisi(int idCampione, int idPanel, AnalisiCampione analisi){
         try {
-            return systemAnalisi.modificaAnalisi(campione, panel, analisi);
+            return systemAnalisi.modificaAnalisi(idCampione, idPanel, analisi);
         } catch (SQLException e) {
             System.err.println("Errore durante la modifica dell'analisi" + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
 
     // Metodo per l'eliminazione di un'analisi
-    public boolean eliminaAnalisi(Campione campione, Panel panel, AnalisiCampione analisi){
+    public boolean eliminaAnalisi(int idCampione, int idPanel, AnalisiCampione analisi){
         try {
-            return systemAnalisi.eliminaAnalisi(campione, panel, analisi);
+            return systemAnalisi.eliminaAnalisi(idCampione, idPanel, analisi);
         } catch (SQLException e) {
             System.err.println("Errore durante l'eliminazione dell'analisi" + e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
