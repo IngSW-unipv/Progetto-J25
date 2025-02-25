@@ -2,6 +2,8 @@ package view.prenotazioneInsaccatore;
 
 import javax.swing.*;
 
+import controller.PrenotaInsacController;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;

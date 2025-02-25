@@ -1,5 +1,6 @@
 package testing;
 
+import controller.PrenotaInsacController;
 import view.prenotazioneInsaccatore.*;
 
 public class TestSystemPrenotaTurnoInsacc {
