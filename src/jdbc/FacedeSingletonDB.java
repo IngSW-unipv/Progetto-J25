@@ -111,6 +111,7 @@ public class FacedeSingletonDB {
         return systemPrenotazione;
     }
 
+    
     public void getPrenotati(Map<LocalTime, Slot> slots){
         prenotazionePanelDAO.getPrenotazioni(slots);
         oreLavoroDAO.getOreLavPrenotati(slots);
