@@ -5,6 +5,8 @@ import jdbc.dao.campione.CampioneDAO;
 import jdbc.dao.campione.ICampioneDAO;
 import jdbc.dao.documento.IOreLavoroDAO;
 import jdbc.dao.documento.OreLavoroDAO;
+import jdbc.dao.analisi.IAnalisiDAO;
+import jdbc.dao.analisi.AnalisiDAO;
 import modello.archiviazioneCampione.SystemCampione;
 import modello.autenticazione.SystemAutenticazione;
 import modello.creazionePanel.Slot;
@@ -12,6 +14,7 @@ import modello.creazionePanel.Sondaggio;
 import modello.creazionePanel.SystemPubblicazionePanel;
 import modello.documento.SystemDocumento;
 import modello.prenotazionePanel.SystemPrenotazione;
+import modello.analisiCampione.SystemAnalisi;
 import modello.Utente;
 
 import java.sql.SQLException;
@@ -32,12 +35,14 @@ public class FacedeSingletonDB {
     private IUserDAO userDAO;
     private ICampioneDAO campioneDAO;
     private IOreLavoroDAO lavoroDAO;
+    private IAnalisiDAO analisiDAO;
 
     private SystemPubblicazionePanel systemPubblicazionePanel;
     private SystemPrenotazione systemPrenotazione;
     private SystemCampione systemCampione;
     private SystemDocumento systemDocumento;
     private SystemAutenticazione systemAutenticazione;
+    private SystemAnalisi systemAnalisi;
 
     private FacedeSingletonDB() {
         this.panelDAO = new PanelDAO();
@@ -49,6 +54,7 @@ public class FacedeSingletonDB {
         this.userDAO = new UserDAO();
         this.campioneDAO = new CampioneDAO();
         this.oreLavoroDAO = new OreLavoroDAO();
+        this.analisiDAO = new AnalisiDAO();
     }
 
     public static FacedeSingletonDB getInstance() {
@@ -125,6 +131,13 @@ public class FacedeSingletonDB {
         return systemAutenticazione;
     }
 
+    public SystemAnalisi getSystemAnalisi(){
+        if (systemAnalisi == null) {
+            systemAnalisi = new SystemAnalisi();
+        }
+        return systemAnalisi;
+    }
+
 
     public IOreLavoroDAO getLavoroDAO() {
 		return lavoroDAO;
@@ -161,7 +174,9 @@ public class FacedeSingletonDB {
         return oreLavoroDAO;
     }
 
-
+    public IAnalisiDAO getAnalisiDAO() {
+        return analisiDAO;
+    }
 
 
 }
