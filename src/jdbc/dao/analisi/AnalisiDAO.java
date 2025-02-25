@@ -2,7 +2,11 @@ package jdbc.dao.analisi;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Time;
 import java.util.ArrayList;
+
+import javax.naming.spi.DirStateFactory.Result;
 
 import java.time.LocalDate;
 
@@ -29,20 +33,12 @@ import jdbc.ConnessioneDB;
 
 public class AnalisiDAO implements IAnalisiDAO {
 
-    private Connection conn;
+    public AnalisiDAO() {}
 
-    public AnalisiDAO() {
-        
-    }
-
+    // Metodo insertAnalisi
     @Override
     public boolean insertAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) {
         
-        conn = ConnessioneDB.startConnection(conn, "osmotech");
-
-        boolean queryRiuscita = true;
-
-
         //Controllo dati prima di eseguire la query per evitare di interagire con il database quando i dati non sono validi
         if (campione == null || campione.getId() <= 0) {
             throw new IllegalArgumentException("Campione non valido");
@@ -67,34 +63,37 @@ public class AnalisiDAO implements IAnalisiDAO {
         //Query SQL
         String query = "INSERT INTO osmotech.ANALISI VALUES (?,?,?,?,?)";
 
-        try (PreparedStatement ps1 = conn.prepareStatement(query)) {
+        // Per evitare connessioni multiple, utilizzo un'unica connessione per tutte le operazioni
+        try (Connection conn = ConnessioneDB.startConnection(null, "osmotech");
+             PreparedStatement ps1 = conn.prepareStatement(query)) {
             
+            // Passiamo gli id esistenti e i valori dell'analisi
             ps1.setInt(1, campione.getId());
             ps1.setInt(2, panel.getId());
             ps1.setTime(3, java.sql.Time.valueOf(analisi.getInizioAnalisi()));
             ps1.setTime(4, java.sql.Time.valueOf(analisi.getFineAnalisi())); 
             ps1.setDouble(5, analisi.getGradazione());
             
-            ps1.executeUpdate();
+            /*Controllo per vedere se la query è stata modificata
+            * Utilizzo questo metodo per evitare di trovarci in cui la query non modifica
+            * nessuna riga del database, ma il metodo ritorna comunque true.
+            */
+            int rowsAffected = ps1.executeUpdate();
+            return (rowsAffected > 0);
         
-
         }catch (Exception e) {
             
             e.printStackTrace();
-            queryRiuscita = false;
-        } finally {
-            conn = ConnessioneDB.closeConnection(conn);
-        }
+            return false;
 
-        return queryRiuscita;
+        }
     }
 
+
+    // Metodo updateAnalisi
     @Override
     public boolean updateAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) {
-       conn = ConnessioneDB.startConnection(conn, "osmotech");
-
-       boolean queryRiuscita = true;
-
+       
      //Controllo dati prima di eseguire la query per evitare di interagire con il database quando i dati non sono validi
         if (campione == null || campione.getId() <= 0) {
             throw new IllegalArgumentException("Campione non valido");
@@ -118,42 +117,97 @@ public class AnalisiDAO implements IAnalisiDAO {
 
         String query = "UPDATE osmotech.ANALISI SET ORARIO_INIZIO = ?, ORARIO_FINE = ?, GRADAZIONE = ? WHERE ID_CAMPIONE = ? AND ID_PANEL = ?";
 
-        try (PreparedStatement ps1 = conn.prepareStatement(query)) {
+        try (Connection conn = ConnessioneDB.startConnection(null, "osmotech");
+             PreparedStatement ps1 = conn.prepareStatement(query)) {
             
-            ps1.setTime(1, java.sql.Time.valueOf(analisi.getInizioAnalisi()));
-            ps1.setTime(2, java.sql.Time.valueOf(analisi.getFineAnalisi())); 
-            ps1.setDouble(3, analisi.getGradazione());
-            ps1.setInt(4, campione.getId());
-            ps1.setInt(5, panel.getId());
             
-            ps1.executeUpdate();
+             ps1.setTime(1, java.sql.Time.valueOf(analisi.getInizioAnalisi()));
+             ps1.setTime(2, java.sql.Time.valueOf(analisi.getFineAnalisi())); 
+             ps1.setDouble(3, analisi.getGradazione());
+             ps1.setInt(4, campione.getId());
+             ps1.setInt(5, panel.getId());
+            
+             int rowsAffected = ps1.executeUpdate();
+             return (rowsAffected > 0);
+
         } catch (Exception e) {
             
             e.printStackTrace();
-            queryRiuscita = false;
+            return false;
 
-        } finally {
-            conn = ConnessioneDB.closeConnection(conn);
-        }    
-
-        return queryRiuscita;
+        }
     }
 
+
+    // Metodo eliminaAnalisi
     @Override
     public boolean eliminaAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) {
-        return false;
+        
+        if (campione == null || campione.getId() <= 0) {
+            throw new IllegalArgumentException("Campione non valido");
+        }
+
+        String query = "DELETE FROM osmotech.ANALISI WHERE ID_CAMPIONE = ? AND ID_PANEL = ?";
+
+        try (Connection conn = ConnessioneDB.startConnection(null, "osmotech");
+             PreparedStatement ps1 = conn.prepareStatement(query)) {
+            
+            ps1.setInt(1, campione.getId());
+            ps1.setInt(2, panel.getId());
+            
+            int rowsAffected = ps1.executeUpdate();
+            return (rowsAffected > 0);
+
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            return false;
+
+        }
     }
 
+
+    // Metodo selectAllAnalisi
     @Override
     public ArrayList<AnalisiCampione> selectAllAnalisi() {
-        return null;
+
+        ArrayList<AnalisiCampione> analisiLista = new ArrayList<>();
+        String query = "SELECT * FROM osmotech.ANALISI";
+
+        try (Connection conn = ConnessioneDB.startConnection(null, "osmotech");
+             PreparedStatement ps1 = conn.prepareStatement(query); 
+             ResultSet rs = ps1.executeQuery()) {
+        
+            while (rs.next()) {
+                int idCampione = rs.getInt("ID_CAMPIONE");
+                int idPanel = rs.getInt("ID_PANEL");
+                Time inizioAnalisi = rs.getTime("ORARIO_INIZIO");
+                Time fineAnalisi = rs.getTime("ORARIO_FINE");
+                double gradazione = rs.getDouble("GRADAZIONE");
+
+                
+            
+            } 
+            
+            return analisiLista;
+
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+            return null;
+
+        }
     }
 
+
+    // Metodo trovaAnalisiPerData
     @Override
     public ArrayList<AnalisiCampione> trovaAnalisiPerData(LocalDate data) {
+
         return null;
     }
 
+    
     @Override
     public ArrayList<AnalisiCampione> trovaAnalisiPerGradazione(double gradazione) {
         return null;

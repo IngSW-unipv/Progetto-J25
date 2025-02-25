@@ -18,8 +18,10 @@ public class AnalisiCampione {
     private double gradazione;
 
 
-    public AnalisiCampione(LocalTime inizioAnalisi, LocalTime fineAnalisi, double gradazione) {
-  
+    public AnalisiCampione(int idCampione, int idPanel, LocalTime inizioAnalisi, LocalTime fineAnalisi, double gradazione) {
+        
+        this.idCampione = idCampione;
+        this.idPanel = idPanel;
         this.inizioAnalisi = inizioAnalisi;
         this.fineAnalisi = fineAnalisi;
         this.gradazione = gradazione;
