@@ -29,14 +29,14 @@ public class PrenotazioneView {
 	private JFrame frame;
 	private JPanel mainPanel;
 	private JButton btnPrenota;
-	private Utente utente;
+	private Panelista panelista;
 	private PrenotazioneController controller;
 	private Sondaggio sondaggioSelezionato;
 	private Slot slotSelezionato;
 	
-	public PrenotazioneView(Utente utente) {
+	public PrenotazioneView(Panelista panelista) {
 		
-		this.utente = utente;
+		this.panelista = panelista;
 		
 		SystemPrenotazione sys = FacedeSingletonDB.getInstance().getSystemPrenotazione();
 		
@@ -144,7 +144,7 @@ public class PrenotazioneView {
 		
 		if(sondaggioSelezionato != null && slotSelezionato != null) {
 			
-			controller.prenotaSondaggio(sondaggioSelezionato.getId(), slotSelezionato.getTime(), utente);
+			controller.prenotaSondaggio(sondaggioSelezionato.getId(), slotSelezionato.getTime(), panelista);
 		}else {
 			
 			JOptionPane.showMessageDialog(frame, "Errore");

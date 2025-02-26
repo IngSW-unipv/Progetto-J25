@@ -9,5 +9,5 @@ import java.util.Map;
 
 public interface IPrenotazionePanelDAO {
     boolean getPrenotazioni(Map<LocalTime, Slot> slots);
-    boolean salvaPrenotazione(Slot slot, Utente utente);
+    boolean salvaPrenotazione(Slot slot, Panelista panelista);
 }

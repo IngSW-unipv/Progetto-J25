@@ -1,6 +1,7 @@
 package view.autenticazione;
 
 import controller.AutenticazioneController;
+import jdbc.FacedeSingletonDB;
 import modello.Insaccatore;
 import modello.Panelista;
 import modello.Utente;
@@ -44,11 +45,12 @@ public class LoginView extends JFrame {
                                 new HomePanelLeader(autenticazioneController, utente);
                                 break;
                             case "pa":
-                                Panelista pa= (Panelista) utente;
+                                Panelista pa= new Panelista(utente.getId(), utente.getEmail(), utente.getNome(), utente.getCognome(), utente.getLuogoNascita(), utente.getDataNascita(), utente.getCodiceFiscale(),
+                                        utente.getNickname(), utente.getPassword(), utente.getRuolo(), utente.getEmail(), 0);
                                 new HomePanelista(autenticazioneController, pa);
                                 break;
                             case "in":
-                                Insaccatore in= (Insaccatore) utente;
+                                Insaccatore in = FacedeSingletonDB.getInstance().getUserDAO().getInsaccatore(utente.getId());
                                 new HomeInsaccatore(autenticazioneController, in);
 
                                 break;
