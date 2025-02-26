@@ -1,6 +1,7 @@
 package jdbc.bean;
 
 import modello.Panelista;
+import modello.Utente;
 import modello.creazionePanel.Slot;
 
 import java.time.LocalTime;

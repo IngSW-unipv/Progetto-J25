@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import javax.swing.JOptionPane;
 
 import modello.Panelista;
+import modello.Utente;
 import modello.prenotazionePanel.SystemPrenotazione;
 import view.prenotazionePanel.PrenotazioneView;
 

@@ -1,6 +1,9 @@
 package view.autenticazione;
 
 import controller.AutenticazioneController;
+import jdbc.FacedeSingletonDB;
+import modello.Insaccatore;
+import modello.Panelista;
 import modello.Utente;
 
 import javax.swing.*;
@@ -42,10 +45,14 @@ public class LoginView extends JFrame {
                                 new HomePanelLeader(autenticazioneController, utente);
                                 break;
                             case "pa":
-                                new HomePanelista(autenticazioneController, utente);
+                                Panelista pa= new Panelista(utente.getId(), utente.getEmail(), utente.getNome(), utente.getCognome(), utente.getLuogoNascita(), utente.getDataNascita(), utente.getCodiceFiscale(),
+                                        utente.getNickname(), utente.getPassword(), utente.getRuolo(), utente.getEmail(), 0);
+                                new HomePanelista(autenticazioneController, pa);
                                 break;
                             case "in":
-                                new HomeInsaccatore(autenticazioneController, utente);
+                                Insaccatore in = FacedeSingletonDB.getInstance().getUserDAO().getInsaccatore(utente.getId());
+                                new HomeInsaccatore(autenticazioneController, in);
+
                                 break;
                             default:
                                 JOptionPane.showMessageDialog(null, "Ruolo non valido");
