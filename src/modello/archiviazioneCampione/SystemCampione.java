@@ -8,7 +8,7 @@ import jdbc.FacedeSingletonDB;
 public class SystemCampione implements ISystemCampione{
 	
 	ArrayList<Integer> campioniNonAnalizzati; //come argomento ha gli integer perchè prendo solo gli id
-
+	GestoreMagazzino gm;
 	
 	public SystemCampione() {
 		
@@ -24,6 +24,11 @@ public class SystemCampione implements ISystemCampione{
 	@Override
 	public boolean registraCampione(int id, String stato, LocalDate ld) {
 		
+		int sacche = FacedeSingletonDB.getInstance().getMagazzinoDAO().restituisciSacche();
+		
+		 gm = new GestoreMagazzino(sacche);
+		
+		FacedeSingletonDB.getInstance().getMagazzinoDAO().aggiornaSacche(gm.decrementaSacche(1));
 		
 		return FacedeSingletonDB.getInstance().getCampioneDAO().insertCampione(id, stato, ld);
 		

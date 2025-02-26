@@ -11,4 +11,6 @@ public interface IMagazzinoDAO {
 	public void aggiornaRotoliTubi(int rotoliTubi);
 	public void aggiornaSteccheTappi(int steccheTappi);
 	public void aggiornaRotoliNalophan(int rotoliNalophan);
+	public int restituisciSacche();
+	
 }

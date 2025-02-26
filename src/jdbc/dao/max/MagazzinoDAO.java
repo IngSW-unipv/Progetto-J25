@@ -3,6 +3,8 @@ package jdbc.dao.max;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
+
 import jdbc.ConnessioneDB;
 import modello.gestioneInventario.Inventario;
 import java.sql.ResultSet;
@@ -98,4 +100,36 @@ public class MagazzinoDAO implements IMagazzinoDAO {
     public void aggiornaRotoliNalophan(int rotoliNalophan) {
         aggiornaAttributo(ROTOLI_NALOPHAN, rotoliNalophan);
     }
+
+
+	@Override
+	public int restituisciSacche() {
+		
+		int sacche = 0;
+		
+		connessione = ConnessioneDB.startConnection(connessione, DB);
+		
+		Statement st1;
+		ResultSet rs1;
+		
+		try {
+			
+			st1 = connessione.createStatement();
+			String query = "SELECT sacche FROM osmotech.INVENTARIO";
+			rs1 = st1.executeQuery(query);
+			
+			while(rs1.next()) {
+				
+				sacche = rs1.getInt("sacche");
+			}
+		}catch(Exception e) {
+			
+			e.printStackTrace();
+		}
+		
+		connessione = ConnessioneDB.closeConnection(connessione);
+		
+		return sacche;
+	}
+
 }

@@ -132,6 +132,7 @@ public class CampioneView {
 				
 				displayArea.setText("Errore nella registrazione");
 			}
+			
 		}catch(Exception e) {
 			
 			displayArea.setText("Errore di input dati");

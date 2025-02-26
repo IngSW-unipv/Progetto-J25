@@ -43,13 +43,14 @@ public class SystemCampioneTest {
 	     
 	  //    boolean eliminato = sys.deleteCampione(5);
 	   //   System.out.println("Campione eliminato? " + eliminato);
+		
+		
 	
 		 ISystemCampione sys = FacedeSingletonDB.getInstance().getSystemCampione();
 		 
 		 CampioneController campioneController = new CampioneController(sys);
 		
-		 
-	        
+		
 	}
 
 }
