@@ -28,12 +28,6 @@ public class SystemPrenotazione {
 	public void setSondaggi(ArrayList<Sondaggio> sondaggi) {
 		this.sondaggi = sondaggi;
 	}
-	
-	
-
-	public ArrayList<Sondaggio> getSondaggi() {
-		return sondaggi;
-	}
 
 	public  ArrayList<Panel> getPanels(){
 		return panels;
