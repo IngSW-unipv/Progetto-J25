@@ -46,6 +46,7 @@ public class LoginView extends JFrame {
                                 break;
                             case "in":
                                 new HomeInsaccatore(autenticazioneController, utente);
+
                                 break;
                             default:
                                 JOptionPane.showMessageDialog(null, "Ruolo non valido");
