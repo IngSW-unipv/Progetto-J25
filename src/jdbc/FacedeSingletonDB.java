@@ -50,7 +50,6 @@ public class FacedeSingletonDB {
         this.sondaggioDAO = new SondaggioDAO();
         this.slotDAO = new SlotDAO();
         this.prenotazionePanelDAO = new PrenotazionePanelDAO();
-        this.oreLavoroDAO = new OreLavoroDAO();
         this.userDAO = new UserDAO();
         this.campioneDAO = new CampioneDAO();
         this.oreLavoroDAO = new OreLavoroDAO();
