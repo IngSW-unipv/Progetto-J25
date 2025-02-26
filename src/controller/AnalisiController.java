@@ -13,6 +13,10 @@ public class AnalisiController {
         this.systemAnalisi = new SystemAnalisi();
     }
 
+    public AnalisiController(SystemAnalisi sys) {
+        //TODO Auto-generated constructor stub
+    }
+
     // Metodo per l'inserimento di un'analisi
     public boolean inserisciAnalisi(int idCampione, int idPanel, AnalisiCampione analisi){
         try {

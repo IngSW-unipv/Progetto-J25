@@ -188,7 +188,20 @@ public boolean inserisciIban(String iban, Utente utenteLoggato ) throws SQLExcep
          return true;
                } return false;
 
-} }
+}
+
+public boolean recuperaCredenziali(String email) {
+        Utente utente = trovaUtentePerEmail(email);
+        if (utente != null) {
+            NotificaAttivazione notificaAttivazione1 = new NotificaAttivazione("Recupero credenziali", "Le tue credenziali sono :\nUsername: " + utente.getNickname() + "\nPassword:" + utente.getPassword(), utente);
+           notificaAttivazione1.notificaObserver();
+            return true;
+        }
+        return false;
+}
+
+}
+
 
 
 
