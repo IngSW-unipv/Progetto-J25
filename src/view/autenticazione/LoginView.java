@@ -94,9 +94,8 @@ public class LoginView extends JFrame {
 
         });
 
+
 // Aggiungi il pulsante al pannello esistente
-
-
 
 
         panel.add(lblEmailOrNickname);

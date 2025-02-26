@@ -109,10 +109,18 @@ public class HomePanelista extends JFrame {
                 }
             });
 
+            JButton btnLogout = new JButton("Logout");
+            btnLogout.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    dispose();
+                }
+            });
+
             panel.add(btnModificaPassword);
             panel.add(btnInserisciIban);
             panel.add(btnVisualizPanel);
             panel.add(btnVisualizSondaggio);
+            panel.add(btnModificaPassword);
             add(panel);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             setVisible(true);

@@ -77,10 +77,19 @@ public class HomePanelLeader extends JFrame {
                 }
             }
         });
+
+        JButton btnLogout = new JButton("Logout");
+        btnLogout.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+
         panel.add(btnModificaPassword);
         panel.add(btnCambiaRuolo);
         panel.add(btnCreazioneSondaggio);
         panel.add(btnArchiviazioneCampioni);
+        panel.add(btnLogout);
         add(panel);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
