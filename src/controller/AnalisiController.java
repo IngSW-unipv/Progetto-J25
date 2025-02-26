@@ -4,6 +4,7 @@ import modello.analisiCampione.SystemAnalisi;
 import modello.analisiCampione.AnalisiCampione;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class AnalisiController {
 
@@ -11,10 +12,6 @@ public class AnalisiController {
 
     public AnalisiController() {
         this.systemAnalisi = new SystemAnalisi();
-    }
-
-    public AnalisiController(SystemAnalisi sys) {
-        //TODO Auto-generated constructor stub
     }
 
     // Metodo per l'inserimento di un'analisi
@@ -47,6 +44,28 @@ public class AnalisiController {
             System.err.println("Errore durante l'eliminazione dell'analisi" + e.getMessage());
             e.printStackTrace();
             return false;
+        }
+    }
+
+    // Metodo per la restituzione degli ID dei campioni analizzati
+    public ArrayList<Integer> idCampioniAnalizzati(){
+        try {
+            return systemAnalisi.idCampioniAnalizzati();
+        } catch (SQLException e) {
+            System.err.println("Errore durante la restituzione degli ID dei campioni analizzati" + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // Metodo per la restituzione degli ID dei panel dei campioni analizzati
+    public ArrayList<Integer> idPanelCampioniAnalizzati(){
+        try {
+            return systemAnalisi.idPanelCampioniAnalizzati();
+        } catch (SQLException e) {
+            System.err.println("Errore durante la restituzione degli ID dei panel dei campioni analizzati" + e.getMessage());
+            e.printStackTrace();
+            return null;
         }
     }
     

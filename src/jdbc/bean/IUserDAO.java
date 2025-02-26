@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import modello.Insaccatore;
 import modello.Panelista;
 import modello.Utente;
 
@@ -19,4 +20,5 @@ public interface IUserDAO {
 	boolean updateRuolo(int id, String ruolo) throws SQLException;
 	boolean inserisciIban(int userId, String iban) throws SQLException;
 	String getIban(Utente utente) throws SQLException;
+	Insaccatore getInsaccatore(int idUtente) throws SQLException;
 }

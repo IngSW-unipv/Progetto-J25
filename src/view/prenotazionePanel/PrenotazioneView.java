@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import controller.PrenotazioneController;
 import jdbc.FacedeSingletonDB;
 import modello.Panelista;
+import modello.Utente;
 import modello.creazionePanel.Slot;
 import modello.creazionePanel.Sondaggio;
 import modello.prenotazionePanel.SystemPrenotazione;

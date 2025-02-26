@@ -1,8 +1,16 @@
 package view.autenticazione;
 
 import controller.AutenticazioneController;
+import controller.PanelController;
+import controller.PrenotazioneController;
+import controller.SondaggioController;
 import jdbc.FacedeSingletonDB;
+import modello.Panelista;
 import modello.Utente;
+import modello.prenotazionePanel.SystemPrenotazione;
+import view.creazioneSondaggio.SondaggioView;
+import view.prenotazionePanel.PrenotazioneView;
+import view.visualizPanel.PanelView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,8 +20,11 @@ import java.sql.SQLException;
 
 public class HomePanelista extends JFrame {
         private AutenticazioneController controller;
-        public HomePanelista(AutenticazioneController controller, Utente utente) {
+        private Panelista panelista;
+        public HomePanelista(AutenticazioneController controller, Panelista panelista) {
             this.controller = controller;
+            this.panelista = panelista;
+
 
             setTitle("Home Panelista");
             setSize(400, 200);
@@ -23,6 +34,11 @@ public class HomePanelista extends JFrame {
             //add(label);
            // setLocationRelativeTo(null); // Centra la finestra
             JPanel panel = new JPanel(new GridLayout(3,1));
+            JButton btnVisualizPanel = new JButton("Visualizza Panel");
+            btnVisualizPanel.addActionListener(e -> new PanelView(new PanelController(), panelista));
+
+            JButton btnVisualizSondaggio = new JButton("Visualizza Sondaggio");
+            btnVisualizSondaggio.addActionListener(e -> new PrenotazioneView(panelista));
             JButton btnModificaPassword = new JButton("Modifica Password");
             btnModificaPassword.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -38,7 +54,7 @@ public class HomePanelista extends JFrame {
                         throw new RuntimeException(ex);
                     }
                     try {
-                        boolean successo = controller.modificaPassword(vecchiaPassword, nuovaPassword, utente);
+                        boolean successo = controller.modificaPassword(vecchiaPassword, nuovaPassword, panelista);
                         if(successo){
                             JOptionPane.showMessageDialog(null, "Password modificata correttamente");
                         } else {
@@ -54,7 +70,7 @@ public class HomePanelista extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     String ibanCorrente = null;
                     try {
-                        ibanCorrente = FacedeSingletonDB.getInstance().getUserDAO().getIban(utente);
+                        ibanCorrente = FacedeSingletonDB.getInstance().getUserDAO().getIban(panelista);
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null, "Errore nel recupero dell'IBAN corrente.");
                         ex.printStackTrace();
@@ -77,7 +93,7 @@ public class HomePanelista extends JFrame {
                         }
 
                         try {
-                            boolean successo = controller.inserisciIban(nuovoIban, utente);
+                            boolean successo = controller.inserisciIban(nuovoIban, panelista);
                             if (successo) {
                                 JOptionPane.showMessageDialog(null, "IBAN inserito/modificato con successo!");
                             } else {
@@ -95,6 +111,8 @@ public class HomePanelista extends JFrame {
 
             panel.add(btnModificaPassword);
             panel.add(btnInserisciIban);
+            panel.add(btnVisualizPanel);
+            panel.add(btnVisualizSondaggio);
             add(panel);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             setVisible(true);

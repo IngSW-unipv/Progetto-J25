@@ -1,6 +1,7 @@
 package modello.analisiCampione;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import jdbc.FacedeSingletonDB;
 
@@ -27,5 +28,15 @@ public class SystemAnalisi {
     // Elimina un'analisi dal database
     public boolean eliminaAnalisi(int idCampione, int idPanel, AnalisiCampione analisi) throws SQLException {
         return FacedeSingletonDB.getInstance().getAnalisiDAO().eliminaAnalisi(idCampione, idPanel, analisi); 
+    }
+
+    // Restituisce gli ID dei campioni analizzati
+    public ArrayList<Integer> idCampioniAnalizzati() throws SQLException {
+        return FacedeSingletonDB.getInstance().getAnalisiDAO().idCampioniAnalizzati();
+    }
+
+    // Restituisce gli ID dei panel dei campioni analizzati
+    public ArrayList<Integer> idPanelCampioniAnalizzati() throws SQLException {
+        return FacedeSingletonDB.getInstance().getAnalisiDAO().idPanelCampioniAnalizzati();
     }
 }

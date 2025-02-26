@@ -142,15 +142,6 @@ public class SystemPubblicazionePanel {
         }
     }
 
-    public void sondaggioUnico(Panel p){
-        Sondaggio s1 = new Sondaggio();
-        s1.setData(p.getData());
-        s1.setOraInizio(LocalTime.now());
-        Slot s = new Slot(p.getData(), p.getOrarioInizio());
-        s1.aggiungiSlot(p.getOrarioInizio(), s);
-        FacedeSingletonDB.getInstance().getSondaggioDAO().insertSondaggio(s1);
-    }
-
     public static void main(String[] args) {
        /* Panelista utente1 = new Panelista("khawlaouaadou1@gmail.com", "khawla", 15);
         Panelista utente2 = new Panelista("khawla.ouaadou01@universitadipavia.it", "khawla", 40);

@@ -53,20 +53,21 @@ public class PanelDAO implements IPanelDAO {
                 LocalDate data = rs.getDate("DATA").toLocalDate();
                 LocalTime orarioInizio = rs.getTime("ORARIO_INIZIO").toLocalTime();
                 int macchinario = rs.getInt("MACCHINARIO");
+                boolean emergenza = rs.getBoolean("EMERGENZA");
 
                 // Recupera le email degli utenti (alcune possono essere NULL)
                 List<Panelista> users = new ArrayList<>();
                 for (int i = 1; i <= 6; i++) {
                     String email = rs.getString("USER" + i);
                     if (email != null) users.add(new Panelista(0, email, null, null, null, null,
-                            null,null, null, null , null, Double.NaN));
+                            null,null, null, null , null, Double.NaN));}
 
                 // Il panel è attivo perché lo stiamo filtrando nella query
                 Panel panel = new Panel(orarioInizio, new Macchinario(macchinario, users.size()), data);
                 panel.setId(idPanel);
+                panel.setEmergenza(emergenza);
                 panel.setListaPanelisti(users);
                 panels.add(panel);
-            }
         } } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -123,7 +124,7 @@ public class PanelDAO implements IPanelDAO {
             }
         }
     }
-    public boolean chiudiPanel(int panelId, LocalTime orarioFine){
+    public boolean chiudiPanel(int panelId, LocalTime orarioFine) {
         conn = ConnessioneDB.startConnection(conn, "osmotech");
         PreparedStatement pstmt = null;
         String query = "UPDATE PANEL SET ORARIO_FINE = ?, STATO = FALSE WHERE ID_PANEL = ?";
@@ -148,9 +149,9 @@ public class PanelDAO implements IPanelDAO {
         }
 
     }
+
     public boolean rimuoviUtenteDaPanel(int panelId, String emailUtente) {
         conn = ConnessioneDB.startConnection(conn, "osmotech");
-        // Query per ottenere i dati del panel specifico
         String query = "SELECT USER1, USER2, USER3, USER4, USER5, USER6 FROM PANEL WHERE ID_PANEL = ?";
 
         PreparedStatement pstmt = null;
@@ -161,43 +162,36 @@ public class PanelDAO implements IPanelDAO {
             pstmt.setInt(1, panelId);
             rs = pstmt.executeQuery();
 
-            // Se il panel esiste
             if (rs.next()) {
-                // Verifica in quale colonna si trova l'email dell'utente
                 for (int i = 1; i <= 6; i++) {
-                    String userColumn = "USER" + i;  // USER1, USER2, ..., USER6
+                    String userColumn = "USER" + i;
                     String emailInDb = rs.getString(userColumn);
 
                     if (emailUtente.equals(emailInDb)) {
-                        // Se l'email corrisponde a quella da rimuovere, aggiorna la colonna a NULL
-                        String updateQuery = "UPDATE PANEL SET " + userColumn + " = NULL WHERE ID_PANEL = ?";
+                        // Rimuove l'utente dal panel e imposta lo stato di emergenza
+                        String updateQuery = "UPDATE PANEL SET " + userColumn + " = NULL, EMERGENZA = TRUE WHERE ID_PANEL = ?";
                         try (PreparedStatement updatePstmt = conn.prepareStatement(updateQuery)) {
                             updatePstmt.setInt(1, panelId);
                             updatePstmt.executeUpdate();
-                            return true;  // L'utente è stato rimosso, ritorna true
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                            return false;  // Se c'è un errore durante l'update, ritorna false
                         }
+                        return true; // Utente rimosso e panel messo in emergenza
                     }
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;  // Se c'è un errore durante la query SELECT, ritorna false
+            return false;
         } finally {
-            // Chiusura delle risorse (connessione, preparedStatement, resultSet)
             try {
                 if (rs != null) rs.close();
                 if (pstmt != null) pstmt.close();
-                ConnessioneDB.closeConnection(conn);  // Chiusura della connessione
+                ConnessioneDB.closeConnection(conn);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
 
-        // Se non è stato trovato l'utente o il panel non esiste, ritorna false
-        return false;
+        return false; // Se l'utente non è stato trovato
     }
 
     public boolean aggiungiUtenteAlPanel(int panelId, String emailUtente) {
@@ -221,7 +215,7 @@ public class PanelDAO implements IPanelDAO {
 
                     // Se la colonna è NULL, assegna l'email dell'utente
                     if (emailInDb == null) {
-                        String updateQuery = "UPDATE PANEL SET " + userColumn + " = ? WHERE ID_PANEL = ?";
+                        String updateQuery = "UPDATE PANEL SET " + userColumn + " = ?, EMERGENZA = FALSE WHERE ID_PANEL = ?";
                         try (PreparedStatement updatePstmt = conn.prepareStatement(updateQuery)) {
                             updatePstmt.setString(1, emailUtente);
                             updatePstmt.setInt(2, panelId);
