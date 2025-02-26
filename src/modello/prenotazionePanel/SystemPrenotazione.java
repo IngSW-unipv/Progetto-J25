@@ -2,6 +2,7 @@ package modello.prenotazionePanel;
 
 import jdbc.FacedeSingletonDB;
 import modello.Panelista;
+import modello.Utente;
 import modello.creazionePanel.*;
 
 
@@ -24,8 +25,7 @@ public class SystemPrenotazione {
 	public void setSondaggi(ArrayList<Sondaggio> sondaggi) {
 		this.sondaggi = sondaggi;
 	}
-	
-	
+
 
 	public ArrayList<Sondaggio> getSondaggi() {
 		return sondaggi;
@@ -72,23 +72,24 @@ public class SystemPrenotazione {
 		FacedeSingletonDB.getInstance().getPrenotazionePanelDAO().salvaPrenotazione(slot, p);
 	}
 	
-	public void cancellazione(int idPanel, Panelista p) {
-		FacedeSingletonDB.getInstance().getPanelDAO().rimuoviUtenteDaPanel(idPanel, p.getEmail());
+	public boolean cancellazioneDaPanel(int idPanel, Utente utente) {
+		boolean statoCancellazione = FacedeSingletonDB.getInstance().getPanelDAO().rimuoviUtenteDaPanel(idPanel, utente.getEmail());
 		Panel panel = trovaPanelPerId(idPanel);
 
-		String text = "Si è liberato un posto ad un panel il seguente giorno: " +
-				panel.getData()+" alla seguente ora: " + panel.getOrarioInizio();
-		NotificaMessage notifica = new NotificaMessage( "Cancellazione panel", text);
+		if(statoCancellazione = true){
+			String text = "Si è liberato un posto ad un panel il seguente giorno: " +
+					panel.getData()+" alla seguente ora: " + panel.getOrarioInizio();
+			NotificaMessage notifica = new NotificaMessage( "Cancellazione panel", text);
+			// devo gestire il caricamento del sondaggio
+			notifica.setListaUtenti(panelistas);
+			notifica.notificaObserver();
+		}
+		return statoCancellazione;
 		
-		notifica.setListaUtenti(panelistas);
-        notifica.notificaObserver();
+	}
 
-		
-		/*questo metodo toglie dalla lista di slot
-		 * le persone che si sono prenotate ma che
-		 * hanno disdetto 
-		 */
-		
+	public boolean prenotazionePanel(int idPanel, Utente p) {
+		return FacedeSingletonDB.getInstance().getPanelDAO().aggiungiUtenteAlPanel(idPanel, p.getEmail());
 	}
 
 
