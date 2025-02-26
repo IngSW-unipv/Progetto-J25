@@ -1,5 +1,6 @@
 package jdbc.bean;
 import jdbc.ConnessioneDB;
+import modello.Insaccatore;
 import modello.Panelista;
 import modello.Utente;
 
@@ -304,8 +305,54 @@ public class UserDAO implements IUserDAO{
         return listaUtenti;
     }
 
+    
+    
+    //METODO PER TROVAER L'INSACCATORE DATO L'USER ID
+    public Insaccatore selectInsaccatore(int id) {
+        connection = ConnessioneDB.startConnection(connection, "osmotech");
+        Insaccatore insaccatore = null;
+        PreparedStatement ps1;
+        ResultSet rs1;
 
+        try {
+            // Query per selezionare l'utente tramite ID
+            String query = "SELECT * FROM osmotech.UTENTE WHERE ID = ? AND RUOLO = 'insaccatore'";
+            ps1 = connection.prepareStatement(query);
+            ps1.setInt(1, id);
+            rs1 = ps1.executeQuery();
 
+            // Se l'utente esiste e ha il ruolo di insaccatore
+            if (rs1.next()) {
+                // Recupero dei dati dall'utente
+                java.sql.Date sqlDate = rs1.getDate("DATANASCITA");
+                java.time.LocalDate localDate = sqlDate.toLocalDate();
+
+                // Crea un oggetto Insaccatore con i dati recuperati
+                insaccatore = new Insaccatore(
+                    rs1.getInt("ID"),
+                    rs1.getString("EMAIL"),
+                    rs1.getString("NOME"),
+                    rs1.getString("COGNOME"),
+                    rs1.getString("LUOGONASCITA"),
+                    localDate,
+                    rs1.getString("CODICEFISCALE"),
+                    rs1.getString("RESIDENZA"),
+                    rs1.getDouble("ORELAVORO"),
+                    rs1.getString("PASSWORD"),
+                    rs1.getString("NICKNAME"),
+                    rs1.getString("RUOLO"),
+                    rs1.getInt("ORELIMITE"),
+                    rs1.getInt("LIMITECANC")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnessioneDB.closeConnection(connection);
+        }
+
+        return insaccatore;
+    }
 
 
 }

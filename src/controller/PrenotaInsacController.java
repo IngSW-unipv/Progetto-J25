@@ -32,11 +32,21 @@ public class PrenotaInsacController {
 		Giorno[] sett = facade.generaSettimanaTurni(data,durata);
 	}
 	
+	public boolean prenotaTurno(Turno t) {
+		boolean successo = false;
+		try {
+		facade.prenotazioneAlTurno(viewprinc.getIdInsaccatore(), t);
+		successo = true;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return successo;
+	}
+	
 	
 	//METODI APERTURA VIEW:
 	public void apriViewInsaccatore() {
 		//prima di tutto verifico la presenza di turni
-		new ViewInsaccatore();
 		viewturni.aggiornaTurni(facade.getSystemPrenotaTurnoInsacc().getSettimana());
         viewprinc.setVisible(false);  // Nasconde la vista principale
         viewturni.setVisible(true);  // Mostra la vista dei turni
