@@ -2,6 +2,7 @@ package modello.prenotazionePanel;
 
 import jdbc.FacedeSingletonDB;
 import modello.Panelista;
+import modello.Utente;
 import modello.creazionePanel.*;
 
 
@@ -71,8 +72,8 @@ public class SystemPrenotazione {
 		FacedeSingletonDB.getInstance().getPrenotazionePanelDAO().salvaPrenotazione(slot, p);
 	}
 	
-	public boolean cancellazioneDaPanel(int idPanel, Panelista p) {
-		boolean statoCancellazione = FacedeSingletonDB.getInstance().getPanelDAO().rimuoviUtenteDaPanel(idPanel, p.getEmail());
+	public boolean cancellazioneDaPanel(int idPanel, Utente utente) {
+		boolean statoCancellazione = FacedeSingletonDB.getInstance().getPanelDAO().rimuoviUtenteDaPanel(idPanel, utente.getEmail());
 		Panel panel = trovaPanelPerId(idPanel);
 
 		if(statoCancellazione = true){
@@ -87,7 +88,7 @@ public class SystemPrenotazione {
 		
 	}
 
-	public boolean prenotazionePanel(int idPanel, Panelista p) {
+	public boolean prenotazionePanel(int idPanel, Utente p) {
 		return FacedeSingletonDB.getInstance().getPanelDAO().aggiungiUtenteAlPanel(idPanel, p.getEmail());
 	}
 

@@ -1,8 +1,13 @@
 package view.autenticazione;
 
 import controller.AutenticazioneController;
+import controller.PanelController;
+import controller.SondaggioController;
 import jdbc.FacedeSingletonDB;
+import modello.Panelista;
 import modello.Utente;
+import view.creazioneSondaggio.SondaggioView;
+import view.visualizPanel.PanelView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,8 +17,11 @@ import java.sql.SQLException;
 
 public class HomePanelista extends JFrame {
         private AutenticazioneController controller;
+        private Utente utente;
         public HomePanelista(AutenticazioneController controller, Utente utente) {
             this.controller = controller;
+            this.utente = utente;
+
 
             setTitle("Home Panelista");
             setSize(400, 200);
@@ -23,6 +31,8 @@ public class HomePanelista extends JFrame {
             //add(label);
            // setLocationRelativeTo(null); // Centra la finestra
             JPanel panel = new JPanel(new GridLayout(3,1));
+            JButton btnVisualizPanel = new JButton("Visualiza Panel");
+            btnVisualizPanel.addActionListener(e -> new PanelView(new PanelController(), utente));
             JButton btnModificaPassword = new JButton("Modifica Password");
             btnModificaPassword.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -95,6 +105,7 @@ public class HomePanelista extends JFrame {
 
             panel.add(btnModificaPassword);
             panel.add(btnInserisciIban);
+            panel.add(btnVisualizPanel);
             add(panel);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             setVisible(true);

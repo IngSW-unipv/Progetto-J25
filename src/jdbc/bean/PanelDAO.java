@@ -53,14 +53,14 @@ public class PanelDAO implements IPanelDAO {
                 LocalDate data = rs.getDate("DATA").toLocalDate();
                 LocalTime orarioInizio = rs.getTime("ORARIO_INIZIO").toLocalTime();
                 int macchinario = rs.getInt("MACCHINARIO");
-                boolean emergenza = rs.getBoolean("EMEGENZA");
+                boolean emergenza = rs.getBoolean("EMERGENZA");
 
                 // Recupera le email degli utenti (alcune possono essere NULL)
                 List<Panelista> users = new ArrayList<>();
                 for (int i = 1; i <= 6; i++) {
                     String email = rs.getString("USER" + i);
                     if (email != null) users.add(new Panelista(0, email, null, null, null, null,
-                            null,null, null, null , null, Double.NaN));
+                            null,null, null, null , null, Double.NaN));}
 
                 // Il panel è attivo perché lo stiamo filtrando nella query
                 Panel panel = new Panel(orarioInizio, new Macchinario(macchinario, users.size()), data);
@@ -68,7 +68,6 @@ public class PanelDAO implements IPanelDAO {
                 panel.setEmergenza(emergenza);
                 panel.setListaPanelisti(users);
                 panels.add(panel);
-            }
         } } catch (SQLException e) {
             e.printStackTrace();
         } finally {
