@@ -15,12 +15,20 @@ public class Panel {
     private Macchinario macchinario;
     private boolean stato = true;
     private int id;
+    private boolean emergenza;
 
     public Panel( LocalTime orarioInizio, Macchinario macchinario, LocalDate data) {
         this.orarioInizio = orarioInizio;
         this.macchinario = macchinario;
         this.data = data;
         this.listaPanelisti = new ArrayList<>();
+    }
+    public void setEmergenza(boolean emergenza) {
+        this.emergenza = emergenza;
+    }
+
+    public boolean getEmergenza() {
+        return emergenza;
     }
 
     public boolean getStato() {

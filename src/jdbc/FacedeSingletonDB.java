@@ -112,6 +112,8 @@ public class FacedeSingletonDB {
         if (systemPrenotazione == null) {
             systemPrenotazione = new SystemPrenotazione();
             systemPrenotazione.setSondaggi(popolaSondaggi());
+            systemPrenotazione.setPanelistas(userDAO.getPanelistas());
+            systemPrenotazione.setPanels(panelDAO.getPanels());
         }
         return systemPrenotazione;
     }
