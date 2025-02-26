@@ -16,10 +16,10 @@ import modello.prenotazionePanel.SystemPrenotazione;
 
 public class PanelView extends JFrame {
     private PanelController controller;
-    private Utente panelista;
+    private Panelista panelista;
     private JPanel panelContainer;
 
-    public PanelView(PanelController controller, Utente panelista) {
+    public PanelView(PanelController controller, Panelista panelista) {
         this.controller = controller;
         this.panelista = panelista;
 
@@ -131,9 +131,6 @@ public class PanelView extends JFrame {
     }
 
     public static void main(String[] args) {
-        Utente utente =new Utente(0, null, null, null, null, null,
-                null, null, null, null, null);
-       new PanelView(new PanelController(), utente);
 
     }
 }

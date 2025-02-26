@@ -1,5 +1,6 @@
 package jdbc.bean;
 import jdbc.ConnessioneDB;
+import modello.Insaccatore;
 import modello.Panelista;
 import modello.Utente;
 
@@ -369,6 +370,61 @@ public class UserDAO implements IUserDAO{
 
         return iban;
     }
+
+    public Insaccatore getInsaccatore(int idUtente) throws SQLException {
+        connection = ConnessioneDB.startConnection(connection, "osmotech");
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        Insaccatore insaccatore = null;  // Sposta l'oggetto fuori dal try
+
+        try {
+            // Query con condizione WHERE per selezionare solo l'insaccatore con l'ID specificato
+            String query = "SELECT * FROM UTENTE WHERE ID = ? AND RUOLO = 'INSACCATORE'";
+            pst = connection.prepareStatement(query);
+            pst.setInt(1, idUtente);  // Imposta l'idUtente nel prepared statement
+            rs = pst.executeQuery();
+
+            // Verifica se esiste un risultato e crea l'oggetto Insaccatore
+            if (rs.next()) {
+                java.sql.Date SQLdate = rs.getDate("DATANASCITA");
+                java.time.LocalDate localeDate = null;
+
+                if (SQLdate != null) {
+                    localeDate = SQLdate.toLocalDate();
+                }
+
+                insaccatore = new Insaccatore(
+                        rs.getInt("ID"),
+                        rs.getString("EMAIL"),
+                        rs.getString("NOME"),
+                        rs.getString("COGNOME"),
+                        rs.getString("LUOGONASCITA"),
+                        localeDate,
+                        rs.getString("CODICEFISCALE"),
+                        rs.getString("RESIDENZA"),
+                        rs.getDouble("ORELAVORO"),
+                        rs.getString("PASSWORD"),
+                        rs.getString("NICKNAME"),
+                        rs.getString("RUOLO"),
+                        rs.getInt("ORELIMITE"),
+                        rs.getInt("LIMITECANC")
+                );
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            // Chiusura delle risorse
+            if (rs != null) rs.close();
+            if (pst != null) pst.close();
+            ConnessioneDB.closeConnection(connection);
+        }
+
+        return insaccatore;  // Restituisci l'insaccatore o null se non trovato
+    }
+
+
 
 
 }

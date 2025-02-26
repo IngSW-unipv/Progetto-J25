@@ -66,10 +66,10 @@ public class SystemPrenotazione {
 	}
 
 
-	public void prenotazione(int idSondaggio, LocalTime orarioSlot, Utente u) {
+	public void prenotazione(int idSondaggio, LocalTime orarioSlot, Panelista panelista) {
 		Sondaggio s = trovaSondaggioPerId(idSondaggio);
 		Slot slot = s.getSlots().get(orarioSlot);
-		FacedeSingletonDB.getInstance().getPrenotazionePanelDAO().salvaPrenotazione(slot, u);
+		FacedeSingletonDB.getInstance().getPrenotazionePanelDAO().salvaPrenotazione(slot, panelista);
 	}
 	
 	public boolean cancellazioneDaPanel(int idPanel, Utente utente) {
