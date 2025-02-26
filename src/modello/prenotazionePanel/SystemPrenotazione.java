@@ -6,6 +6,7 @@ import modello.Utente;
 import modello.creazionePanel.*;
 
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 import modello.email.NotificaMessage;
@@ -15,6 +16,7 @@ public class SystemPrenotazione {
 	ArrayList <Sondaggio> sondaggi;
 	ArrayList <Panel> panels;
 	ArrayList <Panelista> panelistas;
+	private final int oreLimite = 10;
 
 	public SystemPrenotazione() {
 		sondaggi = new ArrayList<>();
@@ -73,9 +75,12 @@ public class SystemPrenotazione {
 	}
 	
 	public boolean cancellazioneDaPanel(int idPanel, Utente utente) {
-		boolean statoCancellazione = FacedeSingletonDB.getInstance().getPanelDAO().rimuoviUtenteDaPanel(idPanel, utente.getEmail());
 		Panel panel = trovaPanelPerId(idPanel);
-
+		LocalDateTime dataOra = panel.getData().atTime(panel.getOrarioInizio());
+		if (LocalDateTime.now().isAfter(dataOra.minusHours(oreLimite))) {
+			return false; // Non è più possibile cancellarsi
+		}
+		boolean statoCancellazione = FacedeSingletonDB.getInstance().getPanelDAO().rimuoviUtenteDaPanel(idPanel, utente.getEmail());
 		if(statoCancellazione = true){
 			String text = "Si è liberato un posto ad un panel il seguente giorno: " +
 					panel.getData()+" alla seguente ora: " + panel.getOrarioInizio();
@@ -88,7 +93,7 @@ public class SystemPrenotazione {
 		
 	}
 
-	public boolean prenotazionePanel(int idPanel, Utente p) {
+	public boolean prenotazionePanel(int idPanel, Panelista p) {
 		return FacedeSingletonDB.getInstance().getPanelDAO().aggiungiUtenteAlPanel(idPanel, p.getEmail());
 	}
 

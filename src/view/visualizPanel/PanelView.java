@@ -5,6 +5,7 @@ import controller.PanelController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 
@@ -12,16 +13,19 @@ import jdbc.FacedeSingletonDB;
 import modello.Panelista;
 import modello.Utente;
 import modello.creazionePanel.Panel;
+import modello.creazionePanel.Sondaggio;
 import modello.prenotazionePanel.SystemPrenotazione;
 
 public class PanelView extends JFrame {
     private PanelController controller;
-    private Utente panelista;
+    private Panelista panelista;
     private JPanel panelContainer;
+    private int numerVerde;
 
-    public PanelView(PanelController controller, Utente panelista) {
+    public PanelView(PanelController controller, Panelista panelista) {
         this.controller = controller;
         this.panelista = panelista;
+        this.numerVerde = 191955;
 
         setTitle("Lista Panel");
         setSize(1000, 500);
@@ -126,14 +130,18 @@ public class PanelView extends JFrame {
             JOptionPane.showMessageDialog(null, "Cancellazione avvenuta con successo!");
             caricaDatiPanel(); // Ricarica i panel
         } else {
-            JOptionPane.showMessageDialog(null, "Errore nella Cancellazione.");
+            JOptionPane.showMessageDialog(null, "Errore nella Cancellazione. Tempo scaduto, " +
+                    "utilizza il numero verde se è un'emergenza: " +numerVerde);
         }
     }
 
     public static void main(String[] args) {
-        Utente utente =new Utente(0, null, null, null, null, null,
-                null, null, null, null, null);
-       new PanelView(new PanelController(), utente);
+       SystemPrenotazione sys= FacedeSingletonDB.getInstance().getSystemPrenotazione();
+       ArrayList<Panel> panel = sys.getPanels();
+       for (Panel p : panel) {
+           FacedeSingletonDB.getInstance().getPanelDAO().chiudiPanel(p.getId(), LocalTime.now());
+       }
+
 
     }
 }

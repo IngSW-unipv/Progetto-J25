@@ -19,7 +19,7 @@ public class PanelController {
         return systemPrenotazione.getPanels();
     }
 
-    public boolean prenotaUtente(int idPanel, Utente p){
+    public boolean prenotaUtente(int idPanel, Panelista p){
         return systemPrenotazione.prenotazionePanel(idPanel, p);
     }
 

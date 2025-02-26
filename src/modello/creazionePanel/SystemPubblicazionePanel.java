@@ -18,9 +18,8 @@ public class SystemPubblicazionePanel {
     private ArrayList<Panel> panel;
     private Sondaggio sondaggio;
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    private int durataSondaggio = 180; // supponiamo che un sondaggio debba durare 5 min
+    private int durataSondaggio = 120; // supponiamo che un sondaggio debba durare 5 min
     private int numeroMacchinari;
-
 
 
     public SystemPubblicazionePanel() {
