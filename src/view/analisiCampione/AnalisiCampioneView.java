@@ -269,6 +269,7 @@ public class AnalisiCampioneView  {
         SystemCampione systemCampione = new SystemCampione();  
         CampioneController campioneController = new CampioneController(systemCampione);
         AnalisiCampioneView analisiView = new AnalisiCampioneView(analisiController, campioneController);
+        analisiView.frame.setVisible(true);
     }
 
 }
