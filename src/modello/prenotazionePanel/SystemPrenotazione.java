@@ -21,10 +21,6 @@ public class SystemPrenotazione {
 		panelistas = new ArrayList<>();
 	}
 
-	public ArrayList<Sondaggio> getSondaggi() {
-		return sondaggi;
-	}
-
 	public void setSondaggi(ArrayList<Sondaggio> sondaggi) {
 		this.sondaggi = sondaggi;
 	}
