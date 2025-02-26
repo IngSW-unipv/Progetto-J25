@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import javax.swing.JOptionPane;
 
 import modello.Panelista;
+import modello.Utente;
 import modello.prenotazionePanel.SystemPrenotazione;
 import view.prenotazionePanel.PrenotazioneView;
 
@@ -19,10 +20,10 @@ public class PrenotazioneController {
 		//this.view = view;
 	}
 	
-	 public void prenotaSondaggio(int idSondaggio, LocalTime orarioSlot, Panelista panelista) {
+	 public void prenotaSondaggio(int idSondaggio, LocalTime orarioSlot, Utente utente) {
 	        try {
 	        	
-	        	system.prenotazione(idSondaggio, orarioSlot, panelista);
+	        	system.prenotazione(idSondaggio, orarioSlot, utente);
 	        	JOptionPane.showMessageDialog(null, "Prenotazione effettuata con successo", "Successo", JOptionPane.INFORMATION_MESSAGE);
 	        }catch (Exception ex) {
 	            // In caso di errore, mostra un messaggio d'errore

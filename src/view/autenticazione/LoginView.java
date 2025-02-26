@@ -1,6 +1,8 @@
 package view.autenticazione;
 
 import controller.AutenticazioneController;
+import modello.Insaccatore;
+import modello.Panelista;
 import modello.Utente;
 
 import javax.swing.*;
@@ -42,10 +44,12 @@ public class LoginView extends JFrame {
                                 new HomePanelLeader(autenticazioneController, utente);
                                 break;
                             case "pa":
-                                new HomePanelista(autenticazioneController, utente);
+                                Panelista pa= (Panelista) utente;
+                                new HomePanelista(autenticazioneController, pa);
                                 break;
                             case "in":
-                                new HomeInsaccatore(autenticazioneController, utente);
+                                Insaccatore in= (Insaccatore) utente;
+                                new HomeInsaccatore(autenticazioneController, in);
 
                                 break;
                             default:

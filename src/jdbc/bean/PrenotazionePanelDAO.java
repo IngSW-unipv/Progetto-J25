@@ -2,6 +2,7 @@ package jdbc.bean;
 
 import jdbc.ConnessioneDB;
 import modello.Panelista;
+import modello.Utente;
 import modello.creazionePanel.Slot;
 
 import java.sql.Connection;
@@ -51,7 +52,7 @@ public class PrenotazionePanelDAO implements IPrenotazionePanelDAO{
     }
 
     @Override
-    public boolean salvaPrenotazione(Slot slot, Panelista panelista) {
+    public boolean salvaPrenotazione(Slot slot, Utente utente ) {
     	
         Connection conn = ConnessioneDB.startConnection(null, "osmotech");
         PreparedStatement ps1;
@@ -60,9 +61,9 @@ public class PrenotazionePanelDAO implements IPrenotazionePanelDAO{
         try{
         	String query = "INSERT INTO osmotech.PRENOTAZIONE_PANEL VALUES (?, ?, ?)";
         	ps1 = conn.prepareStatement(query);
-            ps1.setInt(1, panelista.getId());
+            ps1.setInt(1, utente.getId());
             ps1.setInt(2, slot.getIdSlot());
-            ps1.setString(3, panelista.getEmail());
+            ps1.setString(3, utente.getEmail());
 
            ps1.executeUpdate();
             

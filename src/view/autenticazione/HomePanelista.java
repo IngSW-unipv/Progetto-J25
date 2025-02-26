@@ -2,11 +2,14 @@ package view.autenticazione;
 
 import controller.AutenticazioneController;
 import controller.PanelController;
+import controller.PrenotazioneController;
 import controller.SondaggioController;
 import jdbc.FacedeSingletonDB;
 import modello.Panelista;
 import modello.Utente;
+import modello.prenotazionePanel.SystemPrenotazione;
 import view.creazioneSondaggio.SondaggioView;
+import view.prenotazionePanel.PrenotazioneView;
 import view.visualizPanel.PanelView;
 
 import javax.swing.*;
@@ -31,8 +34,11 @@ public class HomePanelista extends JFrame {
             //add(label);
            // setLocationRelativeTo(null); // Centra la finestra
             JPanel panel = new JPanel(new GridLayout(3,1));
-            JButton btnVisualizPanel = new JButton("Visualiza Panel");
+            JButton btnVisualizPanel = new JButton("Visualizza Panel");
             btnVisualizPanel.addActionListener(e -> new PanelView(new PanelController(), utente));
+
+            JButton btnVisualizSondaggio = new JButton("Visualizza Sondaggio");
+            btnVisualizSondaggio.addActionListener(e -> new PrenotazioneView( utente));
             JButton btnModificaPassword = new JButton("Modifica Password");
             btnModificaPassword.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -106,6 +112,7 @@ public class HomePanelista extends JFrame {
             panel.add(btnModificaPassword);
             panel.add(btnInserisciIban);
             panel.add(btnVisualizPanel);
+            panel.add(btnVisualizSondaggio);
             add(panel);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             setVisible(true);

@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import controller.PrenotazioneController;
 import jdbc.FacedeSingletonDB;
 import modello.Panelista;
+import modello.Utente;
 import modello.creazionePanel.Slot;
 import modello.creazionePanel.Sondaggio;
 import modello.prenotazionePanel.SystemPrenotazione;
@@ -28,14 +29,14 @@ public class PrenotazioneView {
 	private JFrame frame;
 	private JPanel mainPanel;
 	private JButton btnPrenota;
-	private Panelista panelista;
+	private Utente utente;
 	private PrenotazioneController controller;
 	private Sondaggio sondaggioSelezionato;
 	private Slot slotSelezionato;
 	
-	public PrenotazioneView(Panelista panelista) {
+	public PrenotazioneView(Utente utente) {
 		
-		this.panelista = panelista;
+		this.utente = utente;
 		
 		SystemPrenotazione sys = FacedeSingletonDB.getInstance().getSystemPrenotazione();
 		
@@ -143,7 +144,7 @@ public class PrenotazioneView {
 		
 		if(sondaggioSelezionato != null && slotSelezionato != null) {
 			
-			controller.prenotaSondaggio(sondaggioSelezionato.getId(), slotSelezionato.getTime(), panelista);
+			controller.prenotaSondaggio(sondaggioSelezionato.getId(), slotSelezionato.getTime(), utente);
 		}else {
 			
 			JOptionPane.showMessageDialog(frame, "Errore");
