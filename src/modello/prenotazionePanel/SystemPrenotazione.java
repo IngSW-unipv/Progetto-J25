@@ -2,27 +2,49 @@ package modello.prenotazionePanel;
 
 import jdbc.FacedeSingletonDB;
 import modello.Panelista;
+import modello.Utente;
 import modello.creazionePanel.*;
 
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 import modello.email.NotificaMessage;
-import modello.Utente;
 
 
 public class SystemPrenotazione {
 	ArrayList <Sondaggio> sondaggi;
-	ArrayList <Panelista> panelisti;
+	ArrayList <Panel> panels;
+	ArrayList <Panelista> panelistas;
 
 	public SystemPrenotazione() {
 		sondaggi = new ArrayList<>();
-		panelisti = new ArrayList<>();
+		panels = new ArrayList<>();
+		panelistas = new ArrayList<>();
 	}
 
 	public void setSondaggi(ArrayList<Sondaggio> sondaggi) {
 		this.sondaggi = sondaggi;
+	}
+
+
+	public ArrayList<Sondaggio> getSondaggi() {
+		return sondaggi;
+	}
+
+	public  ArrayList<Panel> getPanels(){
+		return panels;
+	}
+
+	public void setPanels(ArrayList<Panel> panels) {
+		this.panels = panels;
+	}
+
+	public  ArrayList<Panelista> getPanelistas(){
+		return panelistas;
+	}
+
+	public void setPanelistas(ArrayList<Panelista> panelistas) {
+		this.panelistas = panelistas;
 	}
 
 	public Sondaggio trovaSondaggioPerId(int id) {
@@ -34,88 +56,43 @@ public class SystemPrenotazione {
 		return null; // Nessun sondaggio trovato
 	}
 
+	public Panel trovaPanelPerId(int id) {
+		for (Panel p : panels) {
+			if (p.getId() == id) {
+				return p;
+			}
+		}
+		return null;
+	}
 
-	public void prenotazione(int idSondaggio, LocalTime orarioSlot, Panelista p) {
+
+	public void prenotazione(int idSondaggio, LocalTime orarioSlot, Panelista panelista) {
 		Sondaggio s = trovaSondaggioPerId(idSondaggio);
 		Slot slot = s.getSlots().get(orarioSlot);
-		FacedeSingletonDB.getInstance().getPrenotazionePanelDAO().salvaPrenotazione(slot, p);
+		FacedeSingletonDB.getInstance().getPrenotazionePanelDAO().salvaPrenotazione(slot, panelista);
 	}
 	
-	public void cancellazione(Panel panel, Panelista p) {
-		FacedeSingletonDB.getInstance().getPanelDAO().rimuoviUtenteDaPanel(panel.getId(), p.getEmail());
-		
-		/*s.rimuoviPrenotato(p);*/
-		
-		String text = "Si è liberato un posto ad un panel il seguente giorno: " +panel.getData()+" alla seguente ora: " +panel.getOrarioInizio();
-		NotificaMessage notifica = new NotificaMessage( "Cancellazione panel", text);
-		
-		notifica.setListaUtenti(panelisti);
-        notifica.notificaObserver();
-		
-		/*questo metodo toglie dalla lista di slot
-		 * le persone che si sono prenotate ma che
-		 * hanno disdetto 
-		 */
-		
-	}
-	
-	public void prenotati(Slot s) {
-		
-		for(Panelista p: s.getPrenotati()) {
-			
-			System.out.println(p.getNome());
+	public boolean cancellazioneDaPanel(int idPanel, Utente utente) {
+		boolean statoCancellazione = FacedeSingletonDB.getInstance().getPanelDAO().rimuoviUtenteDaPanel(idPanel, utente.getEmail());
+		Panel panel = trovaPanelPerId(idPanel);
+
+		if(statoCancellazione = true){
+			String text = "Si è liberato un posto ad un panel il seguente giorno: " +
+					panel.getData()+" alla seguente ora: " + panel.getOrarioInizio();
+			NotificaMessage notifica = new NotificaMessage( "Cancellazione panel", text);
+			// devo gestire il caricamento del sondaggio
+			notifica.setListaUtenti(panelistas);
+			notifica.notificaObserver();
 		}
+		return statoCancellazione;
 		
-		/*questo metodo restituisce il nome delle persone
-		 * che si sono prenotate, nell'app ci sarà una sezione
-		 * apposita dove si potranno visualizzare i nomi
-		 */
-		
-	}
-	
-	public int numeroPrenotati(Slot s) {
-		
-		if(s.getPrenotati().size() < 0) {
-			
-			throw new IllegalArgumentException("Errore");
-		}
-		
-		return s.getPrenotati().size();
-		/*questo metodo restituisce il numero
-		 * delle persone che si sono prenotate
-		 */
-	}
-	
-	
-	
-	public ArrayList<Panelista> getPanelisti() {
-		return panelisti;
 	}
 
-	public void setPanelisti(ArrayList<Panelista> panelisti) {
-		this.panelisti = panelisti;
+	public boolean prenotazionePanel(int idPanel, Utente p) {
+		return FacedeSingletonDB.getInstance().getPanelDAO().aggiungiUtenteAlPanel(idPanel, p.getEmail());
 	}
 
-	/*public static void main (String[] args) {
-		
-		LocalDate ld = LocalDate.of(2025, 02, 19);
-		LocalTime lt = LocalTime.of(14, 0);
-		
-		Slot s = new Slot(ld, lt);
-		Panelista p = new Panelista("tommaso.ghisolfi003@gmail.com", "Tommaso", "Ghisolfi", "Broni", ld, "GG", "gg", 10);
-		Panelista k = new Panelista("khawlaouaadou1@gmail.com", "Tommaso", "Ghisolfi", "Broni", ld, "GG", "gg", 10);
-		
-		ArrayList <Panelista> panelisti = new ArrayList<>();
-		panelisti.add(p);
-		panelisti.add(k);
-		
-       
-		SystemPrenotazione sys = new SystemPrenotazione();
-		sys.setPanelisti(panelisti);
-		
-		sys.cancellazione(s, p);
-		
-	} */
+
 	
 	
 }

@@ -18,7 +18,7 @@ public class SystemPubblicazionePanel {
     private ArrayList<Panel> panel;
     private Sondaggio sondaggio;
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    private int durataSondaggio = 30; // supponiamo che un sondaggio debba durare 5 min
+    private int durataSondaggio = 180; // supponiamo che un sondaggio debba durare 5 min
     private int numeroMacchinari;
 
 
@@ -123,6 +123,7 @@ public class SystemPubblicazionePanel {
                 panel.add(p);
             }
         }
+        FacedeSingletonDB.getInstance().getSondaggioDAO().chiudiSondaggio(sondaggio);
         pubblicazionePanel();
 
        /* for(Panel p: panel){
@@ -161,7 +162,7 @@ public class SystemPubblicazionePanel {
         SystemPubblicazionePanel systemPubblicazionePanel = FacedeSingletonDB.getInstance().getSystemPubblicazionePanel();
         systemPubblicazionePanel.setMacchinari(FacedeSingletonDB.getInstance().getMacchinarioDAO().getMacchinari());
 
-        Sondaggio s1 = systemPubblicazionePanel.creaSondaggioAutomatica(10, LocalDate.of(2025, 5, 27));
+        Sondaggio s1 = systemPubblicazionePanel.creaSondaggioAutomatica(10, LocalDate.of(2025, 4, 28));
         systemPubblicazionePanel.pubblicazioneSondaggio(s1);
 
         SystemPrenotazione systemPrenotazione = FacedeSingletonDB.getInstance().getSystemPrenotazione();

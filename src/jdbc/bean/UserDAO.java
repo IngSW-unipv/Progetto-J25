@@ -305,54 +305,131 @@ public class UserDAO implements IUserDAO{
         return listaUtenti;
     }
 
+
     
     
-    //METODO PER TROVAER L'INSACCATORE DATO L'USER ID
-    public Insaccatore selectInsaccatore(int id) {
+ 
+
+    public void cambiaPassword(Utente utente, String passwordInput ) throws SQLException {
         connection = ConnessioneDB.startConnection(connection, "osmotech");
-        Insaccatore insaccatore = null;
-        PreparedStatement ps1;
-        ResultSet rs1;
+        String query = "UPDATE UTENTE SET PASSWORD = ? WHERE EMAIL = ?";
+        try (
+             PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setString(1, passwordInput);
+            pst.setString(2, utente.getEmail());
+            pst.executeUpdate();
+        }
+    }
+
+    public boolean updateRuolo(int id, String ruolo) throws SQLException {
+    String query = "UPDATE UTENTE SET RUOLO = ? WHERE ID = ?";
+    connection = ConnessioneDB.startConnection(connection, "osmotech");
+    try(
+            PreparedStatement pst = connection.prepareStatement(query)){
+                pst.setString(1, ruolo);
+                pst.setInt(2, id);
+                int rowsUpdated = pst.executeUpdate();
+                return rowsUpdated > 0;
+    }
+
+    }
+
+    public boolean inserisciIban(int userId, String iban) throws SQLException {
+        String query = "INSERT INTO CONTO (id,iban) VALUES (?,?) ON DUPLICATE KEY UPDATE iban = ?";
+        connection = ConnessioneDB.startConnection(connection, "osmotech");
+        try (
+                PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setInt(1, userId);
+            pst.setString(2, iban);
+            pst.setString(3, iban);
+
+            int rowsAffected = pst.executeUpdate();
+            return rowsAffected > 0;
+        } finally {
+    if(connection != null) ConnessioneDB.closeConnection(connection);
+    }}
+
+    public String getIban(Utente utente) throws SQLException {
+        connection = ConnessioneDB.startConnection(connection, "osmotech");
+        String query = "SELECT IBAN FROM CONTO WHERE ID = ?";
+        ResultSet rs = null;
+        String iban = null;
+
+        try (
+                PreparedStatement pst = connection.prepareStatement(query)) {
+            pst.setInt(1, utente.getId());
+            rs = pst.executeQuery();
+
+            // Verifica se ci sono risultati
+            if (rs.next()) {
+                iban = rs.getString("IBAN");
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+
+        return iban;
+    }
+
+    public Insaccatore getInsaccatore(int idUtente) throws SQLException {
+        connection = ConnessioneDB.startConnection(connection, "osmotech");
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        Insaccatore insaccatore = null;  // Sposta l'oggetto fuori dal try
 
         try {
-            // Query per selezionare l'utente tramite ID
-            String query = "SELECT * FROM osmotech.UTENTE WHERE ID = ? AND RUOLO = 'insaccatore'";
-            ps1 = connection.prepareStatement(query);
-            ps1.setInt(1, id);
-            rs1 = ps1.executeQuery();
+            // Query con condizione WHERE per selezionare solo l'insaccatore con l'ID specificato
+            String query = "SELECT * FROM UTENTE WHERE ID = ? AND RUOLO = 'INSACCATORE'";
+            pst = connection.prepareStatement(query);
+            pst.setInt(1, idUtente);  // Imposta l'idUtente nel prepared statement
+            rs = pst.executeQuery();
 
-            // Se l'utente esiste e ha il ruolo di insaccatore
-            if (rs1.next()) {
-                // Recupero dei dati dall'utente
-                java.sql.Date sqlDate = rs1.getDate("DATANASCITA");
-                java.time.LocalDate localDate = sqlDate.toLocalDate();
+            // Verifica se esiste un risultato e crea l'oggetto Insaccatore
+            if (rs.next()) {
+                java.sql.Date SQLdate = rs.getDate("DATANASCITA");
+                java.time.LocalDate localeDate = null;
 
-                // Crea un oggetto Insaccatore con i dati recuperati
+                if (SQLdate != null) {
+                    localeDate = SQLdate.toLocalDate();
+                }
+
                 insaccatore = new Insaccatore(
-                    rs1.getInt("ID"),
-                    rs1.getString("EMAIL"),
-                    rs1.getString("NOME"),
-                    rs1.getString("COGNOME"),
-                    rs1.getString("LUOGONASCITA"),
-                    localDate,
-                    rs1.getString("CODICEFISCALE"),
-                    rs1.getString("RESIDENZA"),
-                    rs1.getDouble("ORELAVORO"),
-                    rs1.getString("PASSWORD"),
-                    rs1.getString("NICKNAME"),
-                    rs1.getString("RUOLO"),
-                    rs1.getInt("ORELIMITE"),
-                    rs1.getInt("LIMITECANC")
+                        rs.getInt("ID"),
+                        rs.getString("EMAIL"),
+                        rs.getString("NOME"),
+                        rs.getString("COGNOME"),
+                        rs.getString("LUOGONASCITA"),
+                        localeDate,
+                        rs.getString("CODICEFISCALE"),
+                        rs.getString("RESIDENZA"),
+                        rs.getDouble("ORELAVORO"),
+                        rs.getString("PASSWORD"),
+                        rs.getString("NICKNAME"),
+                        rs.getString("RUOLO"),
+                        rs.getInt("ORELIMITE"),
+                        rs.getInt("LIMITECANC")
                 );
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
+            throw e;
         } finally {
+            // Chiusura delle risorse
+            if (rs != null) rs.close();
+            if (pst != null) pst.close();
             ConnessioneDB.closeConnection(connection);
         }
 
-        return insaccatore;
+        return insaccatore;  // Restituisci l'insaccatore o null se non trovato
     }
+    
+    
 
 
 }

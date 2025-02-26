@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import jdbc.FacedeSingletonDB;
 
-public class SystemCampione {
+public class SystemCampione implements ISystemCampione{
 	
 	ArrayList<Integer> campioniNonAnalizzati; //come argomento ha gli integer perchè prendo solo gli id
 
@@ -16,12 +16,12 @@ public class SystemCampione {
 		
 	}
 
-
+	@Override
 	public void setCampioniNonAnalizzati(ArrayList<Integer> campioniNonAnalizzati) {
 		this.campioniNonAnalizzati = campioniNonAnalizzati;
 	}
 
-
+	@Override
 	public boolean registraCampione(int id, String stato, LocalDate ld) {
 		
 		
@@ -29,30 +29,35 @@ public class SystemCampione {
 		
 	}
 	
+	@Override
 	public Campione trovaCampione(int id) {
 		
 		return FacedeSingletonDB.getInstance().getCampioneDAO().trovaCampionePerId(id);
 	}
 	
-	
+	@Override
 	public ArrayList<Campione> selezionaCampioni(){
 		
 		return FacedeSingletonDB.getInstance().getCampioneDAO().selectAllCampioni();
 	}
 	
+	@Override
 	public boolean aggiornaCampione(int id, String stato) {
 		
 		return FacedeSingletonDB.getInstance().getCampioneDAO().updateCampione(id, stato);
 	}
 	
+	@Override
 	public boolean deleteCampione(int id) {
 		
 		return FacedeSingletonDB.getInstance().getCampioneDAO().eliminaCampione(id);
 	}
 	
+	
+	@Override
 	public ArrayList<Integer> campioniNonAnalizzati(){
 		
-		return FacedeSingletonDB.getInstance().getCampioneDAO().trovaCampioneNonAnalizzato(); //serve ancora?
+		return FacedeSingletonDB.getInstance().getCampioneDAO().trovaCampioneNonAnalizzato(); 
 	}
 	
 	

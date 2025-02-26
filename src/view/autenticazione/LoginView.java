@@ -1,6 +1,9 @@
 package view.autenticazione;
 
 import controller.AutenticazioneController;
+import jdbc.FacedeSingletonDB;
+import modello.Insaccatore;
+import modello.Panelista;
 import modello.Utente;
 
 import javax.swing.*;
@@ -32,30 +35,76 @@ public class LoginView extends JFrame {
         JButton btnLogin = new JButton("Login");
         btnLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String emailOrNickname = emailOrNicknameField.getText();
+                String emailOrNickname = emailOrNicknameField.getText(); // da passare al metodo
                 String password = new String(passwordField.getPassword());
-                try{
+                try {
                     Utente utente = autenticazioneController.login(emailOrNickname, password);
-                  if(utente != null) {
-                      autenticazioneController.interfacciaRuolo(emailOrNickname, password);
-                      dispose();
+                    if (utente != null) {
+                        switch (utente.getRuolo()) {
+                            case "pl":
+                                new HomePanelLeader(autenticazioneController, utente);
+                                break;
+                            case "pa":
+                                Panelista pa= new Panelista(utente.getId(), utente.getEmail(), utente.getNome(), utente.getCognome(), utente.getLuogoNascita(), utente.getDataNascita(), utente.getCodiceFiscale(),
+                                        utente.getNickname(), utente.getPassword(), utente.getRuolo(), utente.getEmail(), 0);
+                                new HomePanelista(autenticazioneController, pa);
+                                break;
+                            case "in":
+                                Insaccatore in = FacedeSingletonDB.getInstance().getUserDAO().getInsaccatore(utente.getId());
+                                new HomeInsaccatore(autenticazioneController, in);
 
-                  } else {
-                      JOptionPane.showMessageDialog(LoginView.this, "Credenziali errate.");
+                                break;
+                            default:
+                                JOptionPane.showMessageDialog(null, "Ruolo non valido");
+                                dispose();
+
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(LoginView.this, "Credenziali errate.");
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(LoginView.this, "Errore durante il login");
 
                 }
-
             }
+            });
+
+        JButton btnRecuperaCredenziali = new JButton("Recupera credenziali");
+        btnRecuperaCredenziali.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Chiede all'utente di inserire la propria email
+                String email = JOptionPane.showInputDialog("Inserisci la tua email:");
+
+                if (email != null && !email.isEmpty()) {
+
+                        // Verifica se l'email esiste e invia le credenziali se trovata
+                        boolean successo = autenticazioneController.recuperoCredenziali(email);
+                        if (successo) {
+                            JOptionPane.showMessageDialog(LoginView.this, "Le tue credenziali sono state inviate tramite notifica.");
+                        } else {
+                            JOptionPane.showMessageDialog(LoginView.this, "Email non trovata.");
+                        }
+
+
+                    }  else  {
+                    JOptionPane.showMessageDialog(LoginView.this, "Errore durante il recupero delle credenziali.");
+                }
+                }
+
         });
+
+// Aggiungi il pulsante al pannello esistente
+
+
+
+
         panel.add(lblEmailOrNickname);
         panel.add(emailOrNicknameField);
         panel.add(lblPassword);
         panel.add(passwordField);
         panel.add(btnLogin);
+        panel.add(btnRecuperaCredenziali);
         add(panel);
         setVisible(true);
     }

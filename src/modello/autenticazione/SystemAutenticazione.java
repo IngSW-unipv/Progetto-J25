@@ -147,25 +147,65 @@ public class SystemAutenticazione {
 
    // scrivere get ruolo nel controller per aprire l'interfaccia grafica giusta, e creo le interfacce nel controllo
 
-public void apriInterfacciaPerRuolo(String emailInputOrNickname, String passwordInput) {
-        String ruolo = getRuolo(emailInputOrNickname, passwordInput);
-        switch (ruolo) {
-            case "pl":
-                new HomePanelLeader();
-                break;
-            case "pa":
-                new HomePanelista();
-                break;
-            case "in":
-                new HomeInsaccatore();
-                break;
-            default:
-                JOptionPane.showMessageDialog(null, "Ruolo non valido");
 
+
+
+   // utenteLoggato = controlloLogin(utenteLoggato.getEmail(), passwordInput);
+    public boolean modificaPassword(Utente utenteLoggato, String vecchiaPasswordInput, String nuovaPasswordInput) throws SQLException {
+
+           if(utenteLoggato.getPassword().equals(vecchiaPasswordInput)){
+               utenteLoggato.setPassword(nuovaPasswordInput);
+               FacedeSingletonDB.getInstance().getUserDAO().cambiaPassword(utenteLoggato, nuovaPasswordInput);
+
+               return true;
+           }
+
+        return false;
+    }
+
+    public boolean cambiaRuolo(int id, String ruolo) throws SQLException {
+        Utente utenteDaModificare = null;
+        for(Utente u : utenti) {
+            if(u.getId() == id){
+                utenteDaModificare = u;
+                break;
+            }
+        }
+        if(utenteDaModificare != null){
+            utenteDaModificare.setRuolo(ruolo);
+            FacedeSingletonDB.getInstance().getUserDAO().updateRuolo(id,ruolo);
+            return true;
         }
 
+        return false;
     }
+
+
+public boolean inserisciIban(String iban, Utente utenteLoggato ) throws SQLException {
+    if(!(utenteLoggato == null)){
+        int userId = utenteLoggato.getId();
+        FacedeSingletonDB.getInstance().getUserDAO().inserisciIban(userId,iban);
+         return true;
+               } return false;
+
 }
+
+public boolean recuperaCredenziali(String email) {
+        Utente utente = trovaUtentePerEmail(email);
+        if (utente != null) {
+            NotificaAttivazione notificaAttivazione1 = new NotificaAttivazione("Recupero credenziali", "Le tue credenziali sono :\nUsername: " + utente.getNickname() + "\nPassword:" + utente.getPassword(), utente);
+           notificaAttivazione1.notificaObserver();
+            return true;
+        }
+        return false;
+}
+
+}
+
+
+
+
+
 
 
 

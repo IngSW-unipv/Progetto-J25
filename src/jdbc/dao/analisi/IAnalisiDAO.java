@@ -1,10 +1,9 @@
 package jdbc.dao.analisi;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import modello.analisiCampione.*;
-import modello.archiviazioneCampione.Campione;
-import modello.creazionePanel.Panel;
 
 public interface IAnalisiDAO {
 
@@ -16,7 +15,7 @@ public interface IAnalisiDAO {
      * @return true se l'inserimento è riuscito, false altrimenti
      * @throws possibile SQLException.
      */
-    boolean insertAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) throws SQLException;
+    public boolean insertAnalisi(int idCampione, int idPanel, AnalisiCampione analisi) throws SQLException;
    
    /**
     * Aggiorna i dati di un'analisi nel database.
@@ -24,7 +23,7 @@ public interface IAnalisiDAO {
     * @return true se l'aggiornamento è riuscito, false altrimenti
     * @throws possibile SQLException.
     */
-    boolean updateAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) throws SQLException;
+    public boolean updateAnalisi(int idCampione, int idPanel, AnalisiCampione analisi) throws SQLException;
     
     /**
      * Elimina un'analisi dal database.
@@ -32,7 +31,23 @@ public interface IAnalisiDAO {
      * @return true se l'eliminazione è riuscita, false altrimenti
      * @throws possibile SQLException.
      */
-    boolean eliminaAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) throws SQLException;
+    public boolean eliminaAnalisi(int idCampione, int idPanel, AnalisiCampione analisi) throws SQLException;
+
+    /**
+     * Restituisce gli ID dei campioni analizzati.
+     * @return
+     * @throws SQLException
+     */
+    ArrayList<Integer> idCampioniAnalizzati() throws SQLException;
+
+
+    /**
+     * Restituisce gli ID dei panel dei campioni analizzati.
+     * @return
+     * @throws SQLException
+     */
+    ArrayList<Integer> idPanelCampioniAnalizzati() throws SQLException;
+
     
     
 

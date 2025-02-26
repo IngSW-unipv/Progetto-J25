@@ -12,6 +12,12 @@ public class Panelista extends Utente {
 		this.oreLavoro = oreLavoro;
     }
 
+	public Panelista(int id,String email, String nome, String cognome, String luogoNascita, LocalDate dataNascita, String codiceFiscale,
+					 String nickname, String password, String ruolo, String residenza){
+		super(id, email,  nome, cognome, luogoNascita, dataNascita, codiceFiscale,
+				nickname, password,  ruolo, residenza);
+	}
+
 
 	public double getOreLavoro() {
 		return oreLavoro;

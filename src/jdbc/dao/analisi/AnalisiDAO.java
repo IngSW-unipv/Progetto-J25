@@ -2,11 +2,11 @@ package jdbc.dao.analisi;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import modello.analisiCampione.AnalisiCampione;
-import modello.archiviazioneCampione.Campione;
-import modello.creazionePanel.Panel;
 import jdbc.ConnessioneDB;
 
 /* CREATE TABLE `ANALISI` (
@@ -30,15 +30,15 @@ public class AnalisiDAO implements IAnalisiDAO {
 
     // Metodo insertAnalisi
     @Override
-    public boolean insertAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) {
+    public boolean insertAnalisi(int idCampione, int idPanel, AnalisiCampione analisi) throws SQLException {
         
         //Controllo dati prima di eseguire la query per evitare di interagire con il database quando i dati non sono validi
-        if (campione == null || campione.getId() <= 0) {
-            throw new IllegalArgumentException("Campione non valido");
+        if (idCampione <= 0) {
+            throw new IllegalArgumentException(" ID Campione non valido");
         }
 
-        if (panel == null || panel.getId() <= 0) {
-            throw new IllegalArgumentException("Panel non valido");
+        if (idPanel <= 0) {
+            throw new IllegalArgumentException("ID Panel non valido");
         }
 
         if (analisi.getInizioAnalisi() == null || analisi.getFineAnalisi() == null) {
@@ -61,8 +61,8 @@ public class AnalisiDAO implements IAnalisiDAO {
              PreparedStatement ps1 = conn.prepareStatement(query)) {
             
             // Passiamo gli id esistenti e i valori dell'analisi
-            ps1.setInt(1, campione.getId());
-            ps1.setInt(2, panel.getId());
+            ps1.setInt(1, idCampione);
+            ps1.setInt(2, idPanel);
             ps1.setTime(3, java.sql.Time.valueOf(analisi.getInizioAnalisi()));
             ps1.setTime(4, java.sql.Time.valueOf(analisi.getFineAnalisi())); 
             ps1.setDouble(5, analisi.getGradazione());
@@ -85,15 +85,15 @@ public class AnalisiDAO implements IAnalisiDAO {
 
     // Metodo updateAnalisi
     @Override
-    public boolean updateAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) {
+    public boolean updateAnalisi(int idCampione, int idPanel, AnalisiCampione analisi) throws SQLException {
        
      //Controllo dati prima di eseguire la query per evitare di interagire con il database quando i dati non sono validi
-        if (campione == null || campione.getId() <= 0) {
-            throw new IllegalArgumentException("Campione non valido");
+        if (idCampione <= 0) {
+            throw new IllegalArgumentException("ID Campione non valido");
         }
 
-        if (panel == null || panel.getId() <= 0) {
-            throw new IllegalArgumentException("Panel non valido");
+        if (idPanel <= 0) {
+            throw new IllegalArgumentException(" ID Panel non valido");
         }
 
         if (analisi.getInizioAnalisi() == null || analisi.getFineAnalisi() == null) {
@@ -117,8 +117,8 @@ public class AnalisiDAO implements IAnalisiDAO {
              ps1.setTime(1, java.sql.Time.valueOf(analisi.getInizioAnalisi()));
              ps1.setTime(2, java.sql.Time.valueOf(analisi.getFineAnalisi())); 
              ps1.setDouble(3, analisi.getGradazione());
-             ps1.setInt(4, campione.getId());
-             ps1.setInt(5, panel.getId());
+             ps1.setInt(4, idCampione);
+             ps1.setInt(5, idPanel);
             
              int rowsAffected = ps1.executeUpdate();
              return (rowsAffected > 0);
@@ -134,10 +134,14 @@ public class AnalisiDAO implements IAnalisiDAO {
 
     // Metodo eliminaAnalisi
     @Override
-    public boolean eliminaAnalisi(Campione campione, Panel panel, AnalisiCampione analisi) {
+    public boolean eliminaAnalisi(int idCampione, int idPanel, AnalisiCampione analisi) throws SQLException {
         
-        if (campione == null || campione.getId() <= 0) {
-            throw new IllegalArgumentException("Campione non valido");
+        if (idCampione <= 0) {
+            throw new IllegalArgumentException("ID Campione non valido");
+        }
+
+        if (idPanel <= 0) {
+            throw new IllegalArgumentException("ID Panel non valido");
         }
 
         String query = "DELETE FROM osmotech.ANALISI WHERE ID_CAMPIONE = ? AND ID_PANEL = ?";
@@ -145,8 +149,8 @@ public class AnalisiDAO implements IAnalisiDAO {
         try (Connection conn = ConnessioneDB.startConnection(null, "osmotech");
              PreparedStatement ps1 = conn.prepareStatement(query)) {
             
-            ps1.setInt(1, campione.getId());
-            ps1.setInt(2, panel.getId());
+            ps1.setInt(1, idCampione);
+            ps1.setInt(2, idPanel);
             
             int rowsAffected = ps1.executeUpdate();
             return (rowsAffected > 0);
@@ -157,6 +161,59 @@ public class AnalisiDAO implements IAnalisiDAO {
             return false;
 
         }
+    }
+
+    // Metodo idCampioniAnalizzati
+    @Override
+    public ArrayList<Integer> idCampioniAnalizzati() {
+
+        ArrayList<Integer> idCampioni = new ArrayList<>();
+
+        String query = "SELECT DISTINCT ID_CAMPIONE FROM osmotech.ANALISI";
+
+        try (Connection conn = ConnessioneDB.startConnection(null, "osmotech");
+             PreparedStatement ps1 = conn.prepareStatement(query);
+             ResultSet rs1 = ps1.executeQuery()) {
+            
+            while (rs1.next()) {
+                idCampioni.add(rs1.getInt("ID_CAMPIONE"));
+            }
+
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+
+        }
+    
+        return idCampioni;
+
+    }
+
+
+    // Metodo idPanelCampioniAnalizzati
+    @Override
+    public ArrayList<Integer> idPanelCampioniAnalizzati() {
+
+        ArrayList<Integer> idPanel = new ArrayList<>();
+
+        String query = "SELECT DISTINCT ID_PANEL FROM osmotech.ANALISI";
+
+        try (Connection conn = ConnessioneDB.startConnection(null, "osmotech");
+             PreparedStatement ps1 = conn.prepareStatement(query);
+             ResultSet rs1 = ps1.executeQuery()) {
+            
+            while (rs1.next()) {
+                idPanel.add(rs1.getInt("ID_PANEL"));
+            }
+
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+
+        }
+    
+        return idPanel;
+
     }
 
 }
