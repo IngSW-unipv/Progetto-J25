@@ -53,6 +53,11 @@ public boolean cambioRuolo(int idUtente, String nuovoRuolo) throws SQLException 
 public boolean inserisciIban(String iban, Utente utenteLoggato) throws SQLException {
        return systemAutenticazione.inserisciIban(iban, utenteLoggato);
 }
+
+public boolean recuperoCredenziali(String email){
+        return systemAutenticazione.recuperaCredenziali(email);
+
+}
 }
 
 
