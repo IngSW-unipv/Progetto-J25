@@ -53,13 +53,14 @@ public class SystemCampione implements ISystemCampione{
 		return FacedeSingletonDB.getInstance().getCampioneDAO().eliminaCampione(id);
 	}
 	
-	/*
+	
+	@Override
 	public ArrayList<Integer> campioniNonAnalizzati(){
 		
 		return FacedeSingletonDB.getInstance().getCampioneDAO().trovaCampioneNonAnalizzato(); 
 	}
 	
-	*/
+	
 	
 
 }
