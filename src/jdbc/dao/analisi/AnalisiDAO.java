@@ -2,7 +2,9 @@ package jdbc.dao.analisi;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import modello.analisiCampione.AnalisiCampione;
 import jdbc.ConnessioneDB;
@@ -159,6 +161,59 @@ public class AnalisiDAO implements IAnalisiDAO {
             return false;
 
         }
+    }
+
+    // Metodo idCampioniAnalizzati
+    @Override
+    public ArrayList<Integer> idCampioniAnalizzati() {
+
+        ArrayList<Integer> idCampioni = new ArrayList<>();
+
+        String query = "SELECT DISTINCT ID_CAMPIONE FROM osmotech.ANALISI";
+
+        try (Connection conn = ConnessioneDB.startConnection(null, "osmotech");
+             PreparedStatement ps1 = conn.prepareStatement(query);
+             ResultSet rs1 = ps1.executeQuery()) {
+            
+            while (rs1.next()) {
+                idCampioni.add(rs1.getInt("ID_CAMPIONE"));
+            }
+
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+
+        }
+    
+        return idCampioni;
+
+    }
+
+
+    // Metodo idPanelCampioniAnalizzati
+    @Override
+    public ArrayList<Integer> idPanelCampioniAnalizzati() {
+
+        ArrayList<Integer> idPanel = new ArrayList<>();
+
+        String query = "SELECT DISTINCT ID_PANEL FROM osmotech.ANALISI";
+
+        try (Connection conn = ConnessioneDB.startConnection(null, "osmotech");
+             PreparedStatement ps1 = conn.prepareStatement(query);
+             ResultSet rs1 = ps1.executeQuery()) {
+            
+            while (rs1.next()) {
+                idPanel.add(rs1.getInt("ID_PANEL"));
+            }
+
+        } catch (Exception e) {
+            
+            e.printStackTrace();
+
+        }
+    
+        return idPanel;
+
     }
 
 }

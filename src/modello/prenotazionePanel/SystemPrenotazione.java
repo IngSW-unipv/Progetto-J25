@@ -92,5 +92,7 @@ public class SystemPrenotazione {
 		return FacedeSingletonDB.getInstance().getPanelDAO().aggiungiUtenteAlPanel(idPanel, p.getEmail());
 	}
 
+
+	
 	
 }
