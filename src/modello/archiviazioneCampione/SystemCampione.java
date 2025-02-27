@@ -21,6 +21,7 @@ public class SystemCampione implements ISystemCampione{
 	@Override
 	public ArrayList<Integer> getCampioniNonAnalizzati() {
 		return FacadeSingletonDB.getInstance().getSystemCampione().campioniNonAnalizzati;
+
 	}
 
 	@Override

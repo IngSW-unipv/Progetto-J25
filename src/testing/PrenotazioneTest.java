@@ -15,7 +15,7 @@ public class PrenotazioneTest {
 		
 		//SystemPrenotazione systemPrenotazione = FacedeSingletonDB.getInstance().getSystemPrenotazione();
 		
-		Panelista p = (Panelista) FactoryUtente.CreaUtente(TipoUtente.PANELISTA, "Alessia", 9 , "alessia.riccapl@gmail.com", 0, "Ricca", "Verbania",
+		Panelista p = (Panelista) FactoryUtente.CreaUtente(TipoUtente.PANELISTA, "Khawla", 10 , "khawla.ouaadoupa@gmail.com", 0, "Khawla", "Pavia",
 															LocalDate.now(), null, null, null, null, null, 0, 0);
 		
 		 PrenotazioneView prenotazioneView = new PrenotazioneView(p);
