@@ -11,5 +11,5 @@ public interface ISystemCampione {
 	boolean aggiornaCampione(int id, String stato);
 	boolean deleteCampione(int id);
 	void setCampioniNonAnalizzati(ArrayList<Integer> campioniNonAnalizzati);
-	public ArrayList<Integer> campioniNonAnalizzati();
+	
 }

@@ -45,9 +45,5 @@ public class CampioneController{
     public boolean eliminaCampione(int id) {
         return systemCampione.deleteCampione(id);
     }
-
-    public ArrayList<Integer> campioniNonAnalizzati() {
-        return systemCampione.campioniNonAnalizzati();
-    }
    
 }
