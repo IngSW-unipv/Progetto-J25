@@ -1,14 +1,11 @@
 package jdbc;
 
-import modello.Utente;
-import modello.email.NotificaMessage;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Properties;
 
 
