@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 
 public class ViewInsaccatore extends JFrame {
-    private static final long serialVersionUID = 1L;
     private PrenotaInsacController controller;
     private JLabel avviso;
     private int idInsaccatore;
@@ -29,7 +28,8 @@ public class ViewInsaccatore extends JFrame {
         setLayout(new BorderLayout());
 
         // messaggio iniziale, grande e centrato
-        avviso = new JLabel("<html><div style='text-align: center;'>Benvenut* nell'area di prenotazione degli Insaccatori!<br>Non ci sono turni al momento</div></html>", SwingConstants.CENTER);
+        avviso = new JLabel("Benvenut* nell'area di prenotazione degli Insaccatori!"
+        		+ "I turni non sono ancora disponibili...", SwingConstants.CENTER);
         avviso.setFont(new Font("Arial", Font.BOLD, 20));
         add(avviso, BorderLayout.NORTH); // il messaggio iniziale va nella parte superiore
 
@@ -41,7 +41,8 @@ public class ViewInsaccatore extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (controller != null) {
                     controller.tornaAllaViewPrincipale(); 
-                } else {
+                } 
+                else {
                     JOptionPane.showMessageDialog(null, "Errore: Controller non impostato.");
                 }
             }
@@ -49,7 +50,7 @@ public class ViewInsaccatore extends JFrame {
         botTornaIndietro.addActionListener(interazione);
         add(botTornaIndietro, BorderLayout.SOUTH);
 
-        setVisible(false);
+        setVisible(true);
     }
 
     // setters and getters
@@ -70,7 +71,7 @@ public class ViewInsaccatore extends JFrame {
  	}
  	
     // metodo per creare un bottone per un turno
-    private JButton creaBottoneTurno(Turno turno) {
+ 	private JButton creaBottoneTurno(Turno turno) {
         JButton botTurno = new JButton("Turno " + turno.getOrainizio() + " - " + turno.getDurata() + " min");
         botTurno.addActionListener(new ActionListener() {
             @Override
@@ -82,63 +83,77 @@ public class ViewInsaccatore extends JFrame {
     }
 
  // metodo per prenotare il turno, chiamato quando un bottone viene premuto
-    private void prenotaTurno(Turno turno) {
-        if (controller != null) {
-            try {
-                boolean successo = controller.prenotaTurno(turno);  // passa il turno al controller per prenotarlo
-                if (successo) {
-                    // mostra un messaggio di successo
-                    avviso.setText("<html><div style='text-align: center;'>Prenotazione riuscita! Turno alle " 
-                            + turno.getOrainizio() + " prenotato con successo.</div></html>");
-                } else {
-                    // mostra un messaggio di errore
-                    avviso.setText("<html><div style='text-align: center;'>Errore: Turno occupato. Non puoi prenotarti.</div></html>");
-                }
-            } catch (RuntimeException ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
+ 	private void prenotaTurno(Turno turno) {
+ 	    if (controller != null) {
+ 	        try {
+ 	            boolean successo = controller.prenotaTurno(turno);  // passa il turno al controller per prenotarlo
+ 	            if (successo) {
+ 	                // mostra una finestra di dialogo di successo
+ 	                JOptionPane.showMessageDialog(this, 
+ 	                    "Prenotazione riuscita! Turno alle " + turno.getOrainizio() + " prenotato con successo.", 
+ 	                    "Successo", 
+ 	                    JOptionPane.INFORMATION_MESSAGE);
+ 	            } else {
+ 	                // mostra una finestra di dialogo di errore
+ 	                JOptionPane.showMessageDialog(this, 
+ 	                    "Errore: Turno occupato. Non puoi prenotarti.", 
+ 	                    "Errore", 
+ 	                    JOptionPane.ERROR_MESSAGE);
+ 	            }
+ 	        } catch (RuntimeException ex) {
+ 	            // mostra un messaggio di errore se c'è una RuntimeException
+ 	            JOptionPane.showMessageDialog(this, 
+ 	                ex.getMessage(), 
+ 	                "Errore", 
+ 	                JOptionPane.ERROR_MESSAGE);
+ 	        }
+ 	    }
+ 	}
 
-
-    // metodo per aggiungere i bottoni dei turni alla griglia
-    private void aggiungiBottoniTurni(JPanel pannelloTurni, Giorno[] settimana) {
-        // Aggiungo i bottoni dei turni per ogni giorno, solo se esistono turni per quel giorno
-        for (int j = 0; j < settimana.length; j++) {
-            Giorno giorno = settimana[j];
-            ArrayList<Turno> turni = giorno.getTurni();
-
-            for (Turno turno : turni) {
-                // Creo un bottone per ogni turno disponibile
-                pannelloTurni.add(creaBottoneTurno(turno));  // Usa il metodo per creare il bottone
-            }
-
-            // Se il giorno non ha turni, aggiungo un'etichetta vuota
-            if (turni.isEmpty()) {
-                pannelloTurni.add(new JLabel("Turno non disponibile"));  // Un messaggio che segnala che non ci sono turni
-            }
-        }
-    }
     
+    
+ // metodo che permetter di cancellarsi dal turno
+
+    
+    
+
+
+
     // metodo di aggiornamento della view
     public void aggiornaTurni(Giorno[] settimana) {
         // rimuovo tutti i componenti (inclusi i bottoni) dalla vista
         getContentPane().removeAll();
-
-        // crea un pannello con GridLayout per i giorni e i turni
-        // 1 riga per i giorni e N righe per i turni (dove N è il massimo dei turni per giorno)
+        avviso = new JLabel("Seleziona un turno per prenotarti!", SwingConstants.CENTER);
+        avviso.setFont(new Font("Arial", Font.BOLD, 16));
+        add(avviso, BorderLayout.NORTH);
+        
+        // creo un pannello con gridLayout per i giorni e i turni
         JPanel pannelloTurni = new JPanel();
+        //cerco il massimo delle righe come il massimo dei turni tra i giorni della settimana
+        int maxturni = 0;
+        for (Giorno giorno : settimana) {
+            maxturni = Math.max(maxturni, giorno.getTurni().size());
+        }
+        pannelloTurni.setLayout(new GridLayout(maxturni + 1, settimana.length)); // una per i giorni, le altre righe per i turni
 
-        pannelloTurni.setLayout(new GridLayout(settimana[0].getTurni().size() + 1, settimana.length)); // 1 per i giorni, più righe per i turni
-
-        // aggiungo i titoli per giorni (Lunedì, Martedì, ...), prima colonna con i giorni
+        // aggiungo i titoli per giorni
         String[] giorni = {"Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì"};
         for (String giorno : giorni) {
-            pannelloTurni.add(new JLabel(giorno, SwingConstants.CENTER)); // intestazione dei giorni
+            pannelloTurni.add(new JLabel(giorno, SwingConstants.CENTER));
         }
 
         // aggiungi i bottoni dei turni alla griglia
-        aggiungiBottoniTurni(pannelloTurni, settimana);
+        for (int i = 0; i < maxturni; i++) {
+            for (Giorno giorno : settimana) {
+                ArrayList<Turno> turni = giorno.getTurni();
+                if (i < turni.size()) {
+                    pannelloTurni.add(creaBottoneTurno(turni.get(i))); 
+                } 
+                else {
+                    pannelloTurni.add(new JLabel("")); // se non ci sono turni lascia uno spazio vuoto
+                }
+            }
+        }
 
         // aggiungo il pannello con i turni alla finestra
         add(pannelloTurni, BorderLayout.CENTER);

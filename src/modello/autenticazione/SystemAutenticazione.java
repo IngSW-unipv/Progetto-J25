@@ -1,6 +1,6 @@
 package modello.autenticazione;
 
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 import modello.Utente;
 import modello.email.NotificaAttivazione;
 import view.autenticazione.HomeInsaccatore;
@@ -74,7 +74,7 @@ public class SystemAutenticazione {
 
     public void registrazioneUtente(String emailInput, String passwordInput, String luogoNascitaInput, LocalDate dataNascitaInput, String codiceFiscaleInput,
                                     String residenzaInput, String nicknameInput) throws SQLException {
-            FacedeSingletonDB.getInstance().getUserDAO().registraUtente(emailInput,passwordInput,luogoNascitaInput, dataNascitaInput, codiceFiscaleInput, residenzaInput, nicknameInput);
+            FacadeSingletonDB.getInstance().getUserDAO().registraUtente(emailInput,passwordInput,luogoNascitaInput, dataNascitaInput, codiceFiscaleInput, residenzaInput, nicknameInput);
             Utente u = trovaUtentePerEmail(emailInput);
         String[] emailParts = emailInput.split("@")[0].split("\\.");
         String nome = emailParts[0];
@@ -155,7 +155,7 @@ public class SystemAutenticazione {
 
            if(utenteLoggato.getPassword().equals(vecchiaPasswordInput)){
                utenteLoggato.setPassword(nuovaPasswordInput);
-               FacedeSingletonDB.getInstance().getUserDAO().cambiaPassword(utenteLoggato, nuovaPasswordInput);
+               FacadeSingletonDB.getInstance().getUserDAO().cambiaPassword(utenteLoggato, nuovaPasswordInput);
 
                return true;
            }
@@ -173,7 +173,7 @@ public class SystemAutenticazione {
         }
         if(utenteDaModificare != null){
             utenteDaModificare.setRuolo(ruolo);
-            FacedeSingletonDB.getInstance().getUserDAO().updateRuolo(id,ruolo);
+            FacadeSingletonDB.getInstance().getUserDAO().updateRuolo(id,ruolo);
             return true;
         }
 
@@ -184,7 +184,7 @@ public class SystemAutenticazione {
 public boolean inserisciIban(String iban, Utente utenteLoggato ) throws SQLException {
     if(!(utenteLoggato == null)){
         int userId = utenteLoggato.getId();
-        FacedeSingletonDB.getInstance().getUserDAO().inserisciIban(userId,iban);
+        FacadeSingletonDB.getInstance().getUserDAO().inserisciIban(userId,iban);
          return true;
                } return false;
 

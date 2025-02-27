@@ -1,35 +1,35 @@
 package controller;
 import java.time.LocalDate;
 
+import jdbc.FacadeSingletonInsaccatori;
 import modello.prenotazioneInsaccatore.*;
 import view.prenotazioneInsaccatore.*;
 
 public class PrenotaInsacController {
 	private ViewInsaccatore viewturni;
-	private InterPrincInsaccatore viewprinc;
-	private TestFacadeSingletonMax facade;
+	private ViewPrincInsaccatore viewprinc;
+	private FacadeSingletonInsaccatori facade;
 	
 	//COSTRUTTORE:
-	public PrenotaInsacController( ViewInsaccatore viewturni, InterPrincInsaccatore viewprinc) {
+	public PrenotaInsacController( ViewInsaccatore viewturni, ViewPrincInsaccatore viewprinc) {
 		this.viewturni = viewturni;
 		this.viewprinc = viewprinc;
 		//collego la view al controller:
 		this.viewturni.setController(this);
 		this.viewprinc.setController(this);
-		this.facade = TestFacadeSingletonMax.getIstanza();
+		this.facade = FacadeSingletonInsaccatori.getIstanza();
 	}
 	
 	
 	//METODI UTILI:
 	public void caricaTurni() {
-		//ottengo i giorni della settimana dalla facadde:
+		//ottengo i giorni della settimana dalla facade:
 		Giorno[] sett = facade.getSystemPrenotaTurnoInsacc().getSettimana();
-		viewturni.aggiornaTurni(sett);	
- 		
+		viewturni.aggiornaTurni(sett);		
 	}
 	
 	public void generaSettimanaTurni(LocalDate data,int durata) {
-		Giorno[] sett = facade.generaSettimanaTurni(data,durata);
+		facade.generaSettimanaTurni(data,durata);
 	}
 	
 	public boolean prenotaTurno(Turno t) {
@@ -39,10 +39,20 @@ public class PrenotaInsacController {
 		successo = true;
 		}catch(Exception e) {
 			e.printStackTrace();
-		}
+		}	
 		return successo;
 	}
 	
+	public boolean cancellaTurno(Turno t) {
+		boolean successo = false;
+		try {
+		facade.cancellazioneAlTurno(viewprinc.getIdInsaccatore(), t);
+		successo = true;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return successo;
+	}
 	
 	//METODI APERTURA VIEW:
 	public void apriViewInsaccatore() {

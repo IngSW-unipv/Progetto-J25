@@ -1,7 +1,10 @@
 package view.autenticazione;
 
 import controller.AutenticazioneController;
+import controller.PrenotaInsacController;
+import modello.Insaccatore;
 import modello.Utente;
+import view.prenotazioneInsaccatore.ViewInsaccatore;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,9 +14,14 @@ import java.sql.SQLException;
 
 public class HomeInsaccatore extends JFrame {
         private AutenticazioneController controller;
+        
+        private int idInsaccatore;
+  
 
-        public HomeInsaccatore(AutenticazioneController controller, Utente utente) {
+        public HomeInsaccatore(AutenticazioneController controller, Insaccatore utente) {
             this.controller = controller;
+            //System.out.println(utente.getId());
+           this.idInsaccatore = utente.getId();
 
             setTitle("Home Insaccatore");
             setSize(400, 200);
@@ -64,8 +72,25 @@ public class HomeInsaccatore extends JFrame {
                     }
                 }
             });
+            
+            //BOTTONE PER ACCEDERE AL CALENDARIO DEI TURNI:
+            JButton botCalendario = new JButton("Calendario Turni");
+
+            // creo l'oggetto ActionListener per aprire la finestra del calendario
+            ActionListener interazioneCalendario = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    new ViewInsaccatore(idInsaccatore);
+                }
+            };
+            botCalendario.addActionListener(interazioneCalendario); // aggiungo l'azione al pulsante
+            
+
+            
+            
             panel.add(btnModificaPassword);
             panel.add(btnInserisciIban);
+            panel.add(botCalendario);
             add(panel);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             setVisible(true);

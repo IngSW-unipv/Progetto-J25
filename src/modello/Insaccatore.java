@@ -35,12 +35,6 @@ public class Insaccatore extends Panelista {
 	public void setLimiteCanc(int limiteCanc) {
 		this.limiteCanc = limiteCanc;
 	}
-
-
-	
-	
-	
-	//METODI UTILI: 
 	
 	
 	

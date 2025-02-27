@@ -1,7 +1,7 @@
 package view.autenticazione;
 
 import controller.AutenticazioneController;
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 import modello.Insaccatore;
 import modello.Panelista;
 import modello.Utente;
@@ -50,7 +50,7 @@ public class LoginView extends JFrame {
                                 new HomePanelista(autenticazioneController, pa);
                                 break;
                             case "in":
-                                Insaccatore in = FacedeSingletonDB.getInstance().getUserDAO().getInsaccatore(utente.getId());
+                                Insaccatore in = FacadeSingletonDB.getInstance().getUserDAO().getInsaccatore(utente.getId());
                                 new HomeInsaccatore(autenticazioneController, in);
 
                                 break;

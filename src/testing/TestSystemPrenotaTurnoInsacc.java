@@ -1,18 +1,19 @@
 package testing;
 
 import controller.PrenotaInsacController;
+import jdbc.FacadeSingletonInsaccatori;
 import modello.Insaccatore;
 import view.prenotazioneInsaccatore.*;
 
 public class TestSystemPrenotaTurnoInsacc {
 	public static void main(String[] argvs) {
 		Insaccatore tommaso = new Insaccatore(777, null, null, null, null, null, null, null, 0, null, null, null, 0, 0);
-		TestFacadeSingletonMax facade= TestFacadeSingletonMax.getIstanza();
-		InterPrincInsaccatore viewprinc = new InterPrincInsaccatore(tommaso.getId());
+		FacadeSingletonInsaccatori facade= FacadeSingletonInsaccatori.getIstanza();
+		ViewPrincInsaccatore viewprinc = new ViewPrincInsaccatore(tommaso.getId());
 		ViewInsaccatore viewturni = new ViewInsaccatore(tommaso.getId());
 		 viewturni.setVisible(false);
 		 viewprinc.setVisible(true);
-	
+		 
 		PrenotaInsacController controller = new PrenotaInsacController(viewturni,viewprinc);
 		facade.getSystemPrenotaTurnoInsacc();
 		

@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import controller.CampioneController;
 import jdbc.dao.campione.*;
 import jdbc.ConnessioneDB;
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 
 public class SystemCampioneTest {
 
@@ -46,7 +46,7 @@ public class SystemCampioneTest {
 		
 		
 	
-		 ISystemCampione sys = FacedeSingletonDB.getInstance().getSystemCampione();
+		 ISystemCampione sys = FacadeSingletonDB.getInstance().getSystemCampione();
 		 
 		 CampioneController campioneController = new CampioneController(sys);
 		

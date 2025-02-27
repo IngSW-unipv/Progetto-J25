@@ -1,6 +1,6 @@
 package modello.documento;
 
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 import modello.Panelista;
 
 public class SystemDocumento implements ISystemDocumento {
@@ -14,7 +14,7 @@ public class SystemDocumento implements ISystemDocumento {
 	@Override
 	public Panelista restituisciPanelista(int id) {
 		
-		Panelista panelista = FacedeSingletonDB.getInstance().getUserDAO().selectPanelista(id);
+		Panelista panelista = FacadeSingletonDB.getInstance().getUserDAO().selectPanelista(id);
 		
 		if(panelista == null) {
 			
@@ -26,7 +26,7 @@ public class SystemDocumento implements ISystemDocumento {
 	@Override
 	public double oreLavoroPanelista(int id, String mese) {
 		
-		double ore = FacedeSingletonDB.getInstance().getOreLavoroDAO().selectOreLavoro(id, mese);
+		double ore = FacadeSingletonDB.getInstance().getOreLavoroDAO().selectOreLavoro(id, mese);
 		
 		if(ore < 0) {
 			

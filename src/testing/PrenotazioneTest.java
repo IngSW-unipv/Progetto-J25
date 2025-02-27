@@ -2,7 +2,7 @@ package testing;
 
 import java.time.LocalDate;
 
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 import modello.Panelista;
 import modello.TipoUtente;
 import modello.prenotazionePanel.SystemPrenotazione;

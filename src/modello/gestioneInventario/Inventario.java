@@ -31,13 +31,23 @@ public class Inventario {
 	
 	//METODI UTILI:
 	
-	public void aggiornaSacche(int sacche,boolean usoNalophan) {
-		this.sacche += sacche;
-		tappi-=sacche;
-		tubi-=sacche;
-		buste-=sacche;
-		this.controllo();
-	}
+	
+		public void aggiungiSacche(int sacche, boolean usoNalophan) {
+		    if (this.sacche + sacche < 0 || tappi - sacche < 0 || tubi - sacche < 0 || buste - sacche < 0) {
+		        System.out.println("Errore: quantità insufficiente di materiali.");
+		        return; // Non eseguire l'operazione
+		    }
+		    
+		    if(sacche>=0) {
+		    	this.sacche += sacche;
+		    	tappi -= sacche;
+		    	tubi -= sacche;
+		    	buste -= sacche;
+		    }
+		    else this.sacche+=sacche;
+		    	
+		}
+
 	
 	public void realizzazioneTappiTubi(int tappi, int tubi, int rotoli, int stecche) {
 		this.tappi += tappi;

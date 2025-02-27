@@ -8,7 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 import modello.Panelista;
 import modello.Utente;
 import modello.creazionePanel.Panel;
