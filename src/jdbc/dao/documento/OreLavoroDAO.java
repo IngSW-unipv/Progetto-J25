@@ -90,6 +90,30 @@ public class OreLavoroDAO implements IOreLavoroDAO {
 	}
 
 
+	// Aggiunta metodo per aggiornare ore lavorate dai panelisti (Andres)
+	public boolean aggiornaOreLavoro(int userId, String mese, double nuoveOre) {
+
+		String query = "UPDATE osmotech.ORE_LAVORATE SET ORE = ? WHERE USER_ID = ? AND MESE = ?";
+
+		try (Connection conn = ConnessioneDB.startConnection(null, "osmotech");
+			 PreparedStatement ps = conn.prepareStatement(query)) {
+
+
+				ps.setInt(1,userId);
+				ps.setString(2, mese);
+				ps.setDouble(3, nuoveOre);
+				ps.executeUpdate();
+
+			 } catch (SQLException e) {
+				 e.printStackTrace();
+				 return false;
+			 }
+
+		return true;
+
+	}
+
+
 
 
 }

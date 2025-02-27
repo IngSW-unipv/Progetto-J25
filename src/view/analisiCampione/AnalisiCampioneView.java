@@ -3,8 +3,8 @@ package view.analisiCampione;
 
 import controller.AnalisiController;
 import controller.CampioneController;
+import jdbc.FacedeSingletonDB;
 import modello.analisiCampione.AnalisiCampione;
-import modello.archiviazioneCampione.SystemCampione;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,10 +24,10 @@ public class AnalisiCampioneView  {
     private JTextArea displayArea;
 
 
-    public AnalisiCampioneView(AnalisiController analisiController, CampioneController CampioneController) {
+    public AnalisiCampioneView(AnalisiController analisiController) {
        
         this.analisiController = analisiController;
-        this.campioneController = CampioneController;
+       // this.campioneController = campioneController;
         frame = new JFrame("Analisi Campioni");
         frame.setSize(700, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -80,7 +80,7 @@ public class AnalisiCampioneView  {
         try {
 
             // Recupero gli ID dei campioni non analizzati
-            ArrayList<Integer> idCampioniNonAnalizzati = campioneController.campioniNonAnalizzati();
+            ArrayList<Integer> idCampioniNonAnalizzati = FacedeSingletonDB.getInstance().getSystemCampione().getCampioniNonAnalizzati();
             
 
             if(idCampioniNonAnalizzati.isEmpty()) {
@@ -266,10 +266,9 @@ public class AnalisiCampioneView  {
 
     public static void main(String[] args) {
         AnalisiController analisiController = new AnalisiController();
-        SystemCampione systemCampione = new SystemCampione();  
-        CampioneController campioneController = new CampioneController(systemCampione);
-        AnalisiCampioneView analisiView = new AnalisiCampioneView(analisiController, campioneController);
+        AnalisiCampioneView analisiView = new AnalisiCampioneView(analisiController);
         analisiView.frame.setVisible(true);
+        //System.out.println(campioneController.getSystemCampione().getCampioniNonAnalizzati().size());
     }
 
 }

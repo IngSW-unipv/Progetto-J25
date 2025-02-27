@@ -111,4 +111,22 @@ public class GiornoDAO implements IGiornoDAO {
             ConnessioneDB.closeConnection(connessione);
         }
     }
+    
+    
+    
+    //METODO PER SVUOTARE L'INTERA SETTIMANA DI GIORNI: 
+    public void svuotaSettimana() {
+    	connessione = ConnessioneDB.startConnection(connessione, DB);
+    	String sql = "DELETE FROM GIORNO";
+    	
+    	try(PreparedStatement st = connessione.prepareStatement(sql)){
+    		//cancello tutti i giorni:
+    		st.executeUpdate();
+    	}
+    	catch(SQLException q) {
+    		throw new RuntimeException("Errore nell'eliminare tutte la settimana in GIORNO",q);
+    	}finally {
+    		ConnessioneDB.closeConnection(connessione);
+    	}
+    }
 }

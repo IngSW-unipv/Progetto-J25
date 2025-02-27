@@ -1,5 +1,4 @@
 package view.prenotazioneInsaccatore;
-
 import javax.swing.*;
 
 import controller.PrenotaInsacController;
@@ -9,10 +8,16 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+
 public class InterPrincInsaccatore extends JFrame{
+	//ATTRIBUTI:
+	private int idInsaccatore;
+	
 	private PrenotaInsacController controller;
-	public InterPrincInsaccatore() {
+	public InterPrincInsaccatore(int idInsaccatore) {
 		super("Sezione Insaccatore");
+		this.idInsaccatore = idInsaccatore;
+		
 		setSize(600,400);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new java.awt.FlowLayout()); //flowlayout mi serve per disporre gli elementi in modo orizzontale
@@ -61,10 +66,15 @@ public class InterPrincInsaccatore extends JFrame{
     public void setController(PrenotaInsacController controller) {
         this.controller = controller;
     }
-	
-	
-	public static void main(String[] args) {
-		new InterPrincInsaccatore();	
-	}
+    
+    //SETTER GETTER VARI:
+    public int getIdInsaccatore() {
+ 		return idInsaccatore;
+ 	}
+
+ 	public void setIdInsaccatore(int idInsaccatore) {
+ 		this.idInsaccatore = idInsaccatore;
+ 	}
+
 }
 

@@ -5,6 +5,8 @@ import jdbc.dao.campione.CampioneDAO;
 import jdbc.dao.campione.ICampioneDAO;
 import jdbc.dao.documento.IOreLavoroDAO;
 import jdbc.dao.documento.OreLavoroDAO;
+import jdbc.dao.max.IMagazzinoDAO;
+import jdbc.dao.max.MagazzinoDAO;
 import jdbc.dao.analisi.IAnalisiDAO;
 import jdbc.dao.analisi.AnalisiDAO;
 import modello.archiviazioneCampione.SystemCampione;
@@ -13,6 +15,7 @@ import modello.creazionePanel.Slot;
 import modello.creazionePanel.Sondaggio;
 import modello.creazionePanel.SystemPubblicazionePanel;
 import modello.documento.SystemDocumento;
+import modello.gestioneInventario.Inventario;
 import modello.prenotazionePanel.SystemPrenotazione;
 import modello.analisiCampione.SystemAnalisi;
 import modello.Utente;
@@ -36,6 +39,7 @@ public class FacedeSingletonDB {
     private ICampioneDAO campioneDAO;
     private IOreLavoroDAO lavoroDAO;
     private IAnalisiDAO analisiDAO;
+    private IMagazzinoDAO magazzinoDAO;
 
     private SystemPubblicazionePanel systemPubblicazionePanel;
     private SystemPrenotazione systemPrenotazione;
@@ -43,6 +47,7 @@ public class FacedeSingletonDB {
     private SystemDocumento systemDocumento;
     private SystemAutenticazione systemAutenticazione;
     private SystemAnalisi systemAnalisi;
+    private Inventario inventario;
 
     private FacedeSingletonDB() {
         this.panelDAO = new PanelDAO();
@@ -54,6 +59,7 @@ public class FacedeSingletonDB {
         this.campioneDAO = new CampioneDAO();
         this.oreLavoroDAO = new OreLavoroDAO();
         this.analisiDAO = new AnalisiDAO();
+        this.magazzinoDAO = new MagazzinoDAO();
     }
 
     public static FacedeSingletonDB getInstance() {
@@ -92,6 +98,15 @@ public class FacedeSingletonDB {
     	return systemDocumento;
     }
     
+    public Inventario getInventario() {
+    	
+    	if(inventario == null) {
+    		
+    		inventario = new Inventario();
+    	}
+    	
+    	return inventario;
+    }
     
     public ArrayList<Sondaggio> popolaSondaggi() {
         ArrayList<Sondaggio> sondaggi = sondaggioDAO.selectAllSondaggi();
@@ -180,5 +195,12 @@ public class FacedeSingletonDB {
         return analisiDAO;
     }
 
+	public IMagazzinoDAO getMagazzinoDAO() {
+		return magazzinoDAO;
+	}
+
+	
+
+    
 
 }

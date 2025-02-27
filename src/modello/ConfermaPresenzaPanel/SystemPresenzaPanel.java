@@ -11,7 +11,12 @@ package modello.ConfermaPresenzaPanel;
 
 
 
- 
+
 public class SystemPresenzaPanel {
+
+    SystemPresenzaPanel() {
+    }
+
+    
     
 }

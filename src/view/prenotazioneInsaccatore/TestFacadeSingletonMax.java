@@ -1,9 +1,12 @@
 package view.prenotazioneInsaccatore;
 
 
+import jdbc.bean.IUserDAO;
+import jdbc.bean.UserDAO;
 import jdbc.dao.max.*;
+import modello.Insaccatore;
+import modello.gestioneInventario.Inventario;
 import modello.prenotazioneInsaccatore.*;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjuster;
@@ -12,18 +15,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-
-
-
 public class TestFacadeSingletonMax {
 	//ATTRIBUTI:
 	private static TestFacadeSingletonMax istanza;
 	//attributi DAO:
 	private ITurnoDAO turnoDAO;
 	private IGiornoDAO giornoDAO;
+	private IUserDAO userDAO;
+	private MagazzinoDAO invDAO;
 	
 	//attributi system:
 	private SystemPrenotaTurnoInsacc systeminsac;
+	private Inventario inventario;
 	
 	
 	//COSTRUTTORE
@@ -34,6 +37,7 @@ public class TestFacadeSingletonMax {
 		//inizializzo i dao:
 		this.turnoDAO = new TurnoDAO();
 		this.giornoDAO = new GiornoDAO();
+		this.userDAO = new UserDAO();
 	}
 	
 	//METODI GETTER:
@@ -44,14 +48,24 @@ public class TestFacadeSingletonMax {
 		return istanza;
 	}
 	
+	public Inventario getInventario() {
+		if(inventario==null) {
+			//istanzio un nuovo inventario per la facade, dovrà rifarsi a quella presente nel database
+			inventario = invDAO.trovaInventario();
+		}
+		return inventario;
+	}
+	
+	
+	
 	//lazy initialization dei system:
 	public SystemPrenotaTurnoInsacc getSystemPrenotaTurnoInsacc(){
 		if(systeminsac==null) {
 			//istanzio un nuovo systeminsaccatori
 			systeminsac = new SystemPrenotaTurnoInsacc();
-			if(!settimanaEsistente()) 
-				{generaSettimanaPredefinita();
-				istanza.aggiornaSettimanaNelDatabase();
+			if(!settimanaEsistente()) {
+					generaSettimanaPredefinita();
+					istanza.aggiornaSettimanaNelDatabase();
 				}
 			else
 			//carico questo system con l'ultima versione della settimana presente sul db:
@@ -64,7 +78,15 @@ public class TestFacadeSingletonMax {
 	//GETTER DAO:
 	
 	
-	//METODI UTILI:
+	
+	
+	
+	//METODI UTILI INVENTARIO:
+
+	
+	
+	
+	//METODI UTILI SETTIMANA TURNI:
 	
 	
 	public void generaSettimanaPredefinita() {
@@ -89,6 +111,7 @@ public class TestFacadeSingletonMax {
 	    return true;
 	}
 	
+
 	
 	
 	//metodo per aggiornare la settimana del database:
@@ -164,9 +187,16 @@ public class TestFacadeSingletonMax {
 	//metodo per generare una settimana in modo automatico data la durata dei turni:
 	public Giorno[] generaSettimanaTurni(LocalDate data,int durata) {
 		systeminsac.generaSettAuto(data,durata);
-		//il sistema aggiorna il database con la nuova settimana appena generata:
-		aggiornaSettimanaNelDatabase();
+		giornoDAO.svuotaSettimana();
+		aggiornaSettimanaNelDatabase();		//il sistema aggiorna il database con la nuova settimana appena generata:
 		return systeminsac.getSettimana();
+	}
+	
+	
+	//metodo per eseguire la prenotazione ad un insaccatore al turno selezionato:
+	public void prenotazioneAlTurno(int idIns,Turno t) {
+		turnoDAO.gestisciTurnoInsac(true,t.getId(),idIns);
+
 	}
 	
 	

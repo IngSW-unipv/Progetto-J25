@@ -305,6 +305,11 @@ public class UserDAO implements IUserDAO{
         return listaUtenti;
     }
 
+
+    
+    
+ 
+
     public void cambiaPassword(Utente utente, String passwordInput ) throws SQLException {
         connection = ConnessioneDB.startConnection(connection, "osmotech");
         String query = "UPDATE UTENTE SET PASSWORD = ? WHERE EMAIL = ?";
@@ -423,8 +428,8 @@ public class UserDAO implements IUserDAO{
 
         return insaccatore;  // Restituisci l'insaccatore o null se non trovato
     }
-
-
+    
+    
 
 
 }

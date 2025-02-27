@@ -41,7 +41,6 @@ public class DocumentoView {
                        
         
 				
-				
 			}
 			
 			
@@ -50,6 +49,8 @@ public class DocumentoView {
 		frame.getContentPane().add(btnDocumento);
 		frame.setVisible(true);
 	}
+	
+	
 	
 	
 }
