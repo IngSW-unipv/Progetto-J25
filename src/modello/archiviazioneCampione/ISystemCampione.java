@@ -10,6 +10,7 @@ public interface ISystemCampione {
 	ArrayList<Campione> selezionaCampioni();
 	boolean aggiornaCampione(int id, String stato);
 	boolean deleteCampione(int id);
+	ArrayList<Integer> getCampioniNonAnalizzati();
 	void setCampioniNonAnalizzati(ArrayList<Integer> campioniNonAnalizzati);
-	public ArrayList<Integer> campioniNonAnalizzati();
+	
 }

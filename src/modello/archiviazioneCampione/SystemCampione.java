@@ -17,6 +17,11 @@ public class SystemCampione implements ISystemCampione{
 	}
 
 	@Override
+	public ArrayList<Integer> getCampioniNonAnalizzati() {
+		return campioniNonAnalizzati;
+	}
+
+	@Override
 	public void setCampioniNonAnalizzati(ArrayList<Integer> campioniNonAnalizzati) {
 		this.campioniNonAnalizzati = campioniNonAnalizzati;
 	}
@@ -57,15 +62,6 @@ public class SystemCampione implements ISystemCampione{
 		
 		return FacedeSingletonDB.getInstance().getCampioneDAO().eliminaCampione(id);
 	}
-	
-	
-	@Override
-	public ArrayList<Integer> campioniNonAnalizzati(){
-		
-		return FacedeSingletonDB.getInstance().getCampioneDAO().trovaCampioneNonAnalizzato(); 
-	}
-	
-	
 	
 
 }
