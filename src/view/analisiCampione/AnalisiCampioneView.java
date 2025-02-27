@@ -270,6 +270,7 @@ public class AnalisiCampioneView  {
         CampioneController campioneController = new CampioneController(systemCampione);
         AnalisiCampioneView analisiView = new AnalisiCampioneView(analisiController, campioneController);
         analisiView.frame.setVisible(true);
+        //System.out.println(campioneController.getSystemCampione().getCampioniNonAnalizzati().size());
     }
 
 }

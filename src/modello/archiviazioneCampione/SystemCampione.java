@@ -18,7 +18,7 @@ public class SystemCampione implements ISystemCampione{
 
 	@Override
 	public ArrayList<Integer> getCampioniNonAnalizzati() {
-		return campioniNonAnalizzati;
+		return FacedeSingletonDB.getInstance().getSystemCampione().campioniNonAnalizzati;
 	}
 
 	@Override
