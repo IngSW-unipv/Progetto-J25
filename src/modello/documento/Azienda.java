@@ -7,9 +7,11 @@ import java.util.ArrayList;
 
 
 public class Azienda {
+	
 	private IGestoreStipendi gestore;
 	private ISystemDocumento systemDocumento;
 	private ArrayList<Panelista> panelista;
+	
 	public Azienda(IGestoreStipendi gestore, ISystemDocumento systemDocumento) {
 			
 		this.gestore = gestore;
