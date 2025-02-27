@@ -2,13 +2,8 @@ package testing;
 import modello.archiviazioneCampione.*;
 import view.archiviazioneCampione.CampioneView;
 
-import java.sql.Connection;
-import java.time.LocalDate;
-
 import controller.CampioneController;
-import jdbc.dao.campione.*;
-import jdbc.ConnessioneDB;
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 
 public class SystemCampioneTest {
 
@@ -44,7 +39,7 @@ public class SystemCampioneTest {
 	  //    boolean eliminato = sys.deleteCampione(5);
 	   //   System.out.println("Campione eliminato? " + eliminato);
 	
-		 SystemCampione sys = FacedeSingletonDB.getInstance().getSystemCampione();
+		 SystemCampione sys = FacadeSingletonDB.getInstance().getSystemCampione();
 		 
 		 CampioneController campioneController = new CampioneController(sys);
 		 CampioneView campioneView = new CampioneView(campioneController);

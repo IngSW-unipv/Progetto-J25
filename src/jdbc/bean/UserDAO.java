@@ -9,51 +9,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class UserDAO implements IUserDAO{
-	
+
     private Connection connection;
-    
-    public UserDAO() {
-        super();
-    }
 
-    public UserDAO(Connection conn) {
-        this.connection = connection;
-
-
-
-    }
-
- /* @Override
-    public boolean controlloEmail(String emailInput) throws SQLException {
-        connection = ConnessioneDB.startConnection(connection, "osmotech");
-        PreparedStatement pst = null; //crei oggetto dentro il quale mettere la query
-        ResultSet rs = null;
-        boolean emailTrovata = false; //inizialmente si asssume che l'email non sia trovata
-        try{
-            String query = "SELECT 1 FROM osmotech.UTENTE WHERE EMAIL = ?";
-            pst = connection.prepareStatement(query);
-            pst.setString(1, emailInput);
-            rs = pst.executeQuery();
-
-            if(rs.next()) {
-                emailTrovata = true;
-            } }
-
-        catch(SQLException e){
-            e.printStackTrace();
-        } finally {
-            try {
-                if(pst != null) rs.close();
-                if(pst != null) pst.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            ConnessioneDB.closeConnection(connection);
-        }
-        return emailTrovata;
-    } */
-  
-  
 @Override
   public void registraUtente(String emailInput, String passwordInput, String luogoNascitaInput, LocalDate dataNascitaInput,String codiceFiscaleInput,
                              String residenzaInput, String nicknameInput) throws SQLException {
@@ -171,95 +129,6 @@ public class UserDAO implements IUserDAO{
     }
 
 
-
-    public String controlloLogin(String usernameOrEmailInput, String passwordInput) throws SQLException {
-        connection = ConnessioneDB.startConnection(connection, "osmotech");
-        PreparedStatement pst = null;
-        ResultSet rs = null;
-        String ruolo = null;
-        try{
-            String query = "SELECT RUOLO FROM osmotech.UTENTE WHERE (EMAIL = ? OR NICKNAME = ?) AND PASSWORD = ?";
-            pst = connection.prepareStatement(query);
-            pst.setString(1, usernameOrEmailInput);
-            pst.setString(2, usernameOrEmailInput);
-            pst.setString(3, passwordInput);
-            rs = pst.executeQuery();
-
-            if(rs.next()) {
-                ruolo = rs.getString("RUOLO");
-            } else {
-                System.out.println("Credenziali non valide.");
-            }
-
-        } catch(SQLException e){
-            e.printStackTrace();
-        } finally {
-            if(pst != null) pst.close();
-            if(rs != null) rs.close();
-            ConnessioneDB.closeConnection(connection);
-        }
-        return ruolo;
-  }
-
-
-
-  public boolean cambiaRuoloUtente(String email, String nuovoRuolo) throws SQLException {
-        connection = ConnessioneDB.startConnection(connection, "osmotech");
-        PreparedStatement pst = null;
-        boolean successo = false;
-
-        try {
-            String query = "UPDATE osmotech.UTENTE SET RUOLO = ? WHERE EMAIL = ?";
-            pst = connection.prepareStatement(query);
-            pst.setString(1, nuovoRuolo);
-            pst.setString(2, email);
-
-            int rowsUpdated = pst.executeUpdate();
-            if (rowsUpdated > 0) {
-                successo = true;
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (pst != null) {
-                pst.close();
-            }
-            ConnessioneDB.closeConnection(connection);
-        }
-
-        return successo;
-    }
-
-    public String getRuoloByEmail(String email) throws SQLException {
-        connection = ConnessioneDB.startConnection(connection, "osmotech");
-        PreparedStatement pst = null;
-        ResultSet rs = null;
-        String ruolo = null;
-
-        try {
-            String query = "SELECT RUOLO FROM UTENTE WHERE EMAIL = ?";
-            pst = connection.prepareStatement(query);
-            pst.setString(1, email);
-            rs = pst.executeQuery();
-
-            if (rs.next()) {
-                ruolo = rs.getString("RUOLO");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pst != null) pst.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            ConnessioneDB.closeConnection(connection);
-        }
-
-        return ruolo;
-    }
     public ArrayList<Utente> getAllUtenti() throws SQLException {
         ArrayList<Utente> listaUtenti = new ArrayList<>();
         connection = ConnessioneDB.startConnection(connection, "osmotech");
@@ -325,7 +194,10 @@ public class UserDAO implements IUserDAO{
                 pst.setInt(2, id);
                 int rowsUpdated = pst.executeUpdate();
                 return rowsUpdated > 0;
+
+
     }
+
 
     }
 

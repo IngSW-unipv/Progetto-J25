@@ -1,6 +1,6 @@
 package modello.documento;
 
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 import modello.Panelista;
 
 public class SystemDocumento {
@@ -13,12 +13,12 @@ public class SystemDocumento {
 	
 	public Panelista restituisciPanelista(int id) {
 		
-		return FacedeSingletonDB.getInstance().getUserDAO().selectPanelista(id);
+		return FacadeSingletonDB.getInstance().getUserDAO().selectPanelista(id);
 	}
 	
 	public double oreLavoroPanelista(int id, String mese) {
 		
-		return FacedeSingletonDB.getInstance().getOreLavoroDAO().selectOreLavoro(id, mese);
+		return FacadeSingletonDB.getInstance().getOreLavoroDAO().selectOreLavoro(id, mese);
 	}
 	
 	

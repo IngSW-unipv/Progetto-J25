@@ -1,9 +1,11 @@
 package view.autenticazione;
+import controller.AnalisiController;
 import controller.AutenticazioneController;
 import controller.CampioneController;
 import controller.SondaggioController;
 import modello.Utente;
 import modello.archiviazioneCampione.SystemCampione;
+import view.analisiCampione.AnalisiCampioneView;
 import view.archiviazioneCampione.CampioneView;
 import view.creazioneSondaggio.SondaggioView;
 
@@ -30,6 +32,8 @@ public class HomePanelLeader extends JFrame {
         JPanel panel = new JPanel(new GridLayout(4,1));
         JButton btnCreazioneSondaggio = new JButton("Creazione Sondaggio");
         btnCreazioneSondaggio.addActionListener(e -> new SondaggioView(new SondaggioController()));
+       // JButton btnAnalisiCampione = new JButton("Analisi Campione");
+       // btnAnalisiCampione.addActionListener(e -> new AnalisiCampioneView(new AnalisiController());
         JButton btnModificaPassword = new JButton("Modifica Password");
         JButton btnArchiviazioneCampioni = new JButton("archiviazione campione");
         btnArchiviazioneCampioni.addActionListener(e -> new CampioneView(new CampioneController(new SystemCampione())));
@@ -84,6 +88,7 @@ public class HomePanelLeader extends JFrame {
                 dispose();
             }
         });
+
 
         panel.add(btnModificaPassword);
         panel.add(btnCambiaRuolo);

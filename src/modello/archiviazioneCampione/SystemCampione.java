@@ -3,7 +3,7 @@ import java.time.LocalDate;
 
 import java.util.ArrayList;
 
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 
 public class SystemCampione {
 	
@@ -25,34 +25,34 @@ public class SystemCampione {
 	public boolean registraCampione(int id, String stato, LocalDate ld) {
 		
 		
-		return FacedeSingletonDB.getInstance().getCampioneDAO().insertCampione(id, stato, ld);
+		return FacadeSingletonDB.getInstance().getCampioneDAO().insertCampione(id, stato, ld);
 		
 	}
 	
 	public Campione trovaCampione(int id) {
 		
-		return FacedeSingletonDB.getInstance().getCampioneDAO().trovaCampionePerId(id);
+		return FacadeSingletonDB.getInstance().getCampioneDAO().trovaCampionePerId(id);
 	}
 	
 	
 	public ArrayList<Campione> selezionaCampioni(){
 		
-		return FacedeSingletonDB.getInstance().getCampioneDAO().selectAllCampioni();
+		return FacadeSingletonDB.getInstance().getCampioneDAO().selectAllCampioni();
 	}
 	
 	public boolean aggiornaCampione(int id, String stato) {
 		
-		return FacedeSingletonDB.getInstance().getCampioneDAO().updateCampione(id, stato);
+		return FacadeSingletonDB.getInstance().getCampioneDAO().updateCampione(id, stato);
 	}
 	
 	public boolean deleteCampione(int id) {
 		
-		return FacedeSingletonDB.getInstance().getCampioneDAO().eliminaCampione(id);
+		return FacadeSingletonDB.getInstance().getCampioneDAO().eliminaCampione(id);
 	}
 	
 	public ArrayList<Integer> campioniNonAnalizzati(){
 		
-		return FacedeSingletonDB.getInstance().getCampioneDAO().trovaCampioneNonAnalizzato(); //serve ancora?
+		return FacadeSingletonDB.getInstance().getCampioneDAO().trovaCampioneNonAnalizzato(); //serve ancora?
 	}
 	
 	

@@ -1,7 +1,6 @@
 package controller;
 
-import jdbc.FacedeSingletonDB;
-import modello.Panelista;
+import jdbc.FacadeSingletonDB;
 import modello.Utente;
 import modello.creazionePanel.Panel;
 import modello.prenotazionePanel.SystemPrenotazione;
@@ -12,7 +11,7 @@ public class PanelController {
     private SystemPrenotazione systemPrenotazione;
 
     public PanelController() {
-        this.systemPrenotazione = FacedeSingletonDB.getInstance().getSystemPrenotazione();
+        this.systemPrenotazione = FacadeSingletonDB.getInstance().getSystemPrenotazione();
     }
 
     public ArrayList<Panel> getPanels(){

@@ -8,11 +8,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 
-import jdbc.FacedeSingletonDB;
 import modello.Panelista;
-import modello.Utente;
 import modello.creazionePanel.Panel;
-import modello.prenotazionePanel.SystemPrenotazione;
 
 public class PanelView extends JFrame {
     private PanelController controller;
