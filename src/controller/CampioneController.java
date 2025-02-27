@@ -47,8 +47,8 @@ public class CampioneController{
     }
 
 
-	public ISystemCampione getSystemCampione() {
-		return systemCampione;
-	}
+	//public ISystemCampione getSystemCampione() {
+	//	return systemCampione;
+	//}
    
 }
