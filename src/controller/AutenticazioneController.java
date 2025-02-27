@@ -1,6 +1,6 @@
 package controller;
 
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 import modello.Utente;
 import modello.autenticazione.SystemAutenticazione;
 
@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public class AutenticazioneController{
 private SystemAutenticazione systemAutenticazione;
     public AutenticazioneController() throws SQLException {
-        this.systemAutenticazione= FacedeSingletonDB.getInstance().getSystemAutenticazione();
+        this.systemAutenticazione= FacadeSingletonDB.getInstance().getSystemAutenticazione();
     }
 
 public boolean attivaEmail(String email) throws SQLException {

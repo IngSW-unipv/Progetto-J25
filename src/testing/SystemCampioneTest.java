@@ -6,19 +6,19 @@ import java.sql.Connection;
 import java.time.LocalDate;
 
 import controller.CampioneController;
-import jdbc.dao.campione.*;
-import jdbc.ConnessioneDB;
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 
 public class SystemCampioneTest {
 
 	public static void main(String[] args) {
+
 	
-		 ISystemCampione sys = FacedeSingletonDB.getInstance().getSystemCampione();
+		 SystemCampione sys = FacadeSingletonDB.getInstance().getSystemCampione();
 		 
 		 CampioneController campioneController = new CampioneController(sys);
-		
-		
+		 CampioneView campioneView = new CampioneView(campioneController);
+		 
+	        
 	}
 
 }

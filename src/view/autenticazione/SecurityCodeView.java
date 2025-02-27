@@ -39,7 +39,7 @@ public class SecurityCodeView extends JFrame {
                     new RegistrazioneView(autenticazioneController, email);
                     dispose();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Codice non trovato, riprova");
+                    JOptionPane.showMessageDialog(null, "Codice non corretto, riprova");
                 }
 
             }

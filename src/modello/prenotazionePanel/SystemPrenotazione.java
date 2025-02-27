@@ -1,12 +1,11 @@
 package modello.prenotazionePanel;
 
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 import modello.Panelista;
 import modello.Utente;
 import modello.creazionePanel.*;
 
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 import modello.email.NotificaMessage;
@@ -16,7 +15,6 @@ public class SystemPrenotazione {
 	ArrayList <Sondaggio> sondaggi;
 	ArrayList <Panel> panels;
 	ArrayList <Panelista> panelistas;
-	private final int oreLimite = 10;
 
 	public SystemPrenotazione() {
 		sondaggi = new ArrayList<>();
@@ -71,16 +69,13 @@ public class SystemPrenotazione {
 	public void prenotazione(int idSondaggio, LocalTime orarioSlot, Panelista panelista) {
 		Sondaggio s = trovaSondaggioPerId(idSondaggio);
 		Slot slot = s.getSlots().get(orarioSlot);
-		FacedeSingletonDB.getInstance().getPrenotazionePanelDAO().salvaPrenotazione(slot, panelista);
+		FacadeSingletonDB.getInstance().getPrenotazionePanelDAO().salvaPrenotazione(slot, panelista);
 	}
 	
 	public boolean cancellazioneDaPanel(int idPanel, Utente utente) {
+		boolean statoCancellazione = FacadeSingletonDB.getInstance().getPanelDAO().rimuoviUtenteDaPanel(idPanel, utente.getEmail());
 		Panel panel = trovaPanelPerId(idPanel);
-		LocalDateTime dataOra = panel.getData().atTime(panel.getOrarioInizio());
-		if (LocalDateTime.now().isAfter(dataOra.minusHours(oreLimite))) {
-			return false; // Non è più possibile cancellarsi
-		}
-		boolean statoCancellazione = FacedeSingletonDB.getInstance().getPanelDAO().rimuoviUtenteDaPanel(idPanel, utente.getEmail());
+
 		if(statoCancellazione = true){
 			String text = "Si è liberato un posto ad un panel il seguente giorno: " +
 					panel.getData()+" alla seguente ora: " + panel.getOrarioInizio();
@@ -93,8 +88,8 @@ public class SystemPrenotazione {
 		
 	}
 
-	public boolean prenotazionePanel(int idPanel, Panelista p) {
-		return FacedeSingletonDB.getInstance().getPanelDAO().aggiungiUtenteAlPanel(idPanel, p.getEmail());
+	public boolean prenotazionePanel(int idPanel, Utente p) {
+		return FacadeSingletonDB.getInstance().getPanelDAO().aggiungiUtenteAlPanel(idPanel, p.getEmail());
 	}
 
 

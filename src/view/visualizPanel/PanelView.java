@@ -5,16 +5,12 @@ import controller.PanelController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 
-import jdbc.FacedeSingletonDB;
+
 import modello.Panelista;
-import modello.Utente;
 import modello.creazionePanel.Panel;
-import modello.creazionePanel.Sondaggio;
-import modello.prenotazionePanel.SystemPrenotazione;
 
 public class PanelView extends JFrame {
     private PanelController controller;
@@ -136,12 +132,6 @@ public class PanelView extends JFrame {
     }
 
     public static void main(String[] args) {
-       SystemPrenotazione sys= FacedeSingletonDB.getInstance().getSystemPrenotazione();
-       ArrayList<Panel> panel = sys.getPanels();
-       for (Panel p : panel) {
-           FacedeSingletonDB.getInstance().getPanelDAO().chiudiPanel(p.getId(), LocalTime.now());
-       }
-
 
     }
 }

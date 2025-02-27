@@ -2,13 +2,8 @@ package view.autenticazione;
 
 import controller.AutenticazioneController;
 import controller.PanelController;
-import controller.PrenotazioneController;
-import controller.SondaggioController;
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 import modello.Panelista;
-import modello.Utente;
-import modello.prenotazionePanel.SystemPrenotazione;
-import view.creazioneSondaggio.SondaggioView;
 import view.prenotazionePanel.PrenotazioneView;
 import view.visualizPanel.PanelView;
 
@@ -70,7 +65,7 @@ public class HomePanelista extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     String ibanCorrente = null;
                     try {
-                        ibanCorrente = FacedeSingletonDB.getInstance().getUserDAO().getIban(panelista);
+                        ibanCorrente = FacadeSingletonDB.getInstance().getUserDAO().getIban(panelista);
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null, "Errore nel recupero dell'IBAN corrente.");
                         ex.printStackTrace();
@@ -109,10 +104,19 @@ public class HomePanelista extends JFrame {
                 }
             });
 
+            JButton btnLogout = new JButton("Logout");
+            btnLogout.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    dispose();
+                }
+            });
+
             panel.add(btnModificaPassword);
-            panel.add(btnInserisciIban);
             panel.add(btnVisualizPanel);
             panel.add(btnVisualizSondaggio);
+            panel.add(btnModificaPassword);
+            panel.add(btnInserisciIban);
+            panel.add(btnLogout);
             add(panel);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             setVisible(true);
