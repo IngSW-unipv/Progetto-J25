@@ -68,7 +68,7 @@ public class AnalisiDAO implements IAnalisiDAO {
             ps1.setDouble(5, analisi.getGradazione());
             
             /*Controllo per vedere se la query è stata modificata
-            * Utilizzo questo metodo per evitare di trovarci in cui la query non modifica
+            * Utilizzo questo metodo per evitare di trovarci che la query non modifica
             * nessuna riga del database, ma il metodo ritorna comunque true.
             */
             int rowsAffected = ps1.executeUpdate();

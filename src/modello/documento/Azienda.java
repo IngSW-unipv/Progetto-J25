@@ -1,17 +1,20 @@
 package modello.documento;
 import modello.Panelista;
+import modello.email.NotificaMessage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 
 public class Azienda {
 	private IGestoreStipendi gestore;
-	private SystemDocumento systemDocumento;
-	
-	public Azienda(IGestoreStipendi gestore, SystemDocumento systemDocumento) {
+	private ISystemDocumento systemDocumento;
+	private ArrayList<Panelista> panelista;
+	public Azienda(IGestoreStipendi gestore, ISystemDocumento systemDocumento) {
 			
 		this.gestore = gestore;
 		this.systemDocumento = systemDocumento;
+		this.panelista = new ArrayList<>();
 		
 		}
 	
@@ -21,12 +24,14 @@ public class Azienda {
 		
 		p.setOreLavoro(systemDocumento.oreLavoroPanelista(id, mese));
 		
-		double lordo = gestore.stipendioLordo(p);
-		double netto = gestore.stipendioNetto(p);
-		double trattenute = gestore.trattenute(p);
-		
-		DocumentoRiepilogo dr = new DocumentoRiepilogo(p, ld, mese, lordo, netto, trattenute);
+		DocumentoRiepilogo dr = DocumentoRiepilogoFactory.creaDoc(p, ld, mese, gestore);
 		dr.riepilogoUtente();
+		
+		
+		NotificaMessage notifica = new NotificaMessage("Documento di riepilogo", "Il documento di riepilogo è stato generato");
+		panelista.add(p);
+        notifica.setListaUtenti(panelista);
+        notifica.notificaObserver();
 		
 		}
 	

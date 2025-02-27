@@ -4,6 +4,9 @@ package jdbc.dao.max;
 import java.sql.*;
 
 import java.util.ArrayList;
+
+import javax.management.RuntimeErrorException;
+
 import modello.prenotazioneInsaccatore.*;
 import jdbc.ConnessioneDB;
 import java.sql.Connection;
@@ -168,4 +171,59 @@ public class TurnoDAO implements ITurnoDAO {
         
         return turni;
     }
+    
+    //METODO PER PERMETTERE LA PRENOTAZIONE ALL'INSACCATORE O LA CANCELLAZIONE DAL TURNO ATTRAVERSO UN BOOLEAN:
+    public void gestisciTurnoInsac(boolean azione, int idTurno, int idInsaccatore) {
+        connessione = ConnessioneDB.startConnection(connessione, DB);
+        
+        // query per trovare il turno
+        String trovaSql = "SELECT INSACCATORE FROM TURNO WHERE idTURNO = ?";
+        // query per aggiornare il turno
+        String aggiornaSql = "UPDATE TURNO SET INSACCATORE = ? WHERE idTURNO = ?";
+        
+        try (PreparedStatement trovaStmt = connessione.prepareStatement(trovaSql)) {
+            trovaStmt.setInt(1, idTurno);
+            ResultSet rs = trovaStmt.executeQuery();
+            
+            // verifica se il turno esiste
+            if (!rs.next()) {
+                throw new RuntimeException("Errore: il turno con ID " + idTurno + " non esiste nel database.");
+            }
+            
+            Integer insaccatore = rs.getInt("INSACCATORE");
+            if (rs.wasNull()) {
+                insaccatore = null; // se il valore è null nel database, gestiscilo come null in java
+            }
+            
+            try (PreparedStatement aggiornaStmt = connessione.prepareStatement(aggiornaSql)) {
+                if (azione) { // prenotazione del turno
+                    if (insaccatore == null || insaccatore == 0) {
+                        aggiornaStmt.setInt(1, idInsaccatore);
+                    } else {
+                        throw new RuntimeException("Errore: il turno con ID " + idTurno + " ha già un insaccatore assegnato.");
+                    }
+                } else { // rimozione dell'insaccatore dal turno
+                    if (insaccatore != null && insaccatore != 0) {
+                        aggiornaStmt.setNull(1, Types.INTEGER);
+                    } else {
+                        throw new RuntimeException("Errore: il turno con ID " + idTurno + " non ha un insaccatore assegnato.");
+                    }
+                }
+
+                aggiornaStmt.setInt(2, idTurno);
+                int rowsUpdated = aggiornaStmt.executeUpdate();
+                
+                if (rowsUpdated == 0) {
+                    throw new RuntimeException("Errore: aggiornamento fallito per il turno con ID " + idTurno);
+                }
+            }
+            
+        } catch (SQLException e) {
+            throw new RuntimeException("Errore di gestione dell'insaccatore per il turno " + idTurno, e);
+        } finally {
+            ConnessioneDB.closeConnection(connessione);
+        }
+    }
+
+
 }

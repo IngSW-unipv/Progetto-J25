@@ -1,6 +1,7 @@
 package view.archiviazioneCampione;
 
 import java.awt.BorderLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ import javax.swing.JToolBar;
 
 import controller.CampioneController;
 import modello.archiviazioneCampione.Campione;
+
 
 public class CampioneView {
 
@@ -130,6 +132,7 @@ public class CampioneView {
 				
 				displayArea.setText("Errore nella registrazione");
 			}
+			
 		}catch(Exception e) {
 			
 			displayArea.setText("Errore di input dati");

@@ -16,6 +16,10 @@ public class SystemCampione {
 		
 	}
 
+	@Override
+	public ArrayList<Integer> getCampioniNonAnalizzati() {
+		return FacadeSingletonDB.getInstance().getSystemCampione().campioniNonAnalizzati;
+	}
 
 	public void setCampioniNonAnalizzati(ArrayList<Integer> campioniNonAnalizzati) {
 		this.campioniNonAnalizzati = campioniNonAnalizzati;
