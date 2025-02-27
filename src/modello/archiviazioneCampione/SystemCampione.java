@@ -18,6 +18,11 @@ public class SystemCampione implements ISystemCampione{
 	}
 
 	@Override
+	public ArrayList<Integer> getCampioniNonAnalizzati() {
+		return campioniNonAnalizzati;
+	}
+
+	@Override
 	public void setCampioniNonAnalizzati(ArrayList<Integer> campioniNonAnalizzati) {
 		this.campioniNonAnalizzati = campioniNonAnalizzati;
 	}
@@ -61,10 +66,5 @@ public class SystemCampione implements ISystemCampione{
 	}
 	
 
-
-	
-	
-	
-	
 
 }

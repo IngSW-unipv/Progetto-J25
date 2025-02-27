@@ -24,10 +24,10 @@ public class AnalisiCampioneView  {
     private JTextArea displayArea;
 
 
-    public AnalisiCampioneView(AnalisiController analisiController, CampioneController CampioneController) {
+    public AnalisiCampioneView(AnalisiController analisiController, CampioneController campioneController) {
        
         this.analisiController = analisiController;
-        this.campioneController = CampioneController;
+        this.campioneController = campioneController;
         frame = new JFrame("Analisi Campioni");
         frame.setSize(700, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -80,7 +80,7 @@ public class AnalisiCampioneView  {
         try {
 
             // Recupero gli ID dei campioni non analizzati
-            ArrayList<Integer> idCampioniNonAnalizzati = campioneController.campioniNonAnalizzati();
+            ArrayList<Integer> idCampioniNonAnalizzati = campioneController.getSystemCampione().getCampioniNonAnalizzati();
             
 
             if(idCampioniNonAnalizzati.isEmpty()) {
