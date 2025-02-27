@@ -11,9 +11,12 @@ import java.sql.SQLException;
 
 public class HomeInsaccatore extends JFrame {
         private AutenticazioneController controller;
+        private Utente utente;
 
         public HomeInsaccatore(AutenticazioneController controller, Utente utente) {
             this.controller = controller;
+            this.utente = utente;
+
 
             setTitle("Home Insaccatore");
             setSize(400, 200);
@@ -65,6 +68,8 @@ public class HomeInsaccatore extends JFrame {
                 }
             });
 
+
+
             JButton btnLogout = new JButton("Logout");
             btnLogout.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -73,6 +78,7 @@ public class HomeInsaccatore extends JFrame {
             });
             panel.add(btnModificaPassword);
             panel.add(btnInserisciIban);
+            panel.add(btnLogout);
             panel.add(btnLogout);
             add(panel);
             setDefaultCloseOperation(EXIT_ON_CLOSE);

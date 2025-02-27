@@ -121,6 +121,7 @@ public class HomePanelista extends JFrame {
             panel.add(btnVisualizPanel);
             panel.add(btnVisualizSondaggio);
             panel.add(btnModificaPassword);
+            panel.add(btnInserisciIban);
             add(panel);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             setVisible(true);
