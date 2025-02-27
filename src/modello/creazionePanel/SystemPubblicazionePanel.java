@@ -68,6 +68,7 @@ public class SystemPubblicazionePanel {
     public Sondaggio getSondaggio() {
         return sondaggio;
     }
+
     public void pubblicazioneSondaggio(Sondaggio sondaggio) {
         boolean sondaggioInserito = false;
         boolean slotsInseriti = false;
@@ -89,7 +90,8 @@ public class SystemPubblicazionePanel {
 
         // Se sia il sondaggio che gli slot sono stati inseriti correttamente, invia la notifica
         if (sondaggioInserito && slotsInseriti) {
-            NotificaMessage notifica = new NotificaMessage("Sondaggio", "Il nuovo sondaggio per i prossimi panel è appena stato caricato, accedi alla sezione giusta per prenotarti.");
+            NotificaMessage notifica = new NotificaMessage("Sondaggio", "Il nuovo sondaggio per i prossimi " +
+                    "panel è appena stato caricato, accedi alla sezione giusta per prenotarti.");
             notifica.setListaUtenti(panelisti);
             notifica.notificaObserver(); // Invio della notifica
         }
@@ -116,7 +118,7 @@ public class SystemPubblicazionePanel {
             for(Macchinario m: macchinariAttvi){
                 Panel p = new Panel(entry.getValue().getTime(), m, entry.getValue().getData());
                 // suppongo che i panelisti vengano inseriti gia in ordine decrescente per ore nella lista dei prenotati allo slot
-                for(int i = 0; i<entry.getValue().getPrenotati().size(); i++){
+                for(int i = 0; i<m.getNumPanelisti(); i++){
                     p.addpanelista(entry.getValue().getPrenotati().get(i));
                 }
                 panel.add(p);
@@ -132,8 +134,9 @@ public class SystemPubblicazionePanel {
     }
 
     public void pubblicazionePanel(){
-        NotificaMessage notifica  = new NotificaMessage("Formazioni definitive", "Sono appena stati pubblicati le formazione definitive per " +
-                "i prossimi panel, acceddi all'area riservata per vedere se sei stato scelto.");
+        NotificaMessage notifica  = new NotificaMessage("Formazioni definitive", "Sono appena state pubblicate " +
+                "le formazioni definitive per " +
+                "i prossimi panel, accedi all'area riservata per vedere se sei stato scelto.");
         notifica.setListaUtenti(panelisti);
         notifica.notificaObserver();
         for (Panel p : panel){

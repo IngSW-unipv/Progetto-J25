@@ -130,8 +130,8 @@ public class PanelView extends JFrame {
             JOptionPane.showMessageDialog(null, "Cancellazione avvenuta con successo!");
             caricaDatiPanel(); // Ricarica i panel
         } else {
-            JOptionPane.showMessageDialog(null, "Errore nella Cancellazione. Tempo scaduto, " +
-                    "utilizza il numero verde se è un'emergenza: " +numerVerde);
+            JOptionPane.showMessageDialog(null, "Errore nella Cancellazione. Potresti non essere iscritto al panel oppure il" +
+                    "tempo scaduto, utilizza il numero verde se è un'emergenza: " +numerVerde);
         }
     }
 

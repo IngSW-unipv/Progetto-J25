@@ -41,7 +41,7 @@ public class PubblicazioneSondaggioView extends JFrame {
         add(scrollPane, BorderLayout.CENTER);
 
         // Pulsante di pubblicazione
-        JButton confermaButton = new JButton("✅ Pubblica Sondaggio");
+        JButton confermaButton = new JButton("Pubblica Sondaggio");
         confermaButton.addActionListener(e -> {
             controller.pubblicaSondaggio(sondaggio);
             JOptionPane.showMessageDialog(this, "Sondaggio pubblicato con successo!");

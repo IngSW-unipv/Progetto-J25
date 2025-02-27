@@ -6,11 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="8866b5e4-0e07-4928-8a4a-6304eab79994" name="Changes" comment="recupero sostituto panel">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/PanelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/PanelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/junit/GestoreStipendiTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/junit/GestoreStipendiTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/bean/PanelDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/bean/PanelDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/bean/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/bean/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/junit/SystemAutenticazioneTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/junit/SystemAutenticazioneTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/junit/Testing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/junit/Testing.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modello/creazionePanel/SystemPubblicazionePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/creazionePanel/SystemPubblicazionePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modello/prenotazionePanel/SystemPrenotazione.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/modello/prenotazionePanel/SystemPrenotazione.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testing/PrenotazioneTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/PrenotazioneTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/creazioneSondaggio/PubblicazioneSondaggioView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/creazioneSondaggio/PubblicazioneSondaggioView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/view/visualizPanel/PanelView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/visualizPanel/PanelView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -74,9 +75,10 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -151,7 +153,7 @@
       <workItem from="1740123049815" duration="31700000" />
       <workItem from="1740437120888" duration="461000" />
       <workItem from="1740527775578" duration="656000" />
-      <workItem from="1740560780524" duration="23323000" />
+      <workItem from="1740560780524" duration="39804000" />
     </task>
     <task id="LOCAL-00001" summary="librerie">
       <option name="closed" value="true" />
@@ -217,7 +219,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740578790993</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="recupero sostituto panel">
+      <option name="closed" value="true" />
+      <created>1740588376886</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1740588376886</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,5 +265,9 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
