@@ -1,6 +1,9 @@
 package modello.gestioneInventario;
 
+import jdbc.FacedeSingletonDB;
+
 public class Inventario {
+	
 	private int sacche;
 	private int buste;
 	private int tappi;
@@ -9,11 +12,6 @@ public class Inventario {
 	private int steccheTappi;
 	private int rotoliNalophan;
 
-	
-	
-	public Inventario() {
-		
-	}
 
 
 	public Inventario(int rotoloTubi, int steccheTappi, int rotoloNalophan, int sacche, int buste, int tappi,
@@ -28,6 +26,12 @@ public class Inventario {
 		this.tubi = tubi;
 	}
 	
+	public Inventario() {
+		
+		setSacche(FacedeSingletonDB.getInstance().getMagazzinoDAO().restituisciSacche());
+		
+		
+	}
 	
 	//METODI UTILI:
 	
@@ -38,6 +42,7 @@ public class Inventario {
 		buste-=sacche;
 		this.controllo();
 	}
+	
 	
 	public void realizzazioneTappiTubi(int tappi, int tubi, int rotoli, int stecche) {
 		this.tappi += tappi;
@@ -63,6 +68,34 @@ public class Inventario {
 	    if (steccheTappi < 0) steccheTappi = 0;
 	    if (rotoliNalophan < 0) rotoliNalophan = 0;
 	}
+
+
+	public int getSacche() {
+		return sacche;
+	}
+
+
+	public void setSacche(int sacche) {
+		this.sacche = sacche;
+	}
+	
+	
+	
+	public void decrementaSacche() {
+		
+		
+		if(getSacche() < 1) {
+			
+			throw new IllegalArgumentException("Non ci sono abbastanza sacche");
+		}
+		
+		int sacche = getSacche() - 1;
+		setSacche(sacche);
+		
+		FacedeSingletonDB.getInstance().getMagazzinoDAO().aggiornaSacche(getSacche());
+		
+	}
+	
 	
 	
 	
