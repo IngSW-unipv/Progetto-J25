@@ -45,11 +45,5 @@ public class CampioneController{
     public boolean eliminaCampione(int id) {
         return systemCampione.deleteCampione(id);
     }
-
-
-
-	public ISystemCampione getSystemCampione() {
-		return systemCampione;
-	}
-   
+     
 }
