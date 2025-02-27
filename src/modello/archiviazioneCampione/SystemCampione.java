@@ -3,17 +3,24 @@ import java.time.LocalDate;
 
 import java.util.ArrayList;
 
+
 import jdbc.FacadeSingletonDB;
+import modello.gestioneInventario.Inventario;
 
 public class SystemCampione implements ISystemCampione{
 	
 	ArrayList<Integer> campioniNonAnalizzati; //come argomento ha gli integer perchè prendo solo gli id
-	GestoreMagazzino gm;
+	Inventario inventario;
 	
 	public SystemCampione() {
 		
 		this.campioniNonAnalizzati = new ArrayList<>();
-		
+		inventario = FacadeSingletonDB.getInstance().getInventario();
+	}
+
+	@Override
+	public ArrayList<Integer> getCampioniNonAnalizzati() {
+		return FacadeSingletonDB.getInstance().getSystemCampione().campioniNonAnalizzati;
 	}
 
 	@Override
@@ -24,11 +31,17 @@ public class SystemCampione implements ISystemCampione{
 	@Override
 	public boolean registraCampione(int id, String stato, LocalDate ld) {
 		
+
 		int sacche = FacadeSingletonDB.getInstance().getMagazzinoDAO().restituisciSacche();
+
+		//int sacche = FacedeSingletonDB.getInstance().getMagazzinoDAO().restituisciSacche();
+
 		
-		 gm = new GestoreMagazzino(sacche);
+		 
+		 inventario.decrementaSacche();
 		
 		FacadeSingletonDB.getInstance().getMagazzinoDAO().aggiornaSacche(gm.decrementaSacche(1));
+
 		
 		return FacadeSingletonDB.getInstance().getCampioneDAO().insertCampione(id, stato, ld);
 		
@@ -64,7 +77,6 @@ public class SystemCampione implements ISystemCampione{
 		
 		return FacadeSingletonDB.getInstance().getCampioneDAO().trovaCampioneNonAnalizzato(); 
 	}
-	
 	
 	
 
