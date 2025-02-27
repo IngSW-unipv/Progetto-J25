@@ -37,12 +37,12 @@ public class PrenotazioneView {
 	public PrenotazioneView(Panelista panelista) {
 		
 		this.panelista = panelista;
+		controller = new PrenotazioneController();
+	
 		
-		SystemPrenotazione sys = FacedeSingletonDB.getInstance().getSystemPrenotazione();
+		ArrayList<Sondaggio> sondaggi = controller.getSystem().getSondaggi();
 		
-		ArrayList<Sondaggio> sondaggi = sys.getSondaggi();
 		
-		controller = new PrenotazioneController(sys);
 		
 		frame = new JFrame("Prenotazione al panel");
 		frame.setSize(500, 400);
