@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import jdbc.FacadeSingletonDB;
 
-public class SystemCampione {
+public class SystemCampione implements ISystemCampione {
 	
 	ArrayList<Integer> campioniNonAnalizzati; //come argomento ha gli integer perchè prendo solo gli id
 
