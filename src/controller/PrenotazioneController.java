@@ -1,11 +1,12 @@
 package controller;
 
 import java.time.LocalTime;
+
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 import modello.Panelista;
 import modello.Utente;
 import modello.creazionePanel.Sondaggio;
@@ -19,7 +20,7 @@ public class PrenotazioneController {
 	
 	public PrenotazioneController() {
 		
-		system = FacedeSingletonDB.getInstance().getSystemPrenotazione();
+		system = FacadeSingletonDB.getInstance().getSystemPrenotazione();
 		//this.view = view;
 	}
 	

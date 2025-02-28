@@ -1,5 +1,5 @@
 package modello.creazionePanel;
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 import modello.Panelista;
 import modello.email.NotificaMessage;
 import modello.prenotazionePanel.SystemPrenotazione;
@@ -18,9 +18,8 @@ public class SystemPubblicazionePanel {
     private ArrayList<Panel> panel;
     private Sondaggio sondaggio;
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    private int durataSondaggio = 180; // supponiamo che un sondaggio debba durare 5 min
+    private int durataSondaggio = 120; // supponiamo che un sondaggio debba durare 5 min
     private int numeroMacchinari;
-
 
 
     public SystemPubblicazionePanel() {
@@ -69,13 +68,14 @@ public class SystemPubblicazionePanel {
     public Sondaggio getSondaggio() {
         return sondaggio;
     }
+
     public void pubblicazioneSondaggio(Sondaggio sondaggio) {
         boolean sondaggioInserito = false;
         boolean slotsInseriti = false;
 
         // Inserimento del sondaggio
         sondaggio.setOraInizio(LocalTime.now());
-       sondaggio.setId( FacedeSingletonDB.getInstance().getSondaggioDAO().insertSondaggio(sondaggio));
+       sondaggio.setId( FacadeSingletonDB.getInstance().getSondaggioDAO().insertSondaggio(sondaggio));
         if (sondaggio.getId() > 0) {  // Verifica che l'inserimento del sondaggio sia andato a buon fine
             sondaggioInserito = true;
 
@@ -85,12 +85,13 @@ public class SystemPubblicazionePanel {
             }
 
             // Inserimento degli slot
-            slotsInseriti = FacedeSingletonDB.getInstance().getSlotDAO().insertSlots(sondaggio.getSlots());
+            slotsInseriti = FacadeSingletonDB.getInstance().getSlotDAO().insertSlots(sondaggio.getSlots());
         }
 
         // Se sia il sondaggio che gli slot sono stati inseriti correttamente, invia la notifica
         if (sondaggioInserito && slotsInseriti) {
-            NotificaMessage notifica = new NotificaMessage("Sondaggio", "Il nuovo sondaggio per i prossimi panel è appena stato caricato, accedi alla sezione giusta per prenotarti.");
+            NotificaMessage notifica = new NotificaMessage("Sondaggio", "Il nuovo sondaggio per i prossimi " +
+                    "panel è appena stato caricato, accedi alla sezione giusta per prenotarti.");
             notifica.setListaUtenti(panelisti);
             notifica.notificaObserver(); // Invio della notifica
         }
@@ -110,20 +111,20 @@ public class SystemPubblicazionePanel {
 
     public void creazionePanel(){
         this.panel = new ArrayList<>();
-        FacedeSingletonDB.getInstance().getPrenotati(sondaggio.getSlots());
+        FacadeSingletonDB.getInstance().getPrenotati(sondaggio.getSlots());
 
         for (Map.Entry<LocalTime, Slot> entry : sondaggio.getSlots().entrySet()){
             entry.getValue().ordinaPrenotati();
             for(Macchinario m: macchinariAttvi){
                 Panel p = new Panel(entry.getValue().getTime(), m, entry.getValue().getData());
                 // suppongo che i panelisti vengano inseriti gia in ordine decrescente per ore nella lista dei prenotati allo slot
-                for(int i = 0; i<entry.getValue().getPrenotati().size(); i++){
+                for(int i = 0; i<m.getNumPanelisti(); i++){
                     p.addpanelista(entry.getValue().getPrenotati().get(i));
                 }
                 panel.add(p);
             }
         }
-        FacedeSingletonDB.getInstance().getSondaggioDAO().chiudiSondaggio(sondaggio);
+        FacadeSingletonDB.getInstance().getSondaggioDAO().chiudiSondaggio(sondaggio);
         pubblicazionePanel();
 
        /* for(Panel p: panel){
@@ -133,12 +134,13 @@ public class SystemPubblicazionePanel {
     }
 
     public void pubblicazionePanel(){
-        NotificaMessage notifica  = new NotificaMessage("Formazioni definitive", "Sono appena stati pubblicati le formazione definitive per " +
-                "i prossimi panel, acceddi all'area riservata per vedere se sei stato scelto.");
+        NotificaMessage notifica  = new NotificaMessage("Formazioni definitive", "Sono appena state pubblicate " +
+                "le formazioni definitive per " +
+                "i prossimi panel, accedi all'area riservata per vedere se sei stato scelto.");
         notifica.setListaUtenti(panelisti);
         notifica.notificaObserver();
         for (Panel p : panel){
-            FacedeSingletonDB.getInstance().getPanelDAO().addPanel(p);
+            FacadeSingletonDB.getInstance().getPanelDAO().addPanel(p);
         }
     }
 
@@ -159,13 +161,13 @@ public class SystemPubblicazionePanel {
 
         ArrayList<Macchinario> macchinari = new ArrayList<>();
 
-        SystemPubblicazionePanel systemPubblicazionePanel = FacedeSingletonDB.getInstance().getSystemPubblicazionePanel();
-        systemPubblicazionePanel.setMacchinari(FacedeSingletonDB.getInstance().getMacchinarioDAO().getMacchinari());
+        SystemPubblicazionePanel systemPubblicazionePanel = FacadeSingletonDB.getInstance().getSystemPubblicazionePanel();
+        systemPubblicazionePanel.setMacchinari(FacadeSingletonDB.getInstance().getMacchinarioDAO().getMacchinari());
 
         Sondaggio s1 = systemPubblicazionePanel.creaSondaggioAutomatica(10, LocalDate.of(2025, 4, 28));
         systemPubblicazionePanel.pubblicazioneSondaggio(s1);
 
-        SystemPrenotazione systemPrenotazione = FacedeSingletonDB.getInstance().getSystemPrenotazione();
+        SystemPrenotazione systemPrenotazione = FacadeSingletonDB.getInstance().getSystemPrenotazione();
         Panelista p = new Panelista(10, "khawla.ouaadoupa@gmail.com", null, null, null, null, null, null, null, "pa", null, 0);
         systemPrenotazione.prenotazione(s1.getId(), LocalTime.of(9, 0), p);
 

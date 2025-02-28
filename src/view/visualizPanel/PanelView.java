@@ -8,20 +8,20 @@ import java.awt.*;
 import java.util.ArrayList;
 
 
-import jdbc.FacedeSingletonDB;
+
 import modello.Panelista;
-import modello.Utente;
 import modello.creazionePanel.Panel;
-import modello.prenotazionePanel.SystemPrenotazione;
 
 public class PanelView extends JFrame {
     private PanelController controller;
     private Panelista panelista;
     private JPanel panelContainer;
+    private int numerVerde;
 
     public PanelView(PanelController controller, Panelista panelista) {
         this.controller = controller;
         this.panelista = panelista;
+        this.numerVerde = 191955;
 
         setTitle("Lista Panel");
         setSize(1000, 500);
@@ -126,7 +126,8 @@ public class PanelView extends JFrame {
             JOptionPane.showMessageDialog(null, "Cancellazione avvenuta con successo!");
             caricaDatiPanel(); // Ricarica i panel
         } else {
-            JOptionPane.showMessageDialog(null, "Errore nella Cancellazione.");
+            JOptionPane.showMessageDialog(null, "Errore nella Cancellazione. Potresti non essere iscritto al panel oppure il" +
+                    "tempo scaduto, utilizza il numero verde se è un'emergenza: " +numerVerde);
         }
     }
 

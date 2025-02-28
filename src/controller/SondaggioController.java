@@ -1,6 +1,6 @@
 package controller;
 
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 import modello.creazionePanel.Macchinario;
 import modello.creazionePanel.Slot;
 import modello.creazionePanel.SystemPubblicazionePanel;
@@ -14,11 +14,11 @@ public class SondaggioController {
         private SystemPubblicazionePanel systemPubblicazionePanel;
 
         public SondaggioController() {
-            systemPubblicazionePanel = FacedeSingletonDB.getInstance().getSystemPubblicazionePanel();
+            systemPubblicazionePanel = FacadeSingletonDB.getInstance().getSystemPubblicazionePanel();
         }
 
         public ArrayList<Macchinario> getMacchinariDisponibili() {
-            return FacedeSingletonDB.getInstance().getMacchinarioDAO().getMacchinari();
+            return FacadeSingletonDB.getInstance().getMacchinarioDAO().getMacchinari();
         }
 
         private Sondaggio sondaggioCorrente = null;

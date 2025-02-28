@@ -1,9 +1,9 @@
 package modello.archiviazioneCampione;
 import java.time.LocalDate;
 
-import java.util.ArrayList;
 
-import jdbc.FacedeSingletonDB;
+import java.util.ArrayList;
+import jdbc.FacadeSingletonDB;
 import modello.gestioneInventario.Inventario;
 
 public class SystemCampione implements ISystemCampione{
@@ -14,13 +14,13 @@ public class SystemCampione implements ISystemCampione{
 	public SystemCampione() {
 		
 		this.campioniNonAnalizzati = new ArrayList<>();
-		inventario = FacedeSingletonDB.getInstance().getInventario();
+		inventario = FacadeSingletonDB.getInstance().getInventario();
 	}
 
 	@Override
 	public ArrayList<Integer> getCampioniNonAnalizzati() {
 		
-		return FacedeSingletonDB.getInstance().getSystemCampione().campioniNonAnalizzati;
+		return FacadeSingletonDB.getInstance().getSystemCampione().campioniNonAnalizzati;
 	}
 
 	@Override
@@ -31,41 +31,45 @@ public class SystemCampione implements ISystemCampione{
 	@Override
 	public boolean registraCampione(int id, String stato, LocalDate ld) {
 		
-		//int sacche = FacedeSingletonDB.getInstance().getMagazzinoDAO().restituisciSacche();
+
 		
 		 
 		 inventario.decrementaSacche();
 		
 		
+
 		
-		return FacedeSingletonDB.getInstance().getCampioneDAO().insertCampione(id, stato, ld);
+
+
+		return FacadeSingletonDB.getInstance().getCampioneDAO().insertCampione(id, stato, ld);
 		
 	}
 	
 	@Override
 	public Campione trovaCampione(int id) {
 		
-		return FacedeSingletonDB.getInstance().getCampioneDAO().trovaCampionePerId(id);
+		return FacadeSingletonDB.getInstance().getCampioneDAO().trovaCampionePerId(id);
 	}
 	
 	@Override
 	public ArrayList<Campione> selezionaCampioni(){
 		
-		return FacedeSingletonDB.getInstance().getCampioneDAO().selectAllCampioni();
+		return FacadeSingletonDB.getInstance().getCampioneDAO().selectAllCampioni();
 	}
 	
 	@Override
 	public boolean aggiornaCampione(int id, String stato) {
 		
-		return FacedeSingletonDB.getInstance().getCampioneDAO().updateCampione(id, stato);
+		return FacadeSingletonDB.getInstance().getCampioneDAO().updateCampione(id, stato);
 	}
 	
 	@Override
 	public boolean deleteCampione(int id) {
 		
-		return FacedeSingletonDB.getInstance().getCampioneDAO().eliminaCampione(id);
+		return FacadeSingletonDB.getInstance().getCampioneDAO().eliminaCampione(id);
 	}
 	
-
+	
+	
 
 }

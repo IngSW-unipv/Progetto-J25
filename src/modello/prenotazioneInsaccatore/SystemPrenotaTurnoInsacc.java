@@ -50,19 +50,27 @@ public class SystemPrenotaTurnoInsacc {
 	//LATO INSACCATORE:
 	
 	//metodo per far prenotare un turno all'insaccatore
-	public void prenotaTurno(Insaccatore ins, Turno turno){
-		if(turno.isStato()!=true && turno.getIns()==null) {
+	public Turno prenotaTurno(Insaccatore ins, Turno turno){
+		if(turno.getIns()==null) {
 			turno.setIns(ins);
 			turno.setStato(true);
 		}
 		else System.out.println("non puoi prenotarti");
+		
+		//ritorno il turno prenotato o meno;
+		return turno;
 	}
 	
 
 	//metodo per togliere la prenotazione di un turno all'insaccatore
-	public void cancellaTurno(Turno turno) {
-			turno.setIns(null);
-			turno.setStato(false);
+	public Turno cancellaTurno(Turno turno) {
+	    if (turno.getIns() != null) {
+	        turno.setIns(null);
+	        turno.setStato(false);
+	    } else {
+	        System.out.println("il turno non è prenotato");
+	    }
+	    return turno;
 	}
 
 	
@@ -147,7 +155,6 @@ public class SystemPrenotaTurnoInsacc {
 		this.settimana= generaSettimana(datainizio);
 		riempiSettimana(tempturno);
 	}
-	
 	
 	
 	//METODI DI TEST, MI SERVONO PER CAPIRE SE GLI OGGETTI VENGONO CREATI EFFETTIVAMENTE

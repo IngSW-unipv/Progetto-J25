@@ -15,6 +15,7 @@ import modello.creazionePanel.Slot;
 import modello.creazionePanel.Sondaggio;
 import modello.creazionePanel.SystemPubblicazionePanel;
 import modello.documento.SystemDocumento;
+
 import modello.gestioneInventario.Inventario;
 import modello.prenotazionePanel.SystemPrenotazione;
 import modello.ConfermaPresenzaPanel.SystemPresenzaPanel;
@@ -25,8 +26,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class FacedeSingletonDB {
-    private static FacedeSingletonDB instance;
+public class FacadeSingletonDB {
+    private static FacadeSingletonDB instance;
 
     private IPanelDAO panelDAO;
     private IMacchinarioDAO macchinarioDAO;
@@ -49,7 +50,7 @@ public class FacedeSingletonDB {
     private SystemPresenzaPanel systemPresenzaPanel;
     private Inventario inventario;
 
-    private FacedeSingletonDB() {
+    private FacadeSingletonDB() {
         this.panelDAO = new PanelDAO();
         this.macchinarioDAO = new MacchinarioDAO();
         this.sondaggioDAO = new SondaggioDAO();
@@ -62,9 +63,9 @@ public class FacedeSingletonDB {
         this.magazzinoDAO = new MagazzinoDAO();
     }
 
-    public static FacedeSingletonDB getInstance() {
+    public static FacadeSingletonDB getInstance() {
         if (instance == null) {
-            instance = new FacedeSingletonDB();
+            instance = new FacadeSingletonDB();
         }
         return instance;
     }
@@ -107,6 +108,7 @@ public class FacedeSingletonDB {
     	
     	return inventario;
     }
+
     
     public ArrayList<Sondaggio> popolaSondaggi() {
         ArrayList<Sondaggio> sondaggi = sondaggioDAO.selectAllSondaggi();

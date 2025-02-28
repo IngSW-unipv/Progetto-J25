@@ -3,7 +3,7 @@ package view.analisiCampione;
 
 import controller.AnalisiController;
 import controller.CampioneController;
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 import modello.analisiCampione.AnalisiCampione;
 
 import javax.swing.*;
@@ -80,7 +80,7 @@ public class AnalisiCampioneView  {
         try {
 
             // Recupero gli ID dei campioni non analizzati
-            ArrayList<Integer> idCampioniNonAnalizzati = FacedeSingletonDB.getInstance().getSystemCampione().getCampioniNonAnalizzati();
+            ArrayList<Integer> idCampioniNonAnalizzati = FacadeSingletonDB.getInstance().getSystemCampione().getCampioniNonAnalizzati();
             
 
             if(idCampioniNonAnalizzati.isEmpty()) {

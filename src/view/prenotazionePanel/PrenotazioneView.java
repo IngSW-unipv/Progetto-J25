@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,9 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import controller.PrenotazioneController;
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 import modello.Panelista;
-import modello.Utente;
 import modello.creazionePanel.Slot;
 import modello.creazionePanel.Sondaggio;
 import modello.prenotazionePanel.SystemPrenotazione;
@@ -38,11 +36,10 @@ public class PrenotazioneView {
 		
 		this.panelista = panelista;
 		controller = new PrenotazioneController();
-	
-		
+
+
 		ArrayList<Sondaggio> sondaggi = controller.getSystem().getSondaggi();
-		
-		
+
 		
 		frame = new JFrame("Prenotazione al panel");
 		frame.setSize(500, 400);
@@ -162,7 +159,7 @@ public class PrenotazioneView {
 		JLabel titolo = new JLabel("Seleziona un sondaggio:");
 		mainPanel.add(titolo);
 		
-		SystemPrenotazione sys = FacedeSingletonDB.getInstance().getSystemPrenotazione();
+		SystemPrenotazione sys = FacadeSingletonDB.getInstance().getSystemPrenotazione();
 		for(Sondaggio s : sys.getSondaggi()) {
 			
 			JButton sondaggioButton = new JButton("Sondaggio " + s.getId());

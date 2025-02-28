@@ -1,4 +1,4 @@
-package view.prenotazioneInsaccatore;
+package jdbc;
 
 
 import jdbc.bean.IUserDAO;
@@ -7,6 +7,8 @@ import jdbc.dao.max.*;
 import modello.Insaccatore;
 import modello.gestioneInventario.Inventario;
 import modello.prenotazioneInsaccatore.*;
+
+import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjuster;
@@ -15,14 +17,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class TestFacadeSingletonMax {
+public class FacadeSingletonInsaccatori {
 	//ATTRIBUTI:
-	private static TestFacadeSingletonMax istanza;
+	private static FacadeSingletonInsaccatori istanza;
 	//attributi DAO:
 	private ITurnoDAO turnoDAO;
 	private IGiornoDAO giornoDAO;
 	private IUserDAO userDAO;
-	private MagazzinoDAO invDAO;
+	private IMagazzinoDAO magDAO;
 	
 	//attributi system:
 	private SystemPrenotaTurnoInsacc systeminsac;
@@ -33,17 +35,18 @@ public class TestFacadeSingletonMax {
 
 
 
-	public TestFacadeSingletonMax() {
+	public FacadeSingletonInsaccatori() {
 		//inizializzo i dao:
 		this.turnoDAO = new TurnoDAO();
 		this.giornoDAO = new GiornoDAO();
 		this.userDAO = new UserDAO();
+		this.magDAO = new MagazzinoDAO();
 	}
 	
 	//METODI GETTER:
-	public static TestFacadeSingletonMax getIstanza() {
+	public static FacadeSingletonInsaccatori getIstanza() {
 		if(istanza==null) {
-			istanza = new TestFacadeSingletonMax();
+			istanza = new FacadeSingletonInsaccatori();
 		}
 		return istanza;
 	}
@@ -51,7 +54,7 @@ public class TestFacadeSingletonMax {
 	public Inventario getInventario() {
 		if(inventario==null) {
 			//istanzio un nuovo inventario per la facade, dovrà rifarsi a quella presente nel database
-			inventario = invDAO.trovaInventario();
+			inventario = magDAO.trovaInventario();
 		}
 		return inventario;
 	}
@@ -64,24 +67,21 @@ public class TestFacadeSingletonMax {
 			//istanzio un nuovo systeminsaccatori
 			systeminsac = new SystemPrenotaTurnoInsacc();
 			if(!settimanaEsistente()) {
-					generaSettimanaPredefinita();
-					istanza.aggiornaSettimanaNelDatabase();
+					generaSettimanaPredefinita(); //da testare la sua cancellazione!
+					istanza.aggiornaSettimanaNelDatabase(); //il sistema aggiorna il database con la nuova settimana appena generata:
 				}
-			else
+			else {
 			//carico questo system con l'ultima versione della settimana presente sul db:
 			systeminsac.setSettimana(istanza.caricaSettimana());
+			}
 		}
 		return systeminsac;
 	}
 	
 	
-	//GETTER DAO:
-	
-	
-	
-	
-	
 	//METODI UTILI INVENTARIO:
+	
+	
 
 	
 	
@@ -110,8 +110,6 @@ public class TestFacadeSingletonMax {
 	    }
 	    return true;
 	}
-	
-
 	
 	
 	//metodo per aggiornare la settimana del database:
@@ -188,15 +186,26 @@ public class TestFacadeSingletonMax {
 	public Giorno[] generaSettimanaTurni(LocalDate data,int durata) {
 		systeminsac.generaSettAuto(data,durata);
 		giornoDAO.svuotaSettimana();
-		aggiornaSettimanaNelDatabase();		//il sistema aggiorna il database con la nuova settimana appena generata:
+		aggiornaSettimanaNelDatabase();
 		return systeminsac.getSettimana();
 	}
 	
 	
 	//metodo per eseguire la prenotazione ad un insaccatore al turno selezionato:
 	public void prenotazioneAlTurno(int idIns,Turno t) {
+//		Insaccatore ins = userDAO.getInsaccatore(idIns);
+//		Turno taggiornato = systeminsac.prenotaTurno(ins, t);
+//		turnoDAO.gestisciTurnoInsac(true,taggiornato.getId(),ins.getId());
 		turnoDAO.gestisciTurnoInsac(true,t.getId(),idIns);
 
+	}
+	
+	//metodo per eseguire una cancellazione dal turno all'insaccatore:
+	public void cancellazioneAlTurno(int idIns,Turno t) {
+//		Insaccatore ins = userDAO.getInsaccatore(idIns);
+//		Turno taggiornato = systeminsac.cancellaTurno(t);
+//		turnoDAO.gestisciTurnoInsac(false,taggiornato.getId(),ins.getId());
+		turnoDAO.gestisciTurnoInsac(false,t.getId(),idIns);
 	}
 	
 	
