@@ -173,8 +173,8 @@ public class PanelDAO implements IPanelDAO {
                         try (PreparedStatement updatePstmt = conn.prepareStatement(updateQuery)) {
                             updatePstmt.setInt(1, panelId);
                             updatePstmt.executeUpdate();
+                            return true; // Utente rimosso e panel messo in emergenza
                         }
-                        return true; // Utente rimosso e panel messo in emergenza
                     }
                 }
             }
