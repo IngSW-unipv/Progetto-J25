@@ -1,6 +1,7 @@
 package modello.documento;
 
 import jdbc.FacadeSingletonDB;
+
 import modello.Panelista;
 
 public class SystemDocumento implements ISystemDocumento {

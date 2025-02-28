@@ -1,6 +1,6 @@
 package modello.gestioneInventario;
 
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 
 public class Inventario {
 	
@@ -28,7 +28,7 @@ public class Inventario {
 	
 	public Inventario() {
 		
-		setSacche(FacedeSingletonDB.getInstance().getMagazzinoDAO().restituisciSacche());
+		setSacche(FacadeSingletonDB.getInstance().getMagazzinoDAO().restituisciSacche());
 		
 		
 	}
@@ -102,7 +102,7 @@ public class Inventario {
 		int sacche = getSacche() - 1;
 		setSacche(sacche);
 		
-		FacedeSingletonDB.getInstance().getMagazzinoDAO().aggiornaSacche(getSacche());
+		FacadeSingletonDB.getInstance().getMagazzinoDAO().aggiornaSacche(getSacche());
 		
 	}
 	
