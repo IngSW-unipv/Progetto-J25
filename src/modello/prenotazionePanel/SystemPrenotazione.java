@@ -94,11 +94,11 @@ public class SystemPrenotazione {
 
 
 	public ArrayList<Integer> getIdPanelsAttivi() {
-		return FacedeSingletonDB.getInstance().getPanelDAO().getIdPanelsAttivi();
+		return FacadeSingletonDB.getInstance().getPanelDAO().getIdPanelsAttivi();
 	}
 
 	public ArrayList<String> getPanelisti(int panelId) {
-		return FacedeSingletonDB.getInstance().getPanelDAO().getPanelisti(panelId);
+		return FacadeSingletonDB.getInstance().getPanelDAO().getPanelisti(panelId);
 	}
 
 
