@@ -2,9 +2,10 @@ package controller;
 
 import java.time.LocalDate;
 
+
 import java.util.ArrayList;
 
-import jdbc.FacedeSingletonDB;
+import jdbc.FacadeSingletonDB;
 import modello.archiviazioneCampione.Campione;
 import modello.archiviazioneCampione.ISystemCampione;
 import view.archiviazioneCampione.CampioneView;
@@ -16,7 +17,7 @@ public class CampioneController{
 
 	public CampioneController(ISystemCampione systemCampione) {
 		
-		this.systemCampione = FacedeSingletonDB.getInstance().getSystemCampione();
+		this.systemCampione = FacadeSingletonDB.getInstance().getSystemCampione();
 		this.campioneView = new CampioneView(this);
 	}
 	

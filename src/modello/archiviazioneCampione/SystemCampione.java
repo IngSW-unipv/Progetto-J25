@@ -1,6 +1,7 @@
 package modello.archiviazioneCampione;
 import java.time.LocalDate;
 
+
 import java.util.ArrayList;
 
 import jdbc.FacadeSingletonDB;
@@ -19,6 +20,7 @@ public class SystemCampione implements ISystemCampione{
 
 	@Override
 	public ArrayList<Integer> getCampioniNonAnalizzati() {
+		
 		return FacadeSingletonDB.getInstance().getSystemCampione().campioniNonAnalizzati;
 	}
 

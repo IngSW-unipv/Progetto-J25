@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,7 +18,6 @@ import javax.swing.JScrollPane;
 import controller.PrenotazioneController;
 import jdbc.FacadeSingletonDB;
 import modello.Panelista;
-import modello.Utente;
 import modello.creazionePanel.Slot;
 import modello.creazionePanel.Sondaggio;
 import modello.prenotazionePanel.SystemPrenotazione;
