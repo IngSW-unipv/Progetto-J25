@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8866b5e4-0e07-4928-8a4a-6304eab79994" name="Changes" comment="controller e view per il sondaggio">
+    <list default="true" id="8866b5e4-0e07-4928-8a4a-6304eab79994" name="Changes" comment="recupero sostituto panel">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/PrenotaInsacController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testing/TestSystemPrenotaTurnoInsacc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/TestSystemPrenotaTurnoInsacc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/prenotazioneInsaccatore/InterPrincInsaccatore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/prenotazioneInsaccatore/InterPrincInsaccatore.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/prenotazioneInsaccatore/TestFacadeSingletonMax.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/view/prenotazioneInsaccatore/ViewInsaccatore.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/CampioneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CampioneController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/PanelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/PanelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/PrenotazioneController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/PrenotazioneController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,12 +35,12 @@
     &quot;assignee&quot;: &quot;alericca&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/IngSW-unipv/Progetto-J25.git",
-    "accountId": "3406fd9c-283e-45fc-8935-7f41582cf227"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/IngSW-unipv/Progetto-J25.git&quot;,
+    &quot;accountId&quot;: &quot;3406fd9c-283e-45fc-8935-7f41582cf227&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -52,37 +50,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.CodiceTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ConnessioneDB.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ControlloMailTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.EmailSender.executor&quot;: &quot;Run&quot;,
-    &quot;Application.SondaggioView.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/aless/Downloads/mysql-connector-j-9.2.0.jar&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.CodiceTest.executor": "Run",
+    "Application.ConnessioneDB.executor": "Run",
+    "Application.ControlloMailTest.executor": "Run",
+    "Application.EmailSender.executor": "Run",
+    "Application.PanelView.executor": "Run",
+    "Application.SondaggioView.executor": "Run",
+    "Application.SystemPubblicazionePanel.executor": "Run",
+    "Application.TestCompleto.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/aless/Downloads/mysql-connector-j-9.2.0.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/librerie" />
       <recent name="$PROJECT_DIR$/lib" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.CodiceTest">
+  <component name="RunManager">
     <configuration name="CodiceTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="testing.CodiceTest" />
       <module name="Progetto-J25" />
@@ -146,6 +148,8 @@
       <workItem from="1739806238823" duration="3589000" />
       <workItem from="1740123049815" duration="31700000" />
       <workItem from="1740437120888" duration="461000" />
+      <workItem from="1740527775578" duration="656000" />
+      <workItem from="1740560780524" duration="42287000" />
     </task>
     <task id="LOCAL-00001" summary="librerie">
       <option name="closed" value="true" />
@@ -187,31 +191,47 @@
       <option name="project" value="LOCAL" />
       <updated>1740165849653</updated>
     </task>
-    <task id="LOCAL-00006" summary="-">
+    <task id="LOCAL-00006" summary="..">
       <option name="closed" value="true" />
-      <created>1740217304176</created>
+      <created>1740527861815</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1740217304176</updated>
+      <updated>1740527861815</updated>
     </task>
-    <task id="LOCAL-00007" summary="-">
+    <task id="LOCAL-00007" summary="recupero sostituto panel">
       <option name="closed" value="true" />
-      <created>1740225603445</created>
+      <created>1740568603205</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1740225603445</updated>
+      <updated>1740568603205</updated>
     </task>
-    <task id="LOCAL-00008" summary="-">
+    <task id="LOCAL-00008" summary="recupero sostituto panel">
       <option name="closed" value="true" />
-      <created>1740225860250</created>
+      <created>1740578790993</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1740225860250</updated>
+      <updated>1740578790993</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00009" summary="recupero sostituto panel">
+      <option name="closed" value="true" />
+      <created>1740588376886</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1740588376886</updated>
+    </task>
+    <task id="LOCAL-00010" summary="recupero sostituto panel">
+      <option name="closed" value="true" />
+      <created>1740697752119</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1740697752119</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,7 +255,9 @@
     <MESSAGE value="autenticazione" />
     <MESSAGE value="controller e view per il sondaggio" />
     <MESSAGE value="-" />
-    <option name="LAST_COMMIT_MESSAGE" value="controller e view per il sondaggio" />
+    <MESSAGE value=".." />
+    <MESSAGE value="recupero sostituto panel" />
+    <option name="LAST_COMMIT_MESSAGE" value="recupero sostituto panel" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -247,5 +269,9 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

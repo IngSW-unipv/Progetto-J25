@@ -1,4 +1,4 @@
-package junit;
+/*package junit;
 
 import static org.junit.Assert.*;
 
@@ -16,4 +16,4 @@ public class Testing {
 		fail("Not yet implemented");
 	}
 
-}
+}*/
