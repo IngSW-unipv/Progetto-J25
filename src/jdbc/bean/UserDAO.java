@@ -17,7 +17,7 @@ public class UserDAO implements IUserDAO{
     }
 
     public UserDAO(Connection conn) {
-        this.connection = connection;
+        this.connection = conn;
 
 
 
@@ -427,6 +427,22 @@ public class UserDAO implements IUserDAO{
         }
 
         return insaccatore;  // Restituisci l'insaccatore o null se non trovato
+    }
+
+
+    // Metodo che trova l'ID di un Pannelista dato il suo indirizzo email
+    public int getPanelistaIdByEmail (String email) {
+
+        ArrayList<Panelista> panelisti = getPanelistas();
+        int idPanelista = 0;
+
+        for (Panelista panelista : panelisti) {
+            if (panelista.getEmail().equals(email)) {
+                idPanelista = panelista.getId();
+            }
+        }
+
+        return idPanelista;
     }
     
     

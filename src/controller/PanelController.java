@@ -1,7 +1,6 @@
 package controller;
 
 import jdbc.FacedeSingletonDB;
-import modello.Panelista;
 import modello.Utente;
 import modello.creazionePanel.Panel;
 import modello.prenotazionePanel.SystemPrenotazione;
@@ -26,4 +25,12 @@ public class PanelController {
     public boolean cancellaUtente(int idPanel, Utente p){
         return systemPrenotazione.cancellazioneDaPanel(idPanel, p);
     }
+
+    public ArrayList<Integer> getIdPanelsAttivi() {
+        return systemPrenotazione.getIdPanelsAttivi();
+    }
+
+    public ArrayList<String> getPanelisti(int panelId) {
+        return systemPrenotazione.getPanelisti(panelId);
+    }   
 }

@@ -113,7 +113,48 @@ public class OreLavoroDAO implements IOreLavoroDAO {
 
 	}
 
+	// Metodo che aggiunge un record se non esiste già (Andres)
+	public boolean aggiungeOreLavoroSeNonEsiste(int userId, String mese, double oreIniziali) {
+		Connection conn = ConnessioneDB.startConnection(null, "osmotech");
+		PreparedStatement ps = null;
 
+		try {
 
+			// Controllo se esiste già un record per l'user e quel mese
+			String checkQuery = "SELECT COUNT (*) FROM ORE_LAVORATE WHERE USER_ID = ? AND MESE = ?";
+			ps = conn.prepareStatement(checkQuery);
+			ps.setInt(1, userId);
+			ps.setString(2, mese);
+
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			int count = rs.getInt(1);
+			rs.close();
+			ps.close();
+
+			if (count == 0){
+
+				// Se non esiste, inserisci un nuovo record
+				String insertQuery = "INSERT INTO ORE_LAVORATE (USER_ID, MESE, ORE) VALUES (?, ?, ?)";
+				ps = conn.prepareStatement(insertQuery);
+				ps.setInt(1, userId);
+				ps.setString(2, mese);
+				ps.setDouble(3, oreIniziali);
+				ps.executeUpdate();
+			}
+
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			try {
+				if (ps != null) ps.close();
+				ConnessioneDB.closeConnection(conn);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 }

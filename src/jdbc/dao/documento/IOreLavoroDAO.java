@@ -15,4 +15,7 @@ public interface IOreLavoroDAO {
 	 * Metodo che permette di aggiornare le ore lavorate di un panelista (Andres)
 	 */
 	public boolean aggiornaOreLavoro(int id, String mese, double nuoveOre);
+
+	public boolean aggiungeOreLavoroSeNonEsiste(int userId, String mese, double oreIniziali);
+	
 }

@@ -17,6 +17,7 @@ import modello.creazionePanel.SystemPubblicazionePanel;
 import modello.documento.SystemDocumento;
 import modello.gestioneInventario.Inventario;
 import modello.prenotazionePanel.SystemPrenotazione;
+import modello.ConfermaPresenzaPanel.SystemPresenzaPanel;
 import modello.analisiCampione.SystemAnalisi;
 
 import java.sql.SQLException;
@@ -45,6 +46,7 @@ public class FacedeSingletonDB {
     private SystemDocumento systemDocumento;
     private SystemAutenticazione systemAutenticazione;
     private SystemAnalisi systemAnalisi;
+    private SystemPresenzaPanel systemPresenzaPanel;
     private Inventario inventario;
 
     private FacedeSingletonDB() {
@@ -151,6 +153,13 @@ public class FacedeSingletonDB {
             systemAnalisi = new SystemAnalisi();
         }
         return systemAnalisi;
+    }
+
+    public SystemPresenzaPanel getSystemPresenzaPanel() {
+        if (systemPresenzaPanel == null) {
+            systemPresenzaPanel = new SystemPresenzaPanel();
+        }
+        return systemPresenzaPanel;
     }
 
 

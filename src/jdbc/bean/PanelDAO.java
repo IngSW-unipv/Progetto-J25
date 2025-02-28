@@ -235,6 +235,74 @@ public class PanelDAO implements IPanelDAO {
         return false;  // Panel non trovato
     }
 
+
+    // Metodo per trovare l'orario di inizio di un panel (Andres)
+    public LocalTime getOrarioInizio(int idPanel) {
+
+        conn = ConnessioneDB.startConnection(conn, "osmotech");
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        LocalTime orarioInizio = null;
+
+        String query = "SELECT ORARIO_INIZIO FROM PANEL WHERE ID_PANEL = ?";
+
+        try {
+            pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, idPanel);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                orarioInizio = rs.getTime("ORARIO_INIZIO").toLocalTime();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                ConnessioneDB.closeConnection(conn);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return orarioInizio;
+    }
+    
+    public ArrayList<Integer> getIdPanelsAttivi() {
+
+        ArrayList<Panel> panelsAttivi = getPanels();
+        ArrayList<Integer> idPanelsAttivi = new ArrayList<>();
+
+        for (Panel panel : panelsAttivi) {
+            idPanelsAttivi.add(panel.getId());
+        }
+        return idPanelsAttivi;
+    }
+
+    public ArrayList<String> getPanelisti(int idPanel) {
+
+        ArrayList<String> panelisti = new ArrayList<>();
+
+        for (Panel panel : getPanels()) {
+            if (panel.getId() == idPanel) {
+                for (Panelista panelista : panel.getListaPanelisti()) {
+                    panelisti.add(panelista.getEmail());
+                }
+            }  
+        }
+
+        return panelisti;
+    }
+
+
+    public static void main(String[] args) {
+        
+        PanelDAO panelDAO = new PanelDAO();
+        System.out.println(panelDAO.getPanels().size());
+    }
+
+
     /*public boolean removePanel(Panel panel){
      }*/
 
