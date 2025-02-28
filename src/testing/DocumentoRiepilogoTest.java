@@ -1,9 +1,7 @@
 package testing;
 
-import java.time.LocalDate;
-
 import controller.DocumentoController;
-import jdbc.FacadeSingletonDB;
+
 import modello.documento.Azienda;
 import modello.documento.GestoreStipendi;
 import modello.documento.SystemDocumento;

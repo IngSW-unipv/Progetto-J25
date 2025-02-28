@@ -3,11 +3,7 @@ package modello.autenticazione;
 import jdbc.FacadeSingletonDB;
 import modello.Utente;
 import modello.email.NotificaAttivazione;
-import view.autenticazione.HomeInsaccatore;
-import view.autenticazione.HomePanelista;
-import view.autenticazione.HomePanelLeader;
 
-import javax.swing.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -101,24 +97,6 @@ public class SystemAutenticazione {
         return null; // Nessun utente trovato
     }
 
-  /*  public String controllaPassword(String passwordInput) {
-        if (passwordInput.length() < 8) {
-            return "La password deve essere di almeno 8 caratteri.";
-        } if(!passwordInput.matches(".*[A-Z].*")){
-            return "La password deve contenere almeno una lettera maiuscola.";
-
-        } if (!passwordInput.matches(".*[a-z].*")) {
-            return "La password deve contenere almeno una lettera minuscola.";
-
-        } if(!passwordInput.matches(".*[0-9].*")){
-            return "La password deve contenere almeno un numero.";
-
-        } if(!passwordInput.matches(".*[!@#\\$%\\^&\\*]")){
-            return "La password deve contenere almeno un carattere speciale (es. !@#$%^&*).";
-        }
-        return "VALIDA";
-
-    } */
 
     public boolean controllaPassword(String passwordInput) {
         if ((passwordInput.length() < 8) || (!passwordInput.matches(".*[A-Z].*")) || (!passwordInput.matches(".*[a-z].*")) || (!passwordInput.matches(".*[0-9].*")) || (!passwordInput.matches(".*[!@#\\$%\\^&\\*]"))){
@@ -134,20 +112,6 @@ public class SystemAutenticazione {
             }
         }   return null;
     }
-
-    public String getRuolo (String emailInputOrNickname, String passwordInput) {
-        Utente utente = controlloLogin(emailInputOrNickname, passwordInput);
-        if(utente == null){
-            return null;
-        }
-       String ruolo = utente.getRuolo();
-        return ruolo;
-
-    }
-
-   // scrivere get ruolo nel controller per aprire l'interfaccia grafica giusta, e creo le interfacce nel controllo
-
-
 
 
    // utenteLoggato = controlloLogin(utenteLoggato.getEmail(), passwordInput);

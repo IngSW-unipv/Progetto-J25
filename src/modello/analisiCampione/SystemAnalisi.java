@@ -27,7 +27,8 @@ public class SystemAnalisi {
 
     // Elimina un'analisi dal database
     public boolean eliminaAnalisi(int idCampione, int idPanel, AnalisiCampione analisi) throws SQLException {
-        return FacadeSingletonDB.getInstance().getAnalisiDAO().eliminaAnalisi(idCampione, idPanel, analisi); 
+
+        return FacadeSingletonDB.getInstance().getAnalisiDAO().eliminaAnalisi(idCampione, idPanel, analisi);
     }
 
     // Restituisce gli ID dei campioni analizzati

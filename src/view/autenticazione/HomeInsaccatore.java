@@ -1,11 +1,12 @@
 package view.autenticazione;
 
 import controller.AutenticazioneController;
-import controller.PrenotaInsacController;
+import controller.PanelController;
 import modello.Insaccatore;
 import modello.Utente;
-import view.prenotazioneInsaccatore.ViewInsaccatore;
 
+import view.prenotazionePanel.PrenotazioneView;
+import view.visualizPanel.PanelView;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,14 +15,14 @@ import java.sql.SQLException;
 
 public class HomeInsaccatore extends JFrame {
         private AutenticazioneController controller;
+        private Insaccatore insaccatore;
         
-        private int idInsaccatore;
-  
-
-        public HomeInsaccatore(AutenticazioneController controller, Insaccatore utente) {
+        public HomeInsaccatore(AutenticazioneController controller, Insaccatore insaccatore) {
             this.controller = controller;
-            //System.out.println(utente.getId());
-           this.idInsaccatore = utente.getId();
+
+            this.insaccatore = insaccatore;
+
+
 
             setTitle("Home Insaccatore");
             setSize(400, 200);
@@ -45,7 +46,7 @@ public class HomeInsaccatore extends JFrame {
                     }
 
                     try {
-                        boolean successo = controller.modificaPassword(vecchiaPassword, nuovaPassword, utente);
+                        boolean successo = controller.modificaPassword(vecchiaPassword, nuovaPassword, insaccatore);
                         if(successo){
                             JOptionPane.showMessageDialog(null, "Password modificata correttamente");
                         } else {
@@ -61,7 +62,7 @@ public class HomeInsaccatore extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     String iban = JOptionPane.showInputDialog("Inserisci il tuo IBAN");
                     try {
-                        boolean successo = controller.inserisciIban(iban, utente );
+                        boolean successo = controller.inserisciIban(iban, insaccatore );
                         if(successo){
                             JOptionPane.showMessageDialog(null, "IBAN inserito/modificato con successo!" );}
                         else {
@@ -72,25 +73,29 @@ public class HomeInsaccatore extends JFrame {
                     }
                 }
             });
-            
-            //BOTTONE PER ACCEDERE AL CALENDARIO DEI TURNI:
-            JButton botCalendario = new JButton("Calendario Turni");
 
-            // creo l'oggetto ActionListener per aprire la finestra del calendario
-            ActionListener interazioneCalendario = new ActionListener() {
-                @Override
+
+
+            JButton btnVisualizSondaggio = new JButton("Visualizza Sondaggio");
+            btnVisualizSondaggio.addActionListener(e -> new PrenotazioneView(insaccatore));
+            JButton btnVisualizPanel = new JButton("Visualizza Panel");
+            btnVisualizPanel.addActionListener(e -> new PanelView(new PanelController(), insaccatore));
+
+
+
+
+            JButton btnLogout = new JButton("Logout");
+            btnLogout.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    new ViewInsaccatore(idInsaccatore);
+                    dispose();
                 }
-            };
-            botCalendario.addActionListener(interazioneCalendario); // aggiungo l'azione al pulsante
-            
+            });
 
-            
-            
             panel.add(btnModificaPassword);
             panel.add(btnInserisciIban);
-            panel.add(botCalendario);
+            panel.add(btnLogout);
+            panel.add(btnVisualizSondaggio);
+            panel.add(btnVisualizPanel);
             add(panel);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
             setVisible(true);

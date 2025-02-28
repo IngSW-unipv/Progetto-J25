@@ -15,12 +15,12 @@ import modello.creazionePanel.Slot;
 import modello.creazionePanel.Sondaggio;
 import modello.creazionePanel.SystemPubblicazionePanel;
 import modello.documento.SystemDocumento;
+
+import modello.gestioneInventario.Inventario;
 import modello.prenotazionePanel.SystemPrenotazione;
 import modello.analisiCampione.SystemAnalisi;
-import modello.Utente;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Map;
@@ -46,6 +46,7 @@ public class FacadeSingletonDB {
     private SystemDocumento systemDocumento;
     private SystemAutenticazione systemAutenticazione;
     private SystemAnalisi systemAnalisi;
+    private Inventario inventario;
 
     private FacadeSingletonDB() {
         this.panelDAO = new PanelDAO();
@@ -96,6 +97,16 @@ public class FacadeSingletonDB {
     	return systemDocumento;
     }
     
+    public Inventario getInventario() {
+    	
+    	if(inventario == null) {
+    		
+    		inventario = new Inventario();
+    	}
+    	
+    	return inventario;
+    }
+
     
     public ArrayList<Sondaggio> popolaSondaggi() {
         ArrayList<Sondaggio> sondaggi = sondaggioDAO.selectAllSondaggi();

@@ -38,15 +38,10 @@ public class PrenotazioneView {
 		
 		this.panelista = panelista;
 		controller = new PrenotazioneController();
-	
-		
-<<<<<<< HEAD
-		SystemPrenotazione sys = FacadeSingletonDB.getInstance().getSystemPrenotazione();
-=======
+
+
 		ArrayList<Sondaggio> sondaggi = controller.getSystem().getSondaggi();
->>>>>>> branch 'main' of https://github.com/IngSW-unipv/Progetto-J25
-		
-		
+
 		
 		frame = new JFrame("Prenotazione al panel");
 		frame.setSize(500, 400);

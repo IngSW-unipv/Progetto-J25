@@ -41,6 +41,11 @@ public class RegistrazioneView extends JFrame {
         JLabel codiceFiscaleLabel = new JLabel("Codice Fiscale");
         codiceFiscale = new JTextField();
         JLabel nicknameLabel = new JLabel("Nickname");
+       /* if(codiceFiscale.length()!= 16){
+            JOptionPane.showMessageDialog(null, "Il codice fiscale deve essere di 16 caratteri.");
+        return;
+        } */
+
         nickname = new JTextField();
         JLabel passwordLabel = new JLabel("Password");
         password = new JPasswordField();
